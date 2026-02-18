@@ -15,6 +15,7 @@
       --muted:#5C677D;
       --border:#DDE3EA;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -22,24 +23,41 @@
       background:var(--bg);
       color:var(--text);
     }
-    .container{width:min(1100px,92vw);margin:0 auto}
+
+    .container{
+      width:min(1100px,92vw);
+      margin:0 auto;
+    }
+
     header{
       background:var(--white);
       border-bottom:1px solid var(--border);
     }
+
     .navbar{
       display:flex;
       justify-content:space-between;
       align-items:center;
       padding:14px 0;
     }
+
     .brand{
       display:flex;
       flex-direction:column;
       line-height:1.1;
     }
-    .brand .name{font-weight:800;color:var(--navy)}
-    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+
+    .brand .name{
+      font-weight:800;
+      color:var(--navy);
+    }
+
+    .brand .tag{
+      font-weight:700;
+      color:var(--teal);
+      font-size:.95rem;
+    }
+
     .navlinks a{
       margin-left:14px;
       font-weight:600;
@@ -50,25 +68,42 @@
     .hero{
       padding:40px 0 20px;
     }
+
     .hero-card{
       background:var(--white);
       padding:24px;
       border-radius:18px;
       border:1px solid var(--border);
     }
-    h1{margin:0 0 8px;color:var(--navy)}
-    .section{padding:20px 0}
+
+    h1{
+      margin:0 0 8px;
+      color:var(--navy);
+    }
+
+    .section{
+      padding:20px 0;
+    }
+
     .unit-grid{
       display:grid;
       gap:16px;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     }
+
     .unit{
       background:var(--white);
       padding:16px;
       border-radius:16px;
       border:1px solid var(--border);
+      transition:.2s ease;
     }
+
+    .unit:hover{
+      transform:translateY(-3px);
+      box-shadow:0 6px 18px rgba(0,0,0,.05);
+    }
+
     .pill{
       display:inline-block;
       padding:6px 10px;
@@ -78,7 +113,13 @@
       font-size:.8rem;
       margin-bottom:8px;
     }
-    progress{width:100%;height:14px;margin-top:8px}
+
+    progress{
+      width:100%;
+      height:14px;
+      margin-top:8px;
+    }
+
     .status{
       display:inline-block;
       margin-top:6px;
@@ -89,12 +130,14 @@
 </head>
 
 <body>
+
 <header>
   <div class="container navbar">
     <div class="brand">
       <span class="name">Seño Bluemel</span>
       <span class="tag">Que Chévere</span>
     </div>
+
     <nav class="navlinks">
       <a href="/quechevere-spanish/">Home</a>
       <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
@@ -104,17 +147,20 @@
 </header>
 
 <main>
+
   <section class="hero">
     <div class="container">
       <div class="hero-card">
         <h1>Spanish Level 1 — Foundations of Communication</h1>
         <p>Proficiency Target: Novice Low → Novice Mid</p>
+        <p>Students build survival-level communication skills across interpretive, interpersonal, and presentational modes.</p>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
+
       <div class="unit-grid">
 
         <!-- UNIT 1 -->
@@ -122,7 +168,7 @@
           <div class="unit">
             <span class="pill">Unit 1</span>
             <h3>Identity & First Encounters</h3>
-            <p>Greeting, name, origin, age, descriptors.</p>
+            <p>Greeting, name, origin, age, and descriptors using ser.</p>
 
             <progress id="u1bar" value="0" max="5"></progress>
             <div class="status" id="u1status"></div>
@@ -134,28 +180,48 @@
           <div class="unit">
             <span class="pill">Unit 2</span>
             <h3>Numbers & Classroom Language</h3>
-            <p>Numbers and classroom survival phrases.</p>
+            <p>Numbers 0–31 and classroom survival phrases.</p>
 
-            <progress id="u2bar" value="0" max="3"></progress>
+            <progress id="u2bar" value="0" max="5"></progress>
             <div class="status" id="u2status"></div>
           </div>
         </a>
 
       </div>
+
     </div>
   </section>
+
 </main>
 
 <script>
-  // UNIT 1 uses new stage-based checkboxes
-  const u1Keys = ["u1stage1","u1stage2","u1stage3","u1stage4","u1stage5"];
-  const u2Keys = ["u2vocab","u2practice","u2review"];
+  // Unit 1 Stage-Based Keys
+  const u1Keys = [
+    "u1stage1",
+    "u1stage2",
+    "u1stage3",
+    "u1stage4",
+    "u1stage5"
+  ];
+
+  // Unit 2 Stage-Based Keys
+  const u2Keys = [
+    "u2stage1",
+    "u2stage2",
+    "u2stage3",
+    "u2stage4",
+    "u2stage5"
+  ];
 
   function render(keys, barId, statusId){
     let done = 0;
-    keys.forEach(k=>{
-      if(localStorage.getItem(k)==="true"){done++;}
+
+    keys.forEach(key=>{
+      if(localStorage.getItem(key)==="true"){
+        done++;
+      }
     });
+
     const total = keys.length;
     const bar = document.getElementById(barId);
     const status = document.getElementById(statusId);
@@ -164,11 +230,13 @@
     bar.value = done;
 
     if(done===0){
-      status.textContent="Not started";
-    } else if(done===total){
-      status.textContent="✓ Complete";
-    } else {
-      status.textContent="In progress";
+      status.textContent = "Not started";
+    }
+    else if(done===total){
+      status.textContent = "✓ Complete";
+    }
+    else{
+      status.textContent = "In progress";
     }
   }
 
