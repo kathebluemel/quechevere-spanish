@@ -1,7 +1,305 @@
-<a href="/quechevere-spanish/level-1/unit-1/" style="text-decoration:none;">
-  <div class="unit">
-    <span class="pill">Unit 1</span>
-    <h3>Greetings & Introductions</h3>
-    <p>Learn how to greet people and introduce yourself.</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
+
+  <style>
+    :root{
+      --navy:#1F2A44;
+      --teal:#1CA7A6;
+      --bg:#F4F6F8;
+      --white:#FFFFFF;
+      --text:#182033;
+      --muted:#5C677D;
+      --border:#DDE3EA;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
+    header{
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
+    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+
+    .navlinks{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      font-weight:600;
+      color:var(--navy);
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{padding:8px 10px;border-radius:10px}
+    .navlinks a.active,
+    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .hero{padding:42px 0 18px}
+    .hero-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:28px;
+      box-shadow:0 8px 22px rgba(0,0,0,.05);
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+      color:var(--teal);
+      background:rgba(28,167,166,.10);
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:14px;
+    }
+    h1{
+      margin:0 0 8px;
+      font-size:clamp(1.9rem, 3vw, 2.6rem);
+      color:var(--navy);
+      letter-spacing:-.4px;
+    }
+    .subhead{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:1.05rem;
+      max-width:75ch;
+    }
+
+    .section{padding:18px 0}
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
+    }
+    .section-title{margin:0 0 10px;font-size:1.25rem;color:var(--navy)}
+    .section-desc{margin:0 0 14px;color:var(--muted);max-width:85ch}
+
+    .unit-grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+    @media (max-width: 900px){.unit-grid{grid-template-columns:repeat(2, minmax(0,1fr))}}
+    @media (max-width: 640px){.unit-grid{grid-template-columns:1fr}.hero-card{padding:20px}}
+
+    .unit{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px;
+      background:var(--white);
+      transition:transform .08s ease;
+    }
+    .unit:hover{transform:translateY(-1px)}
+    .unit h3{margin:0 0 6px;color:var(--navy);font-size:1.05rem}
+    .unit p{margin:0 0 10px;color:var(--muted)}
+    .pill{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(31,42,68,.18);
+      background:rgba(31,42,68,.04);
+      color:var(--navy);
+      font-weight:800;
+      font-size:.85rem;
+      margin-bottom:10px;
+    }
+
+    .mini-progress{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px dashed var(--border);
+    }
+    .mini-progress strong{color:var(--navy)}
+    progress{width:160px; height:12px}
+    .status{
+      font-weight:800;
+      color:var(--navy);
+      background:rgba(28,167,166,.10);
+      border:1px solid rgba(28,167,166,.25);
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:.85rem;
+    }
+    .status.complete{
+      background:rgba(31,42,68,.08);
+      border-color:rgba(31,42,68,.18);
+    }
+    .muted{color:var(--muted)}
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container navbar">
+    <a class="brand" href="/quechevere-spanish/">
+      <span class="name">Seño Bluemel</span>
+      <span class="tag">Que Chévere</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="/quechevere-spanish/">Home</a>
+      <a class="active" href="/quechevere-spanish/level-1/">Spanish Level 1</a>
+      <a href="/quechevere-spanish/about/">About</a>
+    </nav>
   </div>
-</a>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="kicker">📘 Spanish Level 1</div>
+        <h1>Foundations of Communication</h1>
+        <p class="subhead">
+          Proficiency target: <strong>Novice Low → Novice Mid</strong>. Start here if you’re beginning Spanish.
+          Follow the recommended path or jump to any unit you need.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2 class="section-title">Recommended learning path</h2>
+      <p class="section-desc">
+        Unit 1 → Unit 2 → Unit 3 → Unit 4 → Unit 5 → Unit 6
+      </p>
+      <p class="section-desc" style="margin-top:10px">
+        ✅ Your Unit 1 progress will show below (based on the checkboxes you complete inside Unit 1).
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Explore the Units</h2>
+      <p class="section-desc">
+        Each unit includes: vocabulary • grammar basics • cultural connection • reading • writing • progress tracking.
+      </p>
+
+      <div class="unit-grid">
+
+        <!-- UNIT 1 (CLICKABLE + PROGRESS) -->
+        <a href="/quechevere-spanish/level-1/unit-1/" style="text-decoration:none;">
+          <div class="unit">
+            <span class="pill">Unit 1</span>
+            <h3>Greetings & Introductions</h3>
+            <p>Learn how to greet people, introduce yourself, and ask simple questions.</p>
+
+            <div class="mini-progress">
+              <strong>Progress:</strong>
+              <progress id="u1bar" value="0" max="5"></progress>
+              <span class="muted" id="u1text">0/5</span>
+              <span class="status" id="u1status">In progress</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- UNITS 2–6 (COMING NEXT) -->
+        <div class="unit">
+          <span class="pill">Unit 2</span>
+          <h3>Numbers & Classroom Language</h3>
+          <p>Numbers, classroom words, and beginner routines.</p>
+          <span class="muted">Coming next</span>
+        </div>
+
+        <div class="unit">
+          <span class="pill">Unit 3</span>
+          <h3>Descriptions & Adjectives</h3>
+          <p>Describe people and objects using simple sentences.</p>
+          <span class="muted">Coming next</span>
+        </div>
+
+        <div class="unit">
+          <span class="pill">Unit 4</span>
+          <h3>Family & Relationships</h3>
+          <p>Talk about family members and relationships.</p>
+          <span class="muted">Coming next</span>
+        </div>
+
+        <div class="unit">
+          <span class="pill">Unit 5</span>
+          <h3>Likes & Preferences</h3>
+          <p>Express what you like and don’t like.</p>
+          <span class="muted">Coming next</span>
+        </div>
+
+        <div class="unit">
+          <span class="pill">Unit 6</span>
+          <h3>Countries & Culture</h3>
+          <p>Spanish-speaking countries and basic cultural connections.</p>
+          <span class="muted">Coming next</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Unit 1 uses these checkbox ids (saved in localStorage from the Unit 1 page):
+  const unit1Keys = ["u1vocab","u1grammar","u1reading","u1writing","u1review"];
+
+  function getDone(keys){
+    let done = 0;
+    keys.forEach(k => {
+      if (localStorage.getItem(k) === "true") done++;
+    });
+    return done;
+  }
+
+  const done = getDone(unit1Keys);
+  const total = unit1Keys.length;
+
+  const bar = document.getElementById("u1bar");
+  const text = document.getElementById("u1text");
+  const status = document.getElementById("u1status");
+
+  if (bar) { bar.max = total; bar.value = done; }
+  if (text) { text.textContent = `${done}/${total}`; }
+
+  if (status){
+    if (done === total){
+      status.textContent = "✓ Complete";
+      status.classList.add("complete");
+    } else if (done === 0){
+      status.textContent = "Not started";
+    } else {
+      status.textContent = "In progress";
+    }
+  }
+</script>
+
+</body>
+</html>
