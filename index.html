@@ -2,457 +2,837 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Que Chévere Spanish</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
-      --bg: #f6f7fb;
+      /* Brand palette */
+      --navy: #0b1f3a;      /* authority */
+      --teal: #19b6b6;      /* energy */
+      --yellow: #ffd166;    /* warm accent */
+      --bg: #f6f8fb;
+      --text: #0f172a;
+      --muted: #5b677a;
       --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
+      --border: #e6ebf2;
 
-      --blue: #2563eb;
-      --blueDark: #1e40af;
-
-      --red: #dc2626;
-      --redDark: #991b1b;
-
-      --green: #059669;
-      --purple: #7c3aed;
-      --grayBtn: #6b7280;
-
-      --shadow: 0 14px 40px rgba(17,24,39,0.10);
+      --shadow: 0 14px 40px rgba(15, 23, 42, 0.10);
+      --shadow2: 0 10px 24px rgba(15, 23, 42, 0.08);
       --radius: 18px;
+      --radius2: 26px;
+      --max: 1100px;
     }
 
-    * { box-sizing: border-box; }
-
+    *{ box-sizing: border-box; }
+    html, body{ margin:0; padding:0; }
     body{
-      margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, #e8efff, transparent 60%),
-                  radial-gradient(900px 500px at 10% 0%, #ffe9ef, transparent 55%),
-                  var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(25,182,182,0.14), transparent 55%),
+        radial-gradient(900px 500px at 85% 0%, rgba(255,209,102,0.18), transparent 55%),
+        var(--bg);
+      line-height: 1.5;
     }
 
+    a{ color: inherit; }
     .container{
-      max-width: 980px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 28px 18px 60px;
+      padding: 18px 18px 70px;
     }
 
-    /* Header */
-    .hero{
-      background: linear-gradient(135deg, #1e3a8a, #2563eb);
-      color: white;
-      border-radius: 26px;
-      padding: 28px 22px;
-      box-shadow: var(--shadow);
+    /* Top nav */
+    .nav{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(246,248,251,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .navInner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      text-decoration:none;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+    .brandMark{
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy), #1b4b8a);
+      box-shadow: 0 10px 18px rgba(11,31,58,0.18);
       position: relative;
-      overflow: hidden;
+      overflow:hidden;
     }
-
-    .hero::after{
+    .brandMark:after{
       content:"";
       position:absolute;
-      inset:-120px -120px auto auto;
-      width: 260px;
-      height: 260px;
-      background: rgba(255,255,255,0.18);
+      inset:-18px -18px auto auto;
+      width: 44px; height: 44px;
       border-radius: 50%;
-      filter: blur(2px);
-      transform: rotate(10deg);
+      background: rgba(255,255,255,0.18);
     }
-
-    .hero h1{
-      margin: 0 0 8px;
-      font-size: clamp(30px, 4vw, 46px);
-      letter-spacing: 0.3px;
-    }
-
-    .hero p{
-      margin: 0;
-      color: rgba(255,255,255,0.92);
-      font-size: 16px;
-      line-height: 1.5;
-      max-width: 70ch;
-    }
-
-    .heroRow{
+    .brandText{
       display:flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items:center;
-      margin-top: 16px;
+      flex-direction: column;
+      line-height: 1.1;
     }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.22);
-      color: white;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-size: 14px;
-      text-decoration:none;
-      user-select: none;
-      backdrop-filter: blur(6px);
-    }
-
-    .pill:hover{
-      background: rgba(255,255,255,0.20);
-    }
-
-    .youtube{
-      background: rgba(220,38,38,0.95);
-      border: 1px solid rgba(255,255,255,0.25);
-    }
-    .youtube:hover{ background: rgba(153,27,27,0.95); }
-
-    /* Sections */
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      margin-top: 18px;
-    }
-
-    .card{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: 0 10px 28px rgba(17,24,39,0.08);
-    }
-
-    .cardTitle{
-      display:flex;
-      align-items:flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .card h2{
-      margin: 0;
-      font-size: 22px;
+    .brandText small{
+      font-weight: 700;
+      color: rgba(11,31,58,0.70);
       letter-spacing: 0.2px;
     }
 
-    .sub{
+    .menu{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+    .menu a{
+      text-decoration:none;
+      font-size: 13px;
+      color: rgba(15,23,42,0.85);
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .menu a:hover{
+      background: white;
+      border-color: var(--border);
+      box-shadow: 0 8px 16px rgba(15,23,42,0.06);
+    }
+    .menu .login{
+      background: var(--navy);
+      color: white;
+      border-color: rgba(255,255,255,0.10);
+    }
+    .menu .login:hover{
+      background: #08172c;
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 18px;
+      border-radius: var(--radius2);
+      background:
+        linear-gradient(135deg, rgba(11,31,58,0.92), rgba(11,31,58,0.78)),
+        linear-gradient(135deg, rgba(25,182,182,0.22), rgba(255,209,102,0.18));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset: -120px -160px auto auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,209,102,0.55), rgba(255,209,102,0.0) 62%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset: auto auto -140px -140px;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(25,182,182,0.45), rgba(25,182,182,0.0) 62%);
+      filter: blur(2px);
+      pointer-events:none;
+    }
+
+    .heroInner{
+      padding: 34px 22px;
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items:center;
+    }
+    .hero h1{
+      margin: 0 0 10px;
+      color: white;
+      font-size: clamp(30px, 4.1vw, 52px);
+      line-height: 1.1;
+      letter-spacing: 0.2px;
+    }
+    .hero p{
+      margin: 0 0 18px;
+      color: rgba(255,255,255,0.90);
+      font-size: 16px;
+      max-width: 70ch;
+    }
+    .heroBtns{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      border: none;
+      cursor:pointer;
+      text-decoration:none;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.2px;
+      box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+      transition: transform 0.06s ease, filter 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.blue{ background: #2f6bff; color: white; }
+    .btn.blue:hover{ filter: brightness(0.96); }
+    .btn.green{ background: #14b8a6; color: #062a2a; }
+    .btn.green:hover{ filter: brightness(0.98); }
+    .btn.red{ background: #ef4444; color: white; }
+    .btn.red:hover{ filter: brightness(0.95); }
+
+    .heroRight{
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 16px;
+      color: rgba(255,255,255,0.92);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.10);
+    }
+    .heroRightTitle{
+      font-weight: 900;
+      margin: 0 0 8px;
+      letter-spacing: 0.2px;
+    }
+    .heroRight p{
+      margin:0;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+    }
+    .tagRow{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    /* Section scaffold */
+    .section{
+      margin-top: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      padding: 22px;
+    }
+    .sectionHead{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .sectionHead h2{
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 0.2px;
+      color: var(--navy);
+    }
+    .sectionHead p{
       margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
-      line-height: 1.45;
+      max-width: 85ch;
     }
-
     .badge{
       display:inline-flex;
       align-items:center;
       gap: 8px;
       font-size: 12px;
-      color: #1e3a8a;
-      background: #e8efff;
-      border: 1px solid #dbe5ff;
-      padding: 7px 10px;
+      font-weight: 800;
+      color: var(--navy);
+      background: rgba(255,209,102,0.35);
+      border: 1px solid rgba(255,209,102,0.55);
+      padding: 8px 10px;
       border-radius: 999px;
       white-space: nowrap;
-      user-select:none;
     }
 
-    /* Activity */
-    .prompt{
-      display:flex;
-      gap: 10px;
-      align-items:flex-start;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px dashed #d1d5db;
-      background: #fafafa;
-      margin-top: 14px;
-      font-size: 18px;
-    }
-
-    .xMark{
-      font-weight: 800;
-      color: var(--red);
-      line-height: 1;
-      margin-top: 1px;
-    }
-
-    label{
-      display:block;
-      margin-top: 14px;
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    input{
-      width: 100%;
-      margin-top: 8px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid #d1d5db;
-      outline: none;
-      font-size: 16px;
-      background: white;
-    }
-
-    input:focus{
-      border-color: #93c5fd;
-      box-shadow: 0 0 0 4px rgba(147,197,253,0.35);
-    }
-
-    .btnRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .btn{
-      border: none;
-      cursor: pointer;
-      padding: 12px 16px;
-      border-radius: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      color: white;
-      background: var(--blue);
-      transition: transform 0.04s ease, filter 0.15s ease;
-    }
-    .btn:hover{ filter: brightness(0.95); }
-    .btn:active{ transform: translateY(1px); }
-
-    .btn.gray{ background: var(--grayBtn); }
-    .btn.green{ background: var(--green); }
-    .btn.purple{ background: var(--purple); }
-
-    .statusRow{
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
+    /* Cards: program overview */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: 12px;
     }
-
-    .mini{
+    .card{
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(15,23,42,0.06);
+      display:flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 190px;
+    }
+    .cardTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .cardIcon{
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 20px;
+      background: #f3f6fb;
+      border: 1px solid var(--border);
+    }
+    .card h3{
+      margin: 0;
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing: 0.2px;
+    }
+    .card small{
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .card p{
+      margin: 0;
       font-size: 13px;
       color: var(--muted);
+      line-height: 1.45;
     }
-
-    .barWrap{
-      width: 240px;
-      max-width: 100%;
-      height: 10px;
-      border-radius: 999px;
-      background: #eef2ff;
-      border: 1px solid #e5e7eb;
-      overflow: hidden;
-    }
-
-    .bar{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #22c55e, #2563eb);
-      border-radius: 999px;
-      transition: width 0.25s ease;
-    }
-
-    .feedback{
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
+    .card a{
+      margin-top: auto;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      text-decoration:none;
+      font-weight: 900;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 12px;
       border: 1px solid var(--border);
+      color: var(--navy);
       background: #fff;
-      font-size: 15px;
+    }
+    .card a:hover{
+      background: #f8fafc;
+    }
+
+    /* Featured lesson */
+    .videoWrap{
+      margin-top: 12px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #000;
+    }
+    .videoWrap iframe{
+      width: 100%;
+      height: 420px;
+      border: 0;
+      display:block;
+    }
+
+    /* What makes it different */
+    .cols4{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .col{
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      background: #fff;
+      box-shadow: 0 10px 18px rgba(15,23,42,0.06);
+    }
+    .colTitle{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 900;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .check{
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: rgba(25,182,182,0.18);
+      border: 1px solid rgba(25,182,182,0.28);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      color: #0b4a4a;
+    }
+    .col p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
       line-height: 1.45;
     }
 
-    .feedback.ok{
-      border-color: rgba(34,197,94,0.35);
-      background: rgba(34,197,94,0.08);
+    /* Culture + Connection */
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 12px;
+      margin-top: 12px;
+      align-items: start;
     }
-    .feedback.no{
-      border-color: rgba(220,38,38,0.30);
-      background: rgba(220,38,38,0.06);
+    .callout{
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(25,182,182,0.25);
+      background: rgba(25,182,182,0.10);
+      color: #053333;
+    }
+    .callout h3{
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing: 0.2px;
+    }
+    .callout p{
+      margin:0;
+      font-size: 13px;
+      color: rgba(5,51,51,0.82);
     }
 
-    .footer{
-      text-align:center;
+    /* Join community */
+    .signup{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .email{
+      flex: 1 1 260px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #cfd7e6;
+      font-size: 14px;
+      outline:none;
+      background: white;
+    }
+    .email:focus{
+      border-color: rgba(25,182,182,0.55);
+      box-shadow: 0 0 0 4px rgba(25,182,182,0.16);
+    }
+    .subscribe{
+      padding: 12px 16px;
+      border-radius: 14px;
+      border: none;
+      cursor:pointer;
+      font-weight: 900;
+      background: var(--teal);
+      color: #062a2a;
+      box-shadow: 0 12px 22px rgba(0,0,0,0.10);
+    }
+    .subscribe:hover{ filter: brightness(0.98); }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
       color: var(--muted);
       font-size: 13px;
-      margin-top: 18px;
+    }
+    .footerGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap: 12px;
+      align-items:start;
+    }
+    .footerTitle{
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .footerLinks a{
+      display:block;
+      text-decoration:none;
+      color: rgba(15,23,42,0.80);
+      padding: 6px 0;
+    }
+    .footerLinks a:hover{ text-decoration: underline; }
+    .copyright{
+      margin-top: 12px;
+      color: rgba(15,23,42,0.60);
     }
 
-    .link{
-      color: #2563eb;
-      text-decoration:none;
-      font-weight:700;
+    /* Helpers */
+    .muted{ color: var(--muted); }
+    .accentLine{
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(25,182,182,0.35), rgba(255,209,102,0.40), transparent);
+      margin: 14px 0;
     }
-    .link:hover{ text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroInner{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: 1fr; }
+      .cols4{ grid-template-columns: 1fr; }
+      .twoCol{ grid-template-columns: 1fr; }
+      .videoWrap iframe{ height: 320px; }
+      .footerGrid{ grid-template-columns: 1fr 1fr; }
+      .menu{ display:none; } /* simple for now; we can add a mobile menu later */
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
 
-    <section class="hero">
-      <h1>Que Chévere Spanish 🇪🇸</h1>
-      <p>Interactive Spanish practice with <strong>Seño Bluemel</strong>. Built for students and teachers worldwide—simple, supportive, and fun.</p>
+  <!-- TOP NAVIGATION BAR -->
+  <header class="nav">
+    <div class="navInner">
+      <a class="brand" href="#home" aria-label="Seño Bluemel Que Chévere Home">
+        <div class="brandMark"></div>
+        <div class="brandText">
+          <span>Seño Bluemel Que Chévere</span>
+          <small>Proficiency-driven Spanish</small>
+        </div>
+      </a>
 
-      <div class="heroRow">
-        <a class="pill youtube" target="_blank" href="https://www.youtube.com/channel/UCvfq1AXJiDzXMV4VlA9ve_w">
-          🎥 Watch on YouTube
-        </a>
-        <span class="pill">✨ New: Interactive practice</span>
-        <span class="pill">🧠 Differentiation coming soon</span>
+      <nav class="menu" aria-label="Top Navigation">
+        <a href="#home">Home</a>
+        <a href="#lvl1">Spanish Level 1</a>
+        <a href="#lvl2">Spanish Level 2</a>
+        <a href="#lvl3">Spanish Level 3</a>
+        <a href="#lvl4">Spanish Level 4</a>
+        <a href="#ap">AP Spanish</a>
+        <a href="#resources">Resources</a>
+        <a href="#culture">Culture</a>
+        <a href="#about">About</a>
+        <a class="login" href="#login">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+
+    <!-- HERO SECTION -->
+    <section class="hero" aria-label="Hero">
+      <div class="heroInner">
+        <div>
+          <h1>Structured. Engaging. Proficiency-Driven Spanish.</h1>
+          <p>
+            A complete Spanish program aligned with ACTFL proficiency levels — designed to help students grow from
+            <strong>Novice Low</strong> to <strong>Advanced</strong> communication with confidence.
+          </p>
+
+          <div class="heroBtns">
+            <a class="btn blue" href="#lvl1">🔵 Explore Spanish Level 1</a>
+            <a class="btn green" href="#pathway">🟢 View All Levels</a>
+            <a class="btn red" href="#lesson">🔴 Watch a Lesson</a>
+          </div>
+
+          <div class="accentLine"></div>
+
+          <div class="tagRow" aria-label="Key attributes">
+            <span class="tag">✔ ACTFL proficiency alignment</span>
+            <span class="tag">✔ Unit-based structure</span>
+            <span class="tag">✔ Scaffolded reading</span>
+            <span class="tag">✔ Clear learning targets</span>
+          </div>
+        </div>
+
+        <aside class="heroRight" aria-label="Hero Summary">
+          <div class="heroRightTitle">Your Spanish program “front door”</div>
+          <p>
+            Built for teachers and students: structured scope & sequence, standards-aligned learning, and engaging cultural connections.
+          </p>
+          <div class="tagRow" style="margin-top:10px;">
+            <span class="tag">For classrooms</span>
+            <span class="tag">For independent practice</span>
+            <span class="tag">For schools</span>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <div class="grid">
+    <!-- SECTION 2 — WELCOME MESSAGE -->
+    <section class="section" id="about">
+      <div class="sectionHead">
+        <div>
+          <h2>Welcome to Seño Bluemel Que Chévere</h2>
+          <p>
+            At Seño Bluemel Que Chévere, Spanish instruction is structured, standards-aligned, and built around real proficiency growth.
+            Each level is carefully designed to align with ACTFL performance descriptors, ensuring students build communication skills step by step —
+            from foundational vocabulary to connected, confident expression.
+          </p>
+          <p>
+            Whether you are a student, teacher, or school leader, you will find organized units, scaffolded readings, cultural connections,
+            and clear learning targets that support measurable progress.
+          </p>
+        </div>
+        <span class="badge">Professional • Standards-aligned</span>
+      </div>
 
-      <section class="card">
-        <div class="cardTitle">
-          <div>
-            <h2>Interactive Activity: Error Correction</h2>
-            <p class="sub">Type the corrected sentence and click <strong>Check</strong>. (We’ll add “Spanish A / B / Challenge” modes next.)</p>
+      <a class="btn green" href="#meet">Meet Seño Bluemel →</a>
+    </section>
+
+    <!-- SECTION 3 — PROGRAM OVERVIEW -->
+    <section class="section" id="pathway">
+      <div class="sectionHead">
+        <div>
+          <h2>A Complete Spanish Learning Pathway</h2>
+          <p>Explore each course level aligned to ACTFL proficiency growth.</p>
+        </div>
+        <span class="badge">Novice → Advanced</span>
+      </div>
+
+      <div class="cards">
+        <div class="card" id="lvl1">
+          <div class="cardTop">
+            <div>
+              <h3>🌟 Spanish Level 1</h3>
+              <small>Foundations of Communication</small>
+            </div>
+            <div class="cardIcon">1</div>
           </div>
-          <span class="badge">Auto-check • Instant feedback</span>
+          <p><strong>Novice Low → Novice Mid</strong><br/>Build core vocabulary, sentence structure, and comprehension skills.</p>
+          <a href="#resources">Explore Level 1 →</a>
         </div>
 
-        <div class="prompt">
-          <div class="xMark">✖</div>
-          <div> <span id="ec-prompt"></span> </div>
-        </div>
-
-        <label for="ec-input">Your correction</label>
-        <input id="ec-input" placeholder="Type the corrected sentence here..." autocomplete="off" />
-
-        <div class="btnRow">
-          <button id="ec-check" class="btn">Check</button>
-          <button id="ec-show" class="btn gray">Show Answer</button>
-          <button id="ec-next" class="btn green">Next</button>
-          <button id="ec-reset" class="btn purple">Restart</button>
-        </div>
-
-        <div class="statusRow">
-          <div class="mini" id="ec-score">Score: 0 / 3</div>
-          <div class="barWrap" aria-label="progress">
-            <div class="bar" id="ec-bar"></div>
+        <div class="card" id="lvl2">
+          <div class="cardTop">
+            <div>
+              <h3>🌟 Spanish Level 2</h3>
+              <small>Building Confidence</small>
+            </div>
+            <div class="cardIcon">2</div>
           </div>
-          <div class="mini" id="ec-progress">Item 1 of 3</div>
+          <p><strong>Novice Mid → Novice High</strong><br/>Develop paragraph writing and deeper reading skills.</p>
+          <a href="#resources">Explore Level 2 →</a>
         </div>
 
-        <div id="ec-feedback" class="feedback" style="display:none;"></div>
-      </section>
+        <div class="card" id="lvl3">
+          <div class="cardTop">
+            <div>
+              <h3>🌟 Spanish Level 3</h3>
+              <small>Expanding Expression</small>
+            </div>
+            <div class="cardIcon">3</div>
+          </div>
+          <p><strong>Novice High → Intermediate Low</strong><br/>Strengthen connected communication and narration.</p>
+          <a href="#resources">Explore Level 3 →</a>
+        </div>
 
-    </div>
+        <div class="card" id="lvl4">
+          <div class="cardTop">
+            <div>
+              <h3>🌟 Spanish Level 4</h3>
+              <small>Confident & Connected Communication</small>
+            </div>
+            <div class="cardIcon">4</div>
+          </div>
+          <p><strong>Intermediate Low → Intermediate Mid</strong><br/>Refine fluency, comparison skills, and cultural analysis.</p>
+          <a href="#resources">Explore Level 4 →</a>
+        </div>
 
-    <div class="footer">
-      © Seño Bluemel • Que Chévere Spanish •
-      <a class="link" target="_blank" href="https://www.youtube.com/channel/UCvfq1AXJiDzXMV4VlA9ve_w">YouTube Channel</a>
-    </div>
+        <div class="card" id="ap">
+          <div class="cardTop">
+            <div>
+              <h3>🌟 AP Spanish Language & Culture</h3>
+              <small>Advanced Communication Tasks</small>
+            </div>
+            <div class="cardIcon">AP</div>
+          </div>
+          <p><strong>Intermediate Mid → Advanced Low</strong><br/>Engage with authentic texts and advanced communication tasks.</p>
+          <a href="#resources">Explore AP →</a>
+        </div>
+      </div>
+    </section>
 
-  </div>
+    <!-- SECTION 4 — FEATURED LESSON -->
+    <section class="section" id="lesson">
+      <div class="sectionHead">
+        <div>
+          <h2>See the Program in Action</h2>
+          <p>Experience structured instruction, scaffolded reading, and clear proficiency goals in every lesson.</p>
+        </div>
+        <span class="badge">Featured lesson</span>
+      </div>
 
-  <script>
-  window.addEventListener("DOMContentLoaded", () => {
+      <div class="videoWrap" aria-label="YouTube Embed">
+        <!-- NOTE: You can replace this with a specific video embed later. For now, it uses a safe placeholder video embed. -->
+        <iframe
+          src="https://www.youtube.com/embed?listType=user_uploads&list=UCvfq1AXJiDzXMV4VlA9ve_w"
+          title="Seño Bluemel Que Chévere - Featured Lesson"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
 
-    const errorItems = [
-      { wrong: "España va en Europa.", right: "España está en Europa." },
-      { wrong: "La capital de Puerto Rico está San Juan.", right: "La capital de Puerto Rico es San Juan." },
-      { wrong: "Estoy a México en el verano.", right: "Estoy en México en el verano." }
-    ];
+      <div style="margin-top:12px;">
+        <a class="btn red" target="_blank" href="https://www.youtube.com/channel/UCvfq1AXJiDzXMV4VlA9ve_w">
+          Visit the YouTube Channel →
+        </a>
+      </div>
+    </section>
 
-    let index = 0;
-    let score = 0;
+    <!-- SECTION 5 — WHAT MAKES THIS DIFFERENT? -->
+    <section class="section">
+      <div class="sectionHead">
+        <div>
+          <h2>What Makes This Different?</h2>
+          <p>Designed to be structured, measurable, and aligned — not random activities.</p>
+        </div>
+        <span class="badge">Standards + structure</span>
+      </div>
 
-    const promptEl = document.getElementById("ec-prompt");
-    const inputEl = document.getElementById("ec-input");
-    const feedbackEl = document.getElementById("ec-feedback");
-    const scoreEl = document.getElementById("ec-score");
-    const progressEl = document.getElementById("ec-progress");
-    const barEl = document.getElementById("ec-bar");
+      <div class="cols4">
+        <div class="col">
+          <div class="colTitle"><div class="check">✓</div> ACTFL-Aligned Design</div>
+          <p>Built around ACTFL proficiency targets so students progress intentionally from Novice to Advanced communication.</p>
+        </div>
 
-    function normalize(s){
-      return s.trim().replace(/\s+/g, " ");
-    }
+        <div class="col">
+          <div class="colTitle"><div class="check">✓</div> Scaffolded Reading Approach</div>
+          <p>Comprehensible input with supports that gradually release — so students can grow into authentic texts.</p>
+        </div>
 
-    function setFeedback(message, type){
-      feedbackEl.style.display = "block";
-      feedbackEl.classList.remove("ok","no");
-      if(type) feedbackEl.classList.add(type);
-      feedbackEl.innerHTML = message;
-    }
+        <div class="col">
+          <div class="colTitle"><div class="check">✓</div> Clear Learning Targets & Standards</div>
+          <p>Every unit includes explicit goals and measurable outcomes that support instruction and assessment.</p>
+        </div>
 
-    function updateStatus(){
-      scoreEl.textContent = `Score: ${score} / ${errorItems.length}`;
-      progressEl.textContent = `Item ${index + 1} of ${errorItems.length}`;
-      const pct = Math.round(((index) / errorItems.length) * 100);
-      barEl.style.width = `${pct}%`;
-    }
+        <div class="col">
+          <div class="colTitle"><div class="check">✓</div> Unit-Based Structure</div>
+          <p>Organized units with consistent routines, practice cycles, and performance tasks for meaningful growth.</p>
+        </div>
+      </div>
+    </section>
 
-    function showQuestion(){
-      promptEl.textContent = errorItems[index].wrong;
-      inputEl.value = "";
-      feedbackEl.style.display = "none";
-      updateStatus();
-      inputEl.focus();
-    }
+    <!-- SECTION 6 — CULTURE + CONNECTION -->
+    <section class="section" id="culture">
+      <div class="sectionHead">
+        <div>
+          <h2>Language & Culture Together</h2>
+          <p>
+            Language is more than vocabulary — it’s perspective. This program integrates cultural connections, authentic materials,
+            and real-world contexts so students learn Spanish with meaning and relevance.
+          </p>
+        </div>
+        <span class="badge">Culture + connection</span>
+      </div>
 
-    document.getElementById("ec-check").addEventListener("click", () => {
-      const user = normalize(inputEl.value);
-      const correct = normalize(errorItems[index].right);
+      <div class="twoCol">
+        <div class="callout">
+          <h3>Authentic, meaningful learning</h3>
+          <p>Students explore cultural products, practices, and perspectives while building communication skills that last.</p>
+        </div>
 
-      if(!user){
-        setFeedback("Type your correction first 🙂", "no");
-        return;
-      }
+        <div>
+          <a class="btn green" href="#resources">Explore Culture →</a>
+        </div>
+      </div>
+    </section>
 
-      if(user === correct){
-        score += 1;
-        setFeedback("✅ Correct! Nice work.", "ok");
-      } else {
-        setFeedback("❌ Not quite. Try again or click <strong>Show Answer</strong>.", "no");
-      }
+    <!-- SECTION 7 — JOIN THE COMMUNITY -->
+    <section class="section" id="resources">
+      <div class="sectionHead">
+        <div>
+          <h2>Get Free Resources & Updates</h2>
+          <p>Join the community for new lessons, resources, and program updates.</p>
+        </div>
+        <span class="badge">Free resources</span>
+      </div>
 
-      scoreEl.textContent = `Score: ${score} / ${errorItems.length}`;
-    });
+      <form class="signup" onsubmit="event.preventDefault(); alert('Thanks! Email signup will be connected later.');">
+        <input class="email" type="email" placeholder="Enter your email" required />
+        <button class="subscribe" type="submit">Subscribe</button>
+      </form>
 
-    document.getElementById("ec-show").addEventListener("click", () => {
-      setFeedback(`✅ Correct answer: <strong>${errorItems[index].right}</strong>`, "ok");
-    });
+      <p class="muted" style="margin-top:10px; font-size:12px;">
+        We respect your inbox. Unsubscribe anytime.
+      </p>
+    </section>
 
-    document.getElementById("ec-next").addEventListener("click", () => {
-      index = (index + 1) % errorItems.length;
-      // Move progress bar forward based on current index
-      const pct = Math.round(((index) / errorItems.length) * 100);
-      barEl.style.width = `${pct}%`;
-      showQuestion();
-    });
+    <!-- FOOTER -->
+    <footer>
+      <div class="footerGrid">
+        <div>
+          <div class="footerTitle">Seño Bluemel Que Chévere</div>
+          <div class="muted">Structured. Standards-aligned. Proficiency-driven Spanish.</div>
+        </div>
 
-    document.getElementById("ec-reset").addEventListener("click", () => {
-      index = 0;
-      score = 0;
-      barEl.style.width = "0%";
-      showQuestion();
-    });
+        <div class="footerLinks">
+          <div class="footerTitle">Quick Links</div>
+          <a href="#pathway">Levels</a>
+          <a href="#lesson">Featured Lesson</a>
+          <a href="#culture">Culture</a>
+          <a href="#resources">Resources</a>
+        </div>
 
-    inputEl.addEventListener("keydown", (e) => {
-      if(e.key === "Enter") document.getElementById("ec-check").click();
-    });
+        <div class="footerLinks">
+          <div class="footerTitle">YouTube</div>
+          <a target="_blank" href="https://www.youtube.com/channel/UCvfq1AXJiDzXMV4VlA9ve_w">Visit Channel</a>
+        </div>
 
-    // Start
-    showQuestion();
-  });
-  </script>
+        <div class="footerLinks">
+          <div class="footerTitle">Contact</div>
+          <a href="#contact">Contact</a>
+          <a href="#privacy">Privacy Policy</a>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © 2026 Seño Bluemel Que Chévere
+      </div>
+    </footer>
+
+  </main>
+
 </body>
 </html>
