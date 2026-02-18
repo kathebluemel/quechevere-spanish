@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Level 1 • Unit 2 | Seño Bluemel Que Chévere</title>
+  <title>Level 1 • Unit 2 (Professional Model) | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
@@ -14,6 +14,7 @@
       --text:#182033;
       --muted:#5C677D;
       --border:#DDE3EA;
+      --soft:#f9fafb;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
@@ -21,7 +22,7 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:var(--bg);
-      line-height:1.5;
+      line-height:1.55;
     }
     a{color:inherit;text-decoration:none}
     a:hover{text-decoration:underline}
@@ -41,20 +42,23 @@
       padding:14px 0;
       gap:16px;
     }
-    .brand{display:flex;flex-direction:column}
-    .brand .name{font-weight:800;color:var(--navy)}
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
     .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
 
     .navlinks{
       display:flex;
       gap:14px;
+      align-items:center;
       font-weight:600;
       color:var(--navy);
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
     .navlinks a{padding:8px 10px;border-radius:10px}
     .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
 
-    .hero{padding:36px 0 16px}
+    .hero{padding:34px 0 16px}
     .hero-card{
       background:var(--white);
       border:1px solid var(--border);
@@ -64,6 +68,8 @@
     }
     .kicker{
       display:inline-flex;
+      gap:10px;
+      align-items:center;
       font-weight:800;
       color:var(--teal);
       background:rgba(28,167,166,.10);
@@ -71,36 +77,147 @@
       border-radius:999px;
       margin-bottom:12px;
     }
-    h1{margin:0 0 8px;color:var(--navy);font-size:2rem}
-    .subhead{color:var(--muted)}
+    h1{margin:0 0 8px;color:var(--navy);font-size:2rem;letter-spacing:-.3px}
+    .subhead{margin:0;color:var(--muted);max-width:92ch}
 
-    .section{padding:18px 0}
+    .section{padding:16px 0}
     .card{
       background:var(--white);
       border:1px solid var(--border);
       border-radius:18px;
-      padding:22px;
+      padding:20px;
       box-shadow:0 6px 18px rgba(0,0,0,.04);
     }
-    .section-title{margin:0 0 10px;color:var(--navy)}
-    .section-desc{margin:0 0 14px;color:var(--muted)}
+    .section-title{margin:0 0 10px;color:var(--navy);font-size:1.25rem}
+    .section-desc{margin:0 0 12px;color:var(--muted);max-width:95ch}
 
-    ul{padding-left:18px;color:var(--muted)}
-    li{margin:6px 0}
+    .pill{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(31,42,68,.18);
+      background:rgba(31,42,68,.04);
+      color:var(--navy);
+      font-weight:800;
+      font-size:.85rem;
+    }
 
-    .culture{
+    .nav-steps{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .stepbtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--white);
+      font-weight:800;
+      color:var(--navy);
+    }
+    .stepbtn:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .task{
       border-left:6px solid var(--teal);
       background:rgba(28,167,166,.07);
     }
+    .box{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      background:var(--soft);
+      margin-top:12px;
+    }
+
+    .grid2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
+
+    ul{margin:0;padding-left:18px;color:var(--muted)}
+    li{margin:6px 0}
+
+    .reading{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      background:#fbfcfd;
+      color:var(--text);
+    }
+    .reading p{margin:10px 0}
+
+    .q{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(244,246,248,.7);
+    }
+    .q label{display:block;margin:10px 0 6px;color:var(--navy);font-weight:800}
+    .q input, .q textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:1rem;
+      font-family:inherit;
+    }
+    .q textarea{min-height:90px;resize:vertical}
 
     .checklist{display:grid;gap:10px;margin-top:10px}
     .checkitem{
       display:flex;
       gap:10px;
-      padding:10px;
+      align-items:flex-start;
+      padding:10px 12px;
       border:1px solid var(--border);
       border-radius:14px;
       background:#f9fafb;
+    }
+    .checkitem input{margin-top:3px}
+    .checkitem strong{color:var(--navy)}
+    .checkitem span{color:var(--muted)}
+
+    details{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:var(--white);
+      padding:14px 16px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      color:var(--navy);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .teacher{
+      margin-top:12px;
+      color:var(--muted);
+    }
+    .teacher h3{margin:14px 0 8px;color:var(--navy)}
+    .teacher ul{margin:0;padding-left:18px}
+    .teacher li{margin:6px 0}
+
+    .rubric{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:.95rem;
+    }
+    .rubric th, .rubric td{
+      border:1px solid var(--border);
+      padding:10px;
+      vertical-align:top;
+    }
+    .rubric th{background:rgba(31,42,68,.04);color:var(--navy);text-align:left}
+
+    .note{
+      font-size:.95rem;
+      color:var(--muted);
+      margin-top:10px;
     }
   </style>
 </head>
@@ -122,70 +239,336 @@
 </header>
 
 <main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="kicker">Level 1 • Unit 2 (Professional Model)</div>
+        <h1>Numbers & Classroom Language</h1>
+        <p class="subhead">
+          Focus: numbers (0–31) + classroom survival phrases to ask for help, clarify meaning, and follow routines.
+          Goal: stay in Spanish and keep communication going.
+        </p>
 
-<section class="hero">
-  <div class="container">
-    <div class="hero-card">
-      <div class="kicker">Level 1 • Unit 2</div>
-      <h1>Numbers & Classroom Language</h1>
-      <p class="subhead">
-        In this unit, you will learn numbers and essential classroom phrases.
+        <div class="nav-steps" aria-label="Unit roadmap">
+          <a class="stepbtn" href="#stage1">Stage 1: Understand</a>
+          <a class="stepbtn" href="#stage2">Stage 2: Interact</a>
+          <a class="stepbtn" href="#stage3">Stage 3: Create</a>
+          <a class="stepbtn" href="#stage4">Stage 4: Reflect</a>
+          <a class="stepbtn" href="#stage5">Stage 5: Perform</a>
+          <a class="stepbtn" href="#progress">Progress</a>
+        </div>
+
+        <p class="note"><a href="/quechevere-spanish/level-1/">← Back to Level 1</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Goal + Essential Question + Performance Task Preview -->
+  <section class="section">
+    <div class="container card task">
+      <h2 class="section-title">Unit Goal + Performance Task</h2>
+      <p class="section-desc">
+        <span class="pill">Proficiency target: Novice Low → Novice Mid</span>
       </p>
-      <a href="/quechevere-spanish/level-1/">← Back to Level 1</a>
+      <p class="section-desc">
+        <strong>Student-friendly goal:</strong> By the end of this unit, I can use numbers and classroom phrases to ask for help and understand directions.
+      </p>
+      <p class="section-desc">
+        <strong>Essential Question:</strong> How do we use polite routines to learn and communicate in class?
+      </p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>End-of-Unit Performance Task (Preview):</strong></p>
+        <p style="margin:0">
+          Complete a short “classroom survival” role-play: ask for help, ask what a word means, request repetition, and answer 3 number questions (0–31).
+          Goal: stay in Spanish using strategies when you get stuck.
+        </p>
+        <p class="note" style="margin:10px 0 0">
+          Success = communication continues. Accuracy is emerging.
+        </p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section">
-  <div class="container card">
-    <h2 class="section-title">Vocabulary</h2>
-    <ul>
-      <li>Uno, dos, tres, cuatro, cinco...</li>
-      <li>¿Cómo se dice...?</li>
-      <li>¿Qué significa...?</li>
-      <li>Repita, por favor.</li>
-      <li>Necesito ayuda.</li>
-    </ul>
-  </div>
-</section>
+  <!-- STAGE 1 -->
+  <section class="section" id="stage1">
+    <div class="container card">
+      <h2 class="section-title">Stage 1 — Understand (Interpretive)</h2>
+      <p class="section-desc">
+        Your job: understand classroom phrases and identify numbers (0–31) in context.
+      </p>
 
-<section class="section">
-  <div class="container card culture">
-    <h2 class="section-title">🌎 Cultural Connection — Classroom Culture</h2>
-    <p>
-      In many Latin American classrooms, students greet the teacher when entering.
-      Respect and formality can be important depending on the region.
-    </p>
-    <p>
-      In Colombia, students often stand when greeting the teacher in more traditional schools.
-    </p>
-  </div>
-</section>
+      <div class="reading">
+        <p><strong>Mini Text (semi-authentic classroom moment)</strong></p>
+        <p>
+          Hoy es martes. En la clase de español, la profesora dice: “Abran el cuaderno.”
+          Un estudiante pregunta: “¿Qué significa ‘tarea’?”
+          La profesora responde y el estudiante dice: “Gracias.”
+          Después, la profesora pregunta: “¿Cuántos estudiantes hay?” Hay veintidós.
+          Otro estudiante dice: “No entiendo. ¿Puede repetir, por favor?”
+        </p>
+      </div>
 
-<section class="section" id="progress">
-  <div class="container card">
-    <h2 class="section-title">Track your progress</h2>
+      <div class="q">
+        <label>1) In English: What is happening in this classroom?</label>
+        <input type="text" placeholder="Summarize the gist." />
 
-    <div class="checklist">
-      <label class="checkitem">
-        <input type="checkbox" id="u2vocab"> Vocabulary completed
-      </label>
+        <label>2) In English: What does the student ask about “tarea”?</label>
+        <input type="text" />
 
-      <label class="checkitem">
-        <input type="checkbox" id="u2practice"> Practice completed
-      </label>
+        <label>3) In English: What number do you see? Write it in digits.</label>
+        <input type="text" placeholder="Example: veintidós = 22" />
 
-      <label class="checkitem">
-        <input type="checkbox" id="u2review"> Review completed
-      </label>
+        <label>4) In English: What is the student doing when they say “¿Puede repetir, por favor?”</label>
+        <input type="text" placeholder="Hint: strategy to understand." />
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="section" id="stage2">
+    <div class="container card">
+      <h2 class="section-title">Stage 2 — Interact (Interpersonal)</h2>
+      <p class="section-desc">
+        Your job: ask for help and negotiate meaning using classroom rejoinders.
+      </p>
+
+      <div class="grid2">
+        <div class="box">
+          <p style="margin:0 0 8px"><strong>Core exchange (practice aloud)</strong></p>
+          <p style="margin:0">
+            A: No entiendo. ¿Puede repetir, por favor?<br/>
+            B: Sí. (Repito.)<br/>
+            A: Gracias. ¿Qué significa “_____”?<br/>
+            B: Significa “_____”.<br/>
+            A: Ah, ok. ¿Cómo se dice “_____” en español?
+          </p>
+          <p class="note" style="margin:10px 0 0">
+            Goal: keep interaction going.
+          </p>
+        </div>
+
+        <div class="box">
+          <p style="margin:0 0 8px"><strong>Rejoinders</strong></p>
+          <ul>
+            <li>No entiendo.</li>
+            <li>Más lento, por favor.</li>
+            <li>Repita, por favor.</li>
+            <li>¿Qué significa…?</li>
+            <li>¿Cómo se dice…?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Practice Task (Student): Write 5 classroom lines in Spanish using at least 2 rejoinders.</label>
+        <textarea placeholder="Example: No entiendo. ¿Qué significa...? ¿Puede repetir...? Gracias."></textarea>
+
+        <label>Quick self-check (English): Which two strategies did you use?</label>
+        <input type="text" placeholder="Example: asking meaning + asking to repeat." />
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="section" id="stage3">
+    <div class="container card">
+      <h2 class="section-title">Stage 3 — Create (Presentational)</h2>
+      <p class="section-desc">
+        Your job: create a “Classroom Survival Card” you can use in class.
+      </p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Classroom Survival Card (Spanish)</strong></p>
+        <ul>
+          <li>Hola / Buenos días.</li>
+          <li>No entiendo.</li>
+          <li>Más lento, por favor.</li>
+          <li>Repita, por favor.</li>
+          <li>¿Qué significa _____?</li>
+          <li>¿Cómo se dice _____ en español?</li>
+          <li>Gracias.</li>
+        </ul>
+        <p class="note">Goal: useful, clear, and ready to use.</p>
+      </div>
+
+      <div class="q">
+        <label>Write your Survival Card in Spanish (copy + personalize with 2 blanks).</label>
+        <textarea placeholder="Include at least 7 lines. Add two blanks: ¿Qué significa ____? ¿Cómo se dice ____?"></textarea>
+
+        <label>Numbers check: Write 5 numbers in Spanish (0–31) that you will use (age/date/quantity).</label>
+        <input type="text" placeholder="Example: cinco, doce, dieciséis, veinte, veintidós" />
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section class="section" id="stage4">
+    <div class="container card task">
+      <h2 class="section-title">Stage 4 — Reflect (Culture + Growth)</h2>
+      <p class="section-desc">
+        Your job: connect classroom routines to culture and reflect on learning strategies.
+      </p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Cultural Connection (Products • Practices • Perspectives)</strong></p>
+        <ul>
+          <li><strong>Product:</strong> Polite phrases (por favor, gracias) are common in school interactions.</li>
+          <li><strong>Practice:</strong> Students often use respectful routines when asking for help.</li>
+          <li><strong>Perspective:</strong> Respect and community can be emphasized in classroom culture.</li>
+        </ul>
+      </div>
+
+      <div class="q">
+        <label>In English: How do students show respect in your classroom?</label>
+        <textarea placeholder="Think: greetings, tone, asking for help, thanking."></textarea>
+
+        <label>In English: Which strategy helps you stay in Spanish when stuck?</label>
+        <input type="text" placeholder="Example: asking to repeat; asking what a word means." />
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 5 -->
+  <section class="section" id="stage5">
+    <div class="container card">
+      <h2 class="section-title">Stage 5 — Perform (Assessment)</h2>
+      <p class="section-desc">
+        Complete the performance task. Focus on staying in Spanish and completing the requirements.
+      </p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Performance Task:</strong> Classroom Survival Role-Play</p>
+        <ul>
+          <li>Ask for repetition (Repita…, Más lento…)</li>
+          <li>Ask meaning (¿Qué significa…?)</li>
+          <li>Ask how to say a word (¿Cómo se dice…?)</li>
+          <li>Answer 3 number questions (0–31)</li>
+          <li>Use polite language (por favor, gracias)</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Student-friendly rubric</strong></p>
+        <table class="rubric" aria-label="Student-friendly rubric">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Developing</th>
+              <th>On Target</th>
+              <th>Strong</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Task completion</strong></td>
+              <td>Some parts missing</td>
+              <td>All required parts included</td>
+              <td>All parts + smooth flow</td>
+            </tr>
+            <tr>
+              <td><strong>Comprehensibility</strong></td>
+              <td>Hard to understand</td>
+              <td>Mostly understandable</td>
+              <td>Easy to understand</td>
+            </tr>
+            <tr>
+              <td><strong>Strategies</strong></td>
+              <td>Stops when stuck</td>
+              <td>Uses at least 1 strategy</td>
+              <td>Uses strategies confidently</td>
+            </tr>
+            <tr>
+              <td><strong>Numbers (0–31)</strong></td>
+              <td>Often incorrect</td>
+              <td>Mostly correct</td>
+              <td>Consistently correct</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">Remember: at Novice levels, the goal is communication, not perfection.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="section" id="progress">
+    <div class="container card">
+      <h2 class="section-title">Track your progress (saved on this device)</h2>
+      <p class="section-desc">Check what you completed. Refresh — your checks should stay.</p>
+
+      <div class="checklist">
+        <label class="checkitem">
+          <input type="checkbox" id="u2stage1">
+          <div><strong>Stage 1 complete</strong><br><span>I can understand classroom phrases and identify numbers in context.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u2stage2">
+          <div><strong>Stage 2 complete</strong><br><span>I can ask for help and negotiate meaning using rejoinders.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u2stage3">
+          <div><strong>Stage 3 complete</strong><br><span>I created a useful Classroom Survival Card.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u2stage4">
+          <div><strong>Stage 4 complete</strong><br><span>I reflected on classroom culture and learning strategies.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u2stage5">
+          <div><strong>Stage 5 complete</strong><br><span>I completed the performance task and used numbers 0–31.</span></div>
+        </label>
+      </div>
+
+      <p class="note">Next: we will sync the Level 1 dashboard Unit 2 progress bar to these 5 checkboxes.</p>
+    </div>
+  </section>
+
+  <!-- TEACHER ALIGNMENT (HIDDEN) -->
+  <section class="section">
+    <div class="container">
+      <details>
+        <summary>Teacher Alignment & Standards (click to expand)</summary>
+
+        <div class="teacher">
+          <h3>ACTFL Modes Alignment</h3>
+          <ul>
+            <li><strong>Interpretive:</strong> Students interpret classroom moments for gist, strategies, and numbers in context.</li>
+            <li><strong>Interpersonal:</strong> Students negotiate meaning using rejoinders and polite routines.</li>
+            <li><strong>Presentational:</strong> Students create a functional “Survival Card” and demonstrate number use.</li>
+          </ul>
+
+          <h3>Proficiency Target</h3>
+          <ul>
+            <li>Novice Low → Novice Mid (formulaic classroom language + emerging control; communication continues).</li>
+          </ul>
+
+          <h3>Can-Do Statements (Teacher-facing)</h3>
+          <ul>
+            <li>I can interpret short classroom interactions and identify key information, including numbers.</li>
+            <li>I can ask for repetition, ask meaning, and request clarification to stay in the target language.</li>
+            <li>I can use numbers 0–31 in simple classroom contexts (age/date/quantity).</li>
+            <li>I can reflect on classroom routines and cultural perspectives around politeness/respect.</li>
+          </ul>
+
+          <h3>Suggested Pacing</h3>
+          <ul>
+            <li>5–8 instructional days (flexible): Stage 1 (2), Stage 2 (2), Stage 3 (1–2), Stage 4 (1), Stage 5 (1).</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
 
 </main>
 
 <script>
-  const boxes = ["u2vocab","u2practice","u2review"];
+  // Save progress for the 5 stages
+  const boxes = ["u2stage1","u2stage2","u2stage3","u2stage4","u2stage5"];
   boxes.forEach(id => {
     const checkbox = document.getElementById(id);
     const saved = localStorage.getItem(id);
