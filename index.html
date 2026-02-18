@@ -1,47 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Que Chevere Spanish</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fb;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #1e3a8a;
-            font-size: 48px;
-        }
-        p {
-            font-size: 20px;
-            color: #333;
-        }
-        .button {
-            display: inline-block;
-            margin: 15px;
-            padding: 15px 30px;
-            font-size: 18px;
-            color: white;
-            background-color: #2563eb;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-        .button:hover {
-            background-color: #1e40af;
-        }
-    </style>
+  <title>Que Chevere Spanish</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background-color:#f4f7fb; margin:0; }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 50px 18px; text-align:center; }
+    h1 { color:#1e3a8a; font-size: 46px; margin: 0 0 10px; }
+    p { font-size: 18px; color:#333; line-height:1.5; margin: 8px 0; }
+    .buttons { margin: 25px 0 10px; }
+    .button {
+      display:inline-block; margin:10px; padding:14px 22px; font-size:18px;
+      color:white; background-color:#2563eb; border-radius:10px; text-decoration:none;
+    }
+    .button:hover { background-color:#1e40af; }
+    .card {
+      background:white; border-radius:14px; padding:22px; margin: 18px 0;
+      text-align:left; box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    h2 { margin: 0 0 10px; color:#111827; }
+    .tag { display:inline-block; font-size: 13px; padding: 4px 10px; border-radius: 999px; background:#e8eefc; color:#1e3a8a; }
+    .small { font-size: 15px; color:#4b5563; }
+    .footer { margin-top: 30px; font-size: 14px; color:#6b7280; }
+    .toplink { float:right; font-size:14px; text-decoration:none; color:#2563eb; }
+    hr { border:none; border-top:1px solid #e5e7eb; margin: 22px 0; }
+  </style>
 </head>
+
 <body>
-
+  <div class="wrap">
     <h1>Que Chévere Spanish 🇪🇸</h1>
-    <p>Interactive Spanish practice with Seño Bluemel.</p>
-    <p>Choose how you want to practice:</p>
+    <p>Interactive Spanish practice with <strong>Seño Bluemel</strong>.</p>
+    <p class="small">Choose how you want to practice today:</p>
 
-    <a href="#" class="button">Practice by Level</a>
-    <a href="#" class="button">Practice by Skill</a>
-    <a href="#" class="button">Explore by Unit</a>
+    <div class="buttons">
+      <a href="#level" class="button">Practice by Level</a>
+      <a href="#skill" class="button">Practice by Skill</a>
+      <a href="#unit" class="button">Explore by Unit</a>
+    </div>
 
+    <p class="footer">
+      🎥 YouTube: <a href="https://www.youtube.com/" target="_blank">Seño Bluemel Que Chévere</a>
+      <br>(We can replace this link with your exact channel link next.)
+    </p>
+
+    <hr>
+
+    <!-- PRACTICE BY LEVEL -->
+    <div id="level" class="card">
+      <a class="toplink" href="#">Back to top ↑</a>
+      <span class="tag">Practice by Level</span>
+      <h2>Choose your level</h2>
+      <p><strong>Spanish A (Foundations):</strong> vocabulary, sentence frames, short readings, lots of support.</p>
+      <p><strong>Spanish B (Expanding):</strong> longer readings, more output, more independence.</p>
+      <p><strong>Challenge:</strong> extension tasks, higher-level writing, speed rounds.</p>
+      <p class="small">✅ Coming next: clickable level pages + auto-check activities.</p>
+    </div>
+
+    <!-- PRACTICE BY SKILL -->
+    <div id="skill" class="card">
+      <a class="toplink" href="#">Back to top ↑</a>
+      <span class="tag">Practice by Skill</span>
+      <h2>Choose a skill</h2>
+      <p><strong>Reading:</strong> Spanish texts + questions in English.</p>
+      <p><strong>Vocabulary:</strong> matching, multiple choice, and quick checks.</p>
+      <p><strong>Grammar:</strong> noticing + error correction.</p>
+      <p><strong>Writing:</strong> sentence building + short responses.</p>
+      <p class="small">✅ Coming next: first interactive activities (no login).</p>
+    </div>
+
+    <!-- EXPLORE BY UNIT -->
+    <div id="unit" class="card">
+      <a class="toplink" href="#">Back to top ↑</a>
+      <span class="tag">Explore by Unit</span>
+      <h2>Explore your units</h2>
+      <p><strong>Unit 1:</strong> (Coming soon)</p>
+      <p><strong>Unit 2:</strong> (Coming soon)</p>
+      <p><strong>Unit 3:</strong> Colores y Descripciones</p>
+      <p class="small">✅ Coming next: Unit pages with readings + practice games.</p>
+    </div>
+
+    <div class="footer">
+      © Seño Bluemel • Que Chévere Spanish
+    </div>
+  </div>
 </body>
 </html>
