@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
+  <title>Level 1 • Unit 2 | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
@@ -55,107 +55,96 @@
       justify-content:flex-end;
     }
     .navlinks a{padding:8px 10px;border-radius:10px}
-    .navlinks a.active,
     .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
 
-    .hero{padding:42px 0 18px}
+    .hero{padding:36px 0 16px}
     .hero-card{
       background:var(--white);
       border:1px solid var(--border);
       border-radius:20px;
-      padding:28px;
+      padding:26px;
       box-shadow:0 8px 22px rgba(0,0,0,.05);
     }
     .kicker{
       display:inline-flex;
       gap:10px;
       align-items:center;
-      font-weight:700;
+      font-weight:800;
       color:var(--teal);
       background:rgba(28,167,166,.10);
       padding:8px 12px;
       border-radius:999px;
-      margin-bottom:14px;
+      margin-bottom:12px;
     }
-    h1{
-      margin:0 0 8px;
-      font-size:clamp(1.9rem, 3vw, 2.6rem);
-      color:var(--navy);
-      letter-spacing:-.4px;
-    }
-    .subhead{
-      margin:0 0 16px;
-      color:var(--muted);
-      font-size:1.05rem;
-      max-width:75ch;
-    }
+    h1{margin:0 0 8px;color:var(--navy);font-size:2rem}
+    .subhead{margin:0;color:var(--muted);max-width:85ch}
 
     .section{padding:18px 0}
     .card{
       background:var(--white);
       border:1px solid var(--border);
       border-radius:18px;
-      padding:20px;
+      padding:22px;
       box-shadow:0 6px 18px rgba(0,0,0,.04);
     }
-    .section-title{margin:0 0 10px;font-size:1.25rem;color:var(--navy)}
-    .section-desc{margin:0 0 14px;color:var(--muted);max-width:85ch}
+    .section-title{margin:0 0 10px;color:var(--navy);font-size:1.25rem}
+    .section-desc{margin:0 0 14px;color:var(--muted);max-width:90ch}
 
-    .unit-grid{
-      display:grid;
-      gap:12px;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-    }
-    @media (max-width: 900px){.unit-grid{grid-template-columns:repeat(2, minmax(0,1fr))}}
-    @media (max-width: 640px){.unit-grid{grid-template-columns:1fr}.hero-card{padding:20px}}
+    .grid2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
 
-    .unit{
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:14px;
-      background:var(--white);
-      transition:transform .08s ease;
-    }
-    .unit:hover{transform:translateY(-1px)}
-    .unit h3{margin:0 0 6px;color:var(--navy);font-size:1.05rem}
-    .unit p{margin:0 0 10px;color:var(--muted)}
-    .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(31,42,68,.18);
-      background:rgba(31,42,68,.04);
-      color:var(--navy);
-      font-weight:800;
-      font-size:.85rem;
-      margin-bottom:10px;
-    }
+    ul{margin:0;padding-left:18px;color:var(--muted)}
+    li{margin:6px 0}
 
-    .mini-progress{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
+    .culture{
+      border-left:6px solid var(--teal);
+      background:rgba(28,167,166,.07);
+    }
+    .prompt{
       margin-top:10px;
-      padding-top:10px;
-      border-top:1px dashed var(--border);
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:var(--white);
+      color:var(--text);
     }
-    .mini-progress strong{color:var(--navy)}
-    progress{width:160px; height:12px}
-    .status{
-      font-weight:800;
-      color:var(--navy);
-      background:rgba(28,167,166,.10);
-      border:1px solid rgba(28,167,166,.25);
-      padding:4px 10px;
-      border-radius:999px;
-      font-size:.85rem;
+
+    .reading{
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fbfcfd;
+      color:var(--text);
     }
-    .status.complete{
-      background:rgba(31,42,68,.08);
-      border-color:rgba(31,42,68,.18);
+    .q{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(244,246,248,.7);
     }
-    .muted{color:var(--muted)}
+    .q label{display:block;margin:10px 0 6px;color:var(--navy);font-weight:800}
+    .q input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:1rem;
+    }
+
+    .checklist{display:grid;gap:10px;margin-top:10px}
+    .checkitem{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#f9fafb;
+    }
+    .checkitem input{margin-top:3px}
+    .checkitem strong{color:var(--navy)}
+    .checkitem span{color:var(--muted)}
   </style>
 </head>
 
@@ -167,9 +156,9 @@
       <span class="tag">Que Chévere</span>
     </a>
 
-    <nav class="navlinks" aria-label="Main navigation">
+    <nav class="navlinks">
       <a href="/quechevere-spanish/">Home</a>
-      <a class="active" href="/quechevere-spanish/level-1/">Spanish Level 1</a>
+      <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
       <a href="/quechevere-spanish/about/">About</a>
     </nav>
   </div>
@@ -179,126 +168,150 @@
   <section class="hero">
     <div class="container">
       <div class="hero-card">
-        <div class="kicker">📘 Spanish Level 1</div>
-        <h1>Foundations of Communication</h1>
+        <div class="kicker">Level 1 • Unit 2</div>
+        <h1>Numbers & Classroom Language</h1>
         <p class="subhead">
-          Proficiency target: <strong>Novice Low → Novice Mid</strong>. Follow the path or jump to any unit.
+          In this unit, you will learn numbers and essential classroom phrases to communicate during class.
+        </p>
+        <p class="subhead" style="margin-top:10px">
+          <a href="/quechevere-spanish/level-1/">← Back to Level 1</a>
         </p>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <h2 class="section-title">Explore the Units</h2>
-      <p class="section-desc">
-        Each unit includes: vocabulary • grammar basics • cultural connection • reading • writing • progress tracking.
-      </p>
+    <div class="container card">
+      <h2 class="section-title">Recommended path</h2>
+      <p class="section-desc">Vocabulary → Grammar basics → Reading → Writing → Review</p>
+    </div>
+  </section>
 
-      <div class="unit-grid">
+  <section class="section">
+    <div class="container grid2">
+      <div class="card">
+        <h2 class="section-title">Vocabulary</h2>
+        <p class="section-desc">Core words and phrases for Unit 2:</p>
+        <ul>
+          <li>Cero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez</li>
+          <li>¿Cómo se dice…?</li>
+          <li>¿Qué significa…?</li>
+          <li>Repita, por favor.</li>
+          <li>Necesito ayuda.</li>
+          <li>¿Puedo ir al baño?</li>
+          <li>No entiendo.</li>
+        </ul>
+      </div>
 
-        <!-- UNIT 1 -->
-        <a href="/quechevere-spanish/level-1/unit-1/" style="text-decoration:none;">
-          <div class="unit">
-            <span class="pill">Unit 1</span>
-            <h3>Greetings & Introductions</h3>
-            <p>Learn how to greet people, introduce yourself, and ask simple questions.</p>
-            <div class="mini-progress">
-              <strong>Progress:</strong>
-              <progress id="u1bar" value="0" max="5"></progress>
-              <span class="muted" id="u1text">0/5</span>
-              <span class="status" id="u1status">In progress</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- UNIT 2 -->
-        <a href="/quechevere-spanish/level-1/unit-2/" style="text-decoration:none;">
-          <div class="unit">
-            <span class="pill">Unit 2</span>
-            <h3>Numbers & Classroom Language</h3>
-            <p>Numbers, classroom words, and beginner routines.</p>
-            <div class="mini-progress">
-              <strong>Progress:</strong>
-              <progress id="u2bar" value="0" max="3"></progress>
-              <span class="muted" id="u2text">0/3</span>
-              <span class="status" id="u2status">In progress</span>
-            </div>
-          </div>
-        </a>
-
-        <!-- PLACEHOLDERS -->
-        <div class="unit">
-          <span class="pill">Unit 3</span>
-          <h3>Descriptions & Adjectives</h3>
-          <p>Describe people and objects using simple sentences.</p>
-          <span class="muted">Coming next</span>
-        </div>
-
-        <div class="unit">
-          <span class="pill">Unit 4</span>
-          <h3>Family & Relationships</h3>
-          <p>Talk about family members and relationships.</p>
-          <span class="muted">Coming next</span>
-        </div>
-
-        <div class="unit">
-          <span class="pill">Unit 5</span>
-          <h3>Likes & Preferences</h3>
-          <p>Express what you like and don’t like.</p>
-          <span class="muted">Coming next</span>
-        </div>
-
-        <div class="unit">
-          <span class="pill">Unit 6</span>
-          <h3>Countries & Culture</h3>
-          <p>Spanish-speaking countries and basic cultural connections.</p>
-          <span class="muted">Coming next</span>
-        </div>
-
+      <div class="card">
+        <h2 class="section-title">Grammar basics</h2>
+        <p class="section-desc">Simple classroom structures:</p>
+        <ul>
+          <li>¿Puedo…? = Can I…?</li>
+          <li>No entiendo. = I don’t understand.</li>
+          <li>Repita, por favor. = Repeat, please.</li>
+          <li>¿Qué significa…? = What does … mean?</li>
+        </ul>
       </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container card culture">
+      <h2 class="section-title">🌎 Cultural Connection — Classroom Routines</h2>
+      <p class="section-desc">
+        <strong>Informational:</strong> In many Spanish-speaking countries, students greet the teacher and use polite language in class.
+        Depending on the school, routines can feel more formal than in the U.S.
+      </p>
+      <p class="section-desc">
+        <strong>Personal:</strong> In Colombia, I learned to use “por favor” and “gracias” all the time in class.
+        Those small words show respect and good manners.
+      </p>
+      <div class="prompt">
+        <strong>Reflect:</strong> In your classroom, what phrases show respect? How do students usually ask for help?
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2 class="section-title">Reading practice</h2>
+      <p class="section-desc">Read the text in Spanish. Then answer the questions in English.</p>
+
+      <div class="reading">
+        <p><strong>En la clase de español</strong></p>
+        <p>
+          Hoy es lunes y estoy en la clase de español. La profesora dice: “Buenos días.”
+          En mi cuaderno hay dos lápices y una carpeta. Yo no entiendo una palabra, entonces digo:
+          “No entiendo. ¿Qué significa ‘tarea’?” La profesora explica y yo digo: “Gracias.”
+          Después, necesito ayuda con los números. Pregunto: “¿Cómo se dice ‘seven’?”
+          La profesora responde: “Siete.” Yo repito: “Siete.” Al final de la clase, digo: “Adiós.”
+        </p>
+      </div>
+
+      <div class="q">
+        <label>1) What day is it in the story?</label>
+        <input type="text" placeholder="Type your answer in English..." />
+
+        <label>2) What does the student ask about the word “tarea”?</label>
+        <input type="text" placeholder="Type your answer in English..." />
+
+        <label>3) What number does the student learn in Spanish?</label>
+        <input type="text" placeholder="Type your answer in English..." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2 class="section-title">Writing practice</h2>
+      <p class="section-desc">Write 4–5 simple classroom sentences using Unit 2 phrases.</p>
+      <ul>
+        <li>No entiendo.</li>
+        <li>Necesito ayuda.</li>
+        <li>¿Qué significa…?</li>
+        <li>¿Cómo se dice…?</li>
+        <li>Repita, por favor.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="progress">
+    <div class="container card">
+      <h2 class="section-title">Track your progress (saved on this device)</h2>
+      <p class="section-desc">Check what you completed. Refresh — your checks should stay.</p>
+
+      <div class="checklist">
+        <label class="checkitem">
+          <input type="checkbox" id="u2vocab">
+          <div><strong>Vocabulary completed</strong><br><span>Reviewed and practiced Unit 2 vocabulary.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u2practice">
+          <div><strong>Practice completed</strong><br><span>Completed reading + writing practice.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u2review">
+          <div><strong>Review completed</strong><br><span>Quick review: numbers + classroom phrases.</span></div>
+        </label>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
-  // Unit 1 progress (5 items)
-  const u1Keys = ["u1vocab","u1grammar","u1reading","u1writing","u1review"];
-  // Unit 2 progress (3 items)
-  const u2Keys = ["u2vocab","u2practice","u2review"];
-
-  function doneCount(keys){
-    let done = 0;
-    keys.forEach(k => { if (localStorage.getItem(k) === "true") done++; });
-    return done;
-  }
-
-  function render(keys, barId, textId, statusId){
-    const done = doneCount(keys);
-    const total = keys.length;
-
-    const bar = document.getElementById(barId);
-    const text = document.getElementById(textId);
-    const status = document.getElementById(statusId);
-
-    if (bar){ bar.max = total; bar.value = done; }
-    if (text){ text.textContent = `${done}/${total}`; }
-
-    if (status){
-      status.classList.remove("complete");
-      if (done === total){
-        status.textContent = "✓ Complete";
-        status.classList.add("complete");
-      } else if (done === 0){
-        status.textContent = "Not started";
-      } else {
-        status.textContent = "In progress";
-      }
-    }
-  }
-
-  render(u1Keys, "u1bar", "u1text", "u1status");
-  render(u2Keys, "u2bar", "u2text", "u2status");
+  const boxes = ["u2vocab","u2practice","u2review"];
+  boxes.forEach(id => {
+    const checkbox = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+    if (saved === "true") checkbox.checked = true;
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem(id, checkbox.checked);
+    });
+  });
 </script>
 
 </body>
