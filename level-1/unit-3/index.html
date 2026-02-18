@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Level 1 • Unit 3 (Professional Model) | Seño Bluemel Que Chévere</title>
+
+  <style>
+    :root{
+      --navy:#1F2A44;
+      --teal:#1CA7A6;
+      --bg:#F4F6F8;
+      --white:#FFFFFF;
+      --text:#182033;
+      --muted:#5C677D;
+      --border:#DDE3EA;
+      --soft:#f9fafb;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.55;
+    }
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
+    header{
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
+    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+
+    .navlinks{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      font-weight:600;
+      color:var(--navy);
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{padding:8px 10px;border-radius:10px}
+    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .hero{padding:34px 0 16px}
+    .hero-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:26px;
+      box-shadow:0 8px 22px rgba(0,0,0,.05);
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-weight:800;
+      color:var(--teal);
+      background:rgba(28,167,166,.10);
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:12px;
+    }
+    h1{margin:0 0 8px;color:var(--navy);font-size:2rem;letter-spacing:-.3px}
+    .subhead{margin:0;color:var(--muted);max-width:92ch}
+
+    .section{padding:16px 0}
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
+    }
+    .section-title{margin:0 0 10px;color:var(--navy);font-size:1.25rem}
+    .section-desc{margin:0 0 12px;color:var(--muted);max-width:95ch}
+
+    .pill{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(31,42,68,.18);
+      background:rgba(31,42,68,.04);
+      color:var(--navy);
+      font-weight:800;
+      font-size:.85rem;
+    }
+
+    .nav-steps{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    .stepbtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--white);
+      font-weight:800;
+      color:var(--navy);
+    }
+    .stepbtn:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .task{
+      border-left:6px solid var(--teal);
+      background:rgba(28,167,166,.07);
+    }
+    .box{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      background:var(--soft);
+      margin-top:12px;
+    }
+
+    .grid2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
+
+    ul{margin:0;padding-left:18px;color:var(--muted)}
+    li{margin:6px 0}
+
+    .reading{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:14px;
+      background:#fbfcfd;
+      color:var(--text);
+    }
+    .reading p{margin:10px 0}
+
+    .q{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(244,246,248,.7);
+    }
+    .q label{display:block;margin:10px 0 6px;color:var(--navy);font-weight:800}
+    .q input, .q textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:1rem;
+      font-family:inherit;
+    }
+    .q textarea{min-height:90px;resize:vertical}
+
+    .checklist{display:grid;gap:10px;margin-top:10px}
+    .checkitem{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#f9fafb;
+    }
+    .checkitem input{margin-top:3px}
+    .checkitem strong{color:var(--navy)}
+    .checkitem span{color:var(--muted)}
+
+    details{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background:var(--white);
+      padding:14px 16px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      color:var(--navy);
+      list-style:none;
+    }
+    summary::-webkit-details-marker{display:none}
+    .teacher{
+      margin-top:12px;
+      color:var(--muted);
+    }
+    .teacher h3{margin:14px 0 8px;color:var(--navy)}
+    .teacher ul{margin:0;padding-left:18px}
+    .teacher li{margin:6px 0}
+
+    .rubric{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:.95rem;
+    }
+    .rubric th, .rubric td{
+      border:1px solid var(--border);
+      padding:10px;
+      vertical-align:top;
+    }
+    .rubric th{background:rgba(31,42,68,.04);color:var(--navy);text-align:left}
+
+    .note{
+      font-size:.95rem;
+      color:var(--muted);
+      margin-top:10px;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container navbar">
+    <a class="brand" href="/quechevere-spanish/">
+      <span class="name">Seño Bluemel</span>
+      <span class="tag">Que Chévere</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="/quechevere-spanish/">Home</a>
+      <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
+      <a href="/quechevere-spanish/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="kicker">Level 1 • Unit 3 (Professional Model)</div>
+        <h1>Descriptions & Adjectives</h1>
+        <p class="subhead">
+          Focus: describing people and objects using ser + adjectives, basic agreement (a/o, s), and high-frequency descriptors.
+          Goal: communicate clear descriptions and interpret them in context.
+        </p>
+
+        <div class="nav-steps" aria-label="Unit roadmap">
+          <a class="stepbtn" href="#stage1">Stage 1: Understand</a>
+          <a class="stepbtn" href="#stage2">Stage 2: Interact</a>
+          <a class="stepbtn" href="#stage3">Stage 3: Create</a>
+          <a class="stepbtn" href="#stage4">Stage 4: Reflect</a>
+          <a class="stepbtn" href="#stage5">Stage 5: Perform</a>
+          <a class="stepbtn" href="#progress">Progress</a>
+        </div>
+
+        <p class="note"><a href="/quechevere-spanish/level-1/">← Back to Level 1</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card task">
+      <h2 class="section-title">Unit Goal + Performance Task</h2>
+      <p class="section-desc"><span class="pill">Proficiency target: Novice Low → Novice Mid</span></p>
+      <p class="section-desc">
+        <strong>Student-friendly goal:</strong> By the end of this unit, I can describe people and objects using simple Spanish.
+      </p>
+      <p class="section-desc">
+        <strong>Essential Question:</strong> How do descriptions reflect what a culture notices and values?
+      </p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>End-of-Unit Performance Task (Preview):</strong></p>
+        <p style="margin:0">
+          Create a short “Lost & Found” description (spoken or written) for a missing item and a short description of a person.
+          Goal: be understood using clear, simple descriptors (color/size/qualities) and basic agreement.
+        </p>
+        <p class="note" style="margin:10px 0 0">Success = clear meaning. Accuracy is emerging.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 1 -->
+  <section class="section" id="stage1">
+    <div class="container card">
+      <h2 class="section-title">Stage 1 — Understand (Interpretive)</h2>
+      <p class="section-desc">Your job: get the gist and identify key descriptors (color, size, qualities).</p>
+
+      <div class="reading">
+        <p><strong>Mini Text A</strong></p>
+        <p>Mi mochila es grande y negra. Mi cuaderno es pequeño y rojo. Mi profesor es muy amable.</p>
+
+        <p><strong>Mini Text B</strong></p>
+        <p>La estudiante es inteligente y trabajadora. Su teléfono es nuevo y blanco. Su casa es pequeña.</p>
+
+        <p><strong>Mini Text C (Lost & Found)</strong></p>
+        <p>Busco una chaqueta azul. Es grande y muy cómoda. También busco una botella verde, pequeña y vieja.</p>
+      </div>
+
+      <div class="q">
+        <label>1) In English: What items are described in Text C?</label>
+        <input type="text" />
+
+        <label>2) In English: List 4 adjectives you see and what they likely mean.</label>
+        <textarea placeholder="Example: grande = big; pequeña = small; nueva = new; cómoda = comfortable"></textarea>
+
+        <label>3) In English: What is the difference between “negra” and “negro” in these texts?</label>
+        <input type="text" placeholder="Hint: agreement with the noun." />
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 2 -->
+  <section class="section" id="stage2">
+    <div class="container card">
+      <h2 class="section-title">Stage 2 — Interact (Interpersonal)</h2>
+      <p class="section-desc">Your job: ask for and give simple descriptions (3–4 turns).</p>
+
+      <div class="grid2">
+        <div class="box">
+          <p style="margin:0 0 8px"><strong>Core exchange (practice aloud)</strong></p>
+          <p style="margin:0">
+            A: ¿Cómo es ____?<br/>
+            B: Es ____ y ____. (color / size / quality)<br/>
+            A: ¿Es grande o pequeña?<br/>
+            B: Es ____.<br/>
+            A: Gracias.
+          </p>
+        </div>
+
+        <div class="box">
+          <p style="margin:0 0 8px"><strong>High-frequency adjectives (starter set)</strong></p>
+          <ul>
+            <li>grande / pequeño(a)</li>
+            <li>nuevo(a) / viejo(a)</li>
+            <li>bonito(a) / feo(a)</li>
+            <li>amable / simpático(a)</li>
+            <li>inteligente / trabajador(a)</li>
+            <li>cómodo(a) / difícil</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="q">
+        <label>Practice Task (Spanish): Write 5 lines of a description conversation.</label>
+        <textarea placeholder="Use: ¿Cómo es...? Es... ¿Es grande o pequeña?..."></textarea>
+
+        <label>Self-check (English): Did you use at least 3 adjectives?</label>
+        <input type="text" placeholder="Yes / No" />
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 3 -->
+  <section class="section" id="stage3">
+    <div class="container card">
+      <h2 class="section-title">Stage 3 — Create (Presentational)</h2>
+      <p class="section-desc">Your job: write clear descriptions of a person and an item.</p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Sentence frames</strong></p>
+        <ul>
+          <li>Mi ____ es ____ y ____.</li>
+          <li>La ____ es ____ y ____.</li>
+          <li>Mi amigo(a) es ____ y ____.</li>
+          <li>Busco un(a) ____ _____. Es ____ y ____.</li>
+        </ul>
+      </div>
+
+      <div class="q">
+        <label>Write: 1) a Lost & Found item description (Spanish, 3–4 sentences).</label>
+        <textarea placeholder="Busco una... Es..."></textarea>
+
+        <label>Write: 2) a person description (Spanish, 3–4 sentences).</label>
+        <textarea placeholder="Mi amigo(a) es..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 4 -->
+  <section class="section" id="stage4">
+    <div class="container card task">
+      <h2 class="section-title">Stage 4 — Reflect (Culture + Growth)</h2>
+      <p class="section-desc">Your job: connect descriptions to cultural perspectives and reflect on strategies.</p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Cultural Connection (Products • Practices • Perspectives)</strong></p>
+        <ul>
+          <li><strong>Product:</strong> Clothing styles and color choices vary across regions.</li>
+          <li><strong>Practice:</strong> People may describe others differently depending on what is considered polite.</li>
+          <li><strong>Perspective:</strong> What we describe first often reflects values (appearance, personality, community).</li>
+        </ul>
+      </div>
+
+      <div class="q">
+        <label>In English: What is considered polite to describe in your culture?</label>
+        <textarea></textarea>
+
+        <label>In English: What was easiest—colors, size, or personality adjectives?</label>
+        <input type="text" />
+      </div>
+    </div>
+  </section>
+
+  <!-- STAGE 5 -->
+  <section class="section" id="stage5">
+    <div class="container card">
+      <h2 class="section-title">Stage 5 — Perform (Assessment)</h2>
+      <p class="section-desc">Complete the performance task with clarity and simple language.</p>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Performance Task:</strong> “Lost & Found + Person Description”</p>
+        <ul>
+          <li>Item description: 3–4 sentences (color, size, quality)</li>
+          <li>Person description: 3–4 sentences (traits/qualities)</li>
+          <li>Use ser + adjectives, basic agreement</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <p style="margin:0 0 8px"><strong>Student-friendly rubric</strong></p>
+        <table class="rubric" aria-label="Student-friendly rubric">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Developing</th>
+              <th>On Target</th>
+              <th>Strong</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Task completion</strong></td>
+              <td>Missing parts</td>
+              <td>All parts included</td>
+              <td>All parts + clear detail</td>
+            </tr>
+            <tr>
+              <td><strong>Comprehensibility</strong></td>
+              <td>Hard to understand</td>
+              <td>Mostly understandable</td>
+              <td>Easy to understand</td>
+            </tr>
+            <tr>
+              <td><strong>Language control</strong></td>
+              <td>Errors block meaning</td>
+              <td>Errors don’t block meaning</td>
+              <td>More accurate + clear</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">Goal: communicate clearly. Accuracy develops over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="section" id="progress">
+    <div class="container card">
+      <h2 class="section-title">Track your progress (saved on this device)</h2>
+      <p class="section-desc">Check what you completed. Refresh — your checks should stay.</p>
+
+      <div class="checklist">
+        <label class="checkitem">
+          <input type="checkbox" id="u3stage1">
+          <div><strong>Stage 1 complete</strong><br><span>I can interpret descriptions for gist and key details.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u3stage2">
+          <div><strong>Stage 2 complete</strong><br><span>I can ask for and give descriptions in an exchange.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u3stage3">
+          <div><strong>Stage 3 complete</strong><br><span>I wrote clear descriptions of a person and an item.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u3stage4">
+          <div><strong>Stage 4 complete</strong><br><span>I reflected on culture and my strategies.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u3stage5">
+          <div><strong>Stage 5 complete</strong><br><span>I completed the performance task.</span></div>
+        </label>
+      </div>
+
+      <p class="note">Next: we will add Unit 3 to the Level 1 dashboard with a synced progress bar.</p>
+    </div>
+  </section>
+
+  <!-- TEACHER ALIGNMENT -->
+  <section class="section">
+    <div class="container">
+      <details>
+        <summary>Teacher Alignment & Standards (click to expand)</summary>
+
+        <div class="teacher">
+          <h3>ACTFL Modes Alignment</h3>
+          <ul>
+            <li><strong>Interpretive:</strong> interpret short descriptions for gist + key details (color/size/qualities).</li>
+            <li><strong>Interpersonal:</strong> ask/answer questions to describe an item/person in a short exchange.</li>
+            <li><strong>Presentational:</strong> produce short written/spoken descriptions with emerging agreement.</li>
+          </ul>
+
+          <h3>Proficiency Target</h3>
+          <ul>
+            <li>Novice Low → Novice Mid (simple descriptions with memorized and recombined language; comprehensibility focus).</li>
+          </ul>
+
+          <h3>Can-Do Statements (Teacher-facing)</h3>
+          <ul>
+            <li>I can identify key details in simple descriptions (who/what, color, size, qualities).</li>
+            <li>I can exchange information to describe an item/person using simple questions and responses.</li>
+            <li>I can present a short description that is understandable with emerging accuracy.</li>
+            <li>I can reflect on cultural perspectives related to description norms and politeness.</li>
+          </ul>
+
+          <h3>Suggested Pacing</h3>
+          <ul>
+            <li>5–8 days: Stage 1 (2), Stage 2 (2), Stage 3 (1–2), Stage 4 (1), Stage 5 (1).</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const boxes = ["u3stage1","u3stage2","u3stage3","u3stage4","u3stage5"];
+  boxes.forEach(id => {
+    const checkbox = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+    if (saved === "true") checkbox.checked = true;
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem(id, checkbox.checked);
+    });
+  });
+</script>
+
+</body>
+</html>
