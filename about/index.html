@@ -16,44 +16,49 @@
       --border:#DDE3EA;
     }
     *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
     body{
-      margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:var(--bg);
       color:var(--text);
+      background:var(--bg);
       line-height:1.5;
     }
     a{color:inherit;text-decoration:none}
     a:hover{text-decoration:underline}
-    .container{width:min(1000px, 92vw); margin:0 auto;}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
     header{
       background:var(--white);
       border-bottom:1px solid var(--border);
-      padding:16px 0;
+      position:sticky;
+      top:0;
+      z-index:50;
     }
-    .nav{
+    .navbar{
       display:flex;
-      gap:14px;
-      flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
     }
-    .brand{
-      font-weight:800;
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
+    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+
+    .navlinks{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      align-items:center;
+      justify-content:flex-end;
+      font-weight:600;
       color:var(--navy);
-      font-size:1.2rem;
     }
-    .links a{
-      font-weight:700;
-      color:var(--navy);
-      padding:8px 10px;
-      border-radius:10px;
-    }
-    .links a:hover{
-      background:rgba(28,167,166,.10);
-      text-decoration:none;
-    }
-    .hero{padding:48px 0 18px}
+    .navlinks a{padding:8px 10px;border-radius:10px}
+    .navlinks a.active,
+    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .hero{padding:42px 0 18px}
     .card{
       background:var(--white);
       border:1px solid var(--border);
@@ -61,29 +66,44 @@
       padding:28px;
       box-shadow:0 6px 18px rgba(0,0,0,.05);
     }
-    h1{margin:0 0 10px;color:var(--navy);font-size:2rem}
-    .subtitle{color:var(--muted);margin:0 0 16px}
-    .pill{
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:999px;
-      background:rgba(28,167,166,.10);
+    h1{
+      margin:0 0 10px;
       color:var(--navy);
-      font-weight:800;
+      font-size:2rem;
+      letter-spacing:-.3px;
+    }
+    .subtitle{color:var(--muted);margin:0 0 16px}
+
+    .pill{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+      color:var(--teal);
+      background:rgba(28,167,166,.10);
+      padding:8px 12px;
+      border-radius:999px;
       margin-bottom:14px;
     }
+
+    p{margin:0 0 12px;color:var(--muted);max-width:85ch}
+    strong{color:var(--navy)}
   </style>
 </head>
 
 <body>
 <header>
-  <div class="container nav">
-    <div class="brand">Seño Bluemel Que Chévere</div>
-    <div class="links">
+  <div class="container navbar">
+    <a class="brand" href="/quechevere-spanish/">
+      <span class="name">Seño Bluemel</span>
+      <span class="tag">Que Chévere</span>
+    </a>
+
+    <nav class="navlinks" aria-label="Main navigation">
       <a href="/quechevere-spanish/">Home</a>
       <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
-      <a href="/quechevere-spanish/about/">About</a>
-    </div>
+      <a class="active" href="/quechevere-spanish/about/">About</a>
+    </nav>
   </div>
 </header>
 
@@ -93,12 +113,10 @@
       <div class="card">
         <div class="pill">About</div>
         <h1>Meet Seño Bluemel</h1>
-        <p class="subtitle">
-          A structured Spanish learning space with a cultural heartbeat.
-        </p>
+        <p class="subtitle">A structured Spanish learning space with a cultural heartbeat.</p>
 
         <p>
-          Hola 😊 I’m Seño Bluemel — a Spanish teacher from Barranquilla, Colombia.
+          Hola 😊 I’m Seño Bluemel — a Spanish teacher from <strong>Barranquilla, Colombia</strong>.
           Since 2018, I’ve shared Spanish learning online with students and teachers who want clear, effective practice.
         </p>
 
