@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Level 1 • Unit 1 | Seño Bluemel Que Chévere</title>
+
+  <style>
+    :root{
+      --navy:#1F2A44;
+      --teal:#1CA7A6;
+      --bg:#F4F6F8;
+      --white:#FFFFFF;
+      --text:#182033;
+      --muted:#5C677D;
+      --border:#DDE3EA;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
+    header{
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
+    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+
+    .navlinks{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      font-weight:600;
+      color:var(--navy);
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{padding:8px 10px;border-radius:10px}
+    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .hero{padding:36px 0 16px}
+    .hero-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:26px;
+      box-shadow:0 8px 22px rgba(0,0,0,.05);
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-weight:800;
+      color:var(--teal);
+      background:rgba(28,167,166,.10);
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:12px;
+    }
+    h1{margin:0 0 8px;color:var(--navy);font-size:2rem}
+    .subhead{margin:0;color:var(--muted);max-width:85ch}
+
+    .section{padding:18px 0}
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:22px;
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
+    }
+    .section-title{margin:0 0 10px;color:var(--navy);font-size:1.25rem}
+    .section-desc{margin:0 0 14px;color:var(--muted);max-width:90ch}
+
+    .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--white);
+      font-weight:800;
+    }
+    .btn.primary{background:var(--navy);color:var(--white);border-color:transparent}
+    .btn.secondary{background:rgba(28,167,166,.12);border-color:rgba(28,167,166,.30)}
+    .btn:hover{text-decoration:none;transform:translateY(-1px)}
+
+    .grid2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
+
+    ul{margin:0;padding-left:18px;color:var(--muted)}
+    li{margin:6px 0}
+
+    .checklist{display:grid;gap:10px;margin-top:10px}
+    .checkitem{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#f9fafb;
+    }
+    .checkitem input{margin-top:3px}
+    .checkitem strong{color:var(--navy)}
+    .checkitem span{color:var(--muted)}
+    .reading{
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fbfcfd;
+      color:var(--text);
+    }
+    .q{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(244,246,248,.7);
+    }
+    .q label{display:block;margin:10px 0 6px;color:var(--navy);font-weight:800}
+    .q input{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:1rem;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container navbar">
+    <a class="brand" href="/quechevere-spanish/">
+      <span class="name">Seño Bluemel</span>
+      <span class="tag">Que Chévere</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="/quechevere-spanish/">Home</a>
+      <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
+      <a href="/quechevere-spanish/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="kicker">Level 1 • Unit 1</div>
+        <h1>Greetings & Introductions</h1>
+        <p class="subhead">
+          In this unit, you will learn how to greet people, introduce yourself, and ask simple questions with confidence.
+        </p>
+        <div class="btnrow">
+          <a class="btn" href="/quechevere-spanish/level-1/">← Back to Level 1</a>
+          <a class="btn primary" href="#progress">Track progress</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2 class="section-title">Recommended path</h2>
+      <p class="section-desc">Follow this order or jump to what you need.</p>
+      <ul>
+        <li>Vocabulary</li>
+        <li>Grammar basics</li>
+        <li>Reading practice</li>
+        <li>Writing practice</li>
+        <li>Review</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid2">
+      <div class="card">
+        <h2 class="section-title">Vocabulary</h2>
+        <p class="section-desc">Core words and phrases for Unit 1:</p>
+        <ul>
+          <li>Hola / Buenos días / Buenas tardes / Buenas noches</li>
+          <li>¿Cómo estás?</li>
+          <li>Estoy bien / Estoy más o menos / Estoy mal</li>
+          <li>Me llamo… / ¿Cómo te llamas?</li>
+          <li>Mucho gusto</li>
+          <li>¿De dónde eres? / Soy de…</li>
+          <li>Gracias / De nada</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">Grammar basics</h2>
+        <p class="section-desc">Simple building blocks (keep it basic):</p>
+        <ul>
+          <li>Yo = I, Tú = you</li>
+          <li>Me llamo… = My name is…</li>
+          <li>Soy de… = I am from…</li>
+          <li>Questions often start with: ¿Cómo…? ¿De dónde…?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2 class="section-title">Reading practice</h2>
+      <p class="section-desc">Read the text in Spanish. Then answer the questions in English.</p>
+
+      <div class="reading">
+        <p><strong>Un nuevo estudiante</strong></p>
+        <p>
+          Hola. Me llamo Daniel. Soy un estudiante nuevo. Hoy estoy en la clase de español.
+          La profesora dice: “Buenos días, clase.” Yo respondo: “Buenos días.”
+          Daniel es de Texas, pero su familia es de México. Daniel está un poco nervioso, pero está contento.
+          En la clase, Daniel conoce a Ana. Ana dice: “Mucho gusto.” Daniel dice: “Mucho gusto también.”
+        </p>
+      </div>
+
+      <div class="q">
+        <label>1) What is the new student’s name?</label>
+        <input type="text" placeholder="Type your answer in English..." />
+
+        <label>2) Where is Daniel from?</label>
+        <input type="text" placeholder="Type your answer in English..." />
+
+        <label>3) How does the teacher greet the class?</label>
+        <input type="text" placeholder="Type your answer in English..." />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container card">
+      <h2 class="section-title">Writing practice</h2>
+      <p class="section-desc">Write 4–5 simple sentences about yourself (use Unit 1 phrases).</p>
+      <ul>
+        <li>Me llamo…</li>
+        <li>Soy de…</li>
+        <li>Hoy estoy…</li>
+        <li>Me gusta… (optional)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="progress">
+    <div class="container card">
+      <h2 class="section-title">Track your progress (saved on this device)</h2>
+      <p class="section-desc">Check what you completed. Refresh the page — your checks should stay.</p>
+
+      <div class="checklist">
+        <label class="checkitem">
+          <input type="checkbox" id="u1vocab">
+          <div><strong>Vocabulary completed</strong><br><span>Reviewed and practiced Unit 1 vocabulary.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u1grammar">
+          <div><strong>Grammar completed</strong><br><span>Reviewed the basic sentence patterns.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u1reading">
+          <div><strong>Reading completed</strong><br><span>Read the text and answered the questions.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u1writing">
+          <div><strong>Writing completed</strong><br><span>Wrote 4–5 sentences using Unit 1 phrases.</span></div>
+        </label>
+
+        <label class="checkitem">
+          <input type="checkbox" id="u1review">
+          <div><strong>Review completed</strong><br><span>Quick check: greetings + introductions.</span></div>
+        </label>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const boxes = ["u1vocab","u1grammar","u1reading","u1writing","u1review"];
+  boxes.forEach(id => {
+    const checkbox = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+    if (saved === "true") checkbox.checked = true;
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem(id, checkbox.checked);
+    });
+  });
+</script>
+
+</body>
+</html>
