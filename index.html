@@ -3,228 +3,206 @@
 <head>
   <title>Que Chevere Spanish</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body { font-family: Arial, sans-serif; background-color:#f4f7fb; margin:0; }
-    .wrap { max-width: 900px; margin: 0 auto; padding: 50px 18px; text-align:center; }
-    h1 { color:#1e3a8a; font-size: 46px; margin: 0 0 10px; }
-    p { font-size: 18px; color:#333; line-height:1.5; margin: 8px 0; }
-    .buttons { margin: 25px 0 10px; }
-    .button {
-      display:inline-block; margin:10px; padding:14px 22px; font-size:18px;
-      color:white; background-color:#2563eb; border-radius:10px; text-decoration:none;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
     }
-    .button:hover { background-color:#1e40af; }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 50px 18px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #1e3a8a;
+      font-size: 46px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 10px;
+      padding: 14px 22px;
+      font-size: 18px;
+      color: white;
+      background-color: #2563eb;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #1e40af;
+    }
 
     .youtube-button {
-      display:inline-block;
-      margin:20px 10px;
-      padding:14px 26px;
-      font-size:18px;
-      color:white;
-      background-color:#dc2626;
-      border-radius:10px;
-      text-decoration:none;
+      display: inline-block;
+      margin: 20px 10px;
+      padding: 14px 26px;
+      font-size: 18px;
+      color: white;
+      background-color: #dc2626;
+      border-radius: 10px;
+      text-decoration: none;
     }
+
     .youtube-button:hover {
-      background-color:#991b1b;
+      background-color: #991b1b;
     }
 
     .card {
-      background:white; border-radius:14px; padding:22px; margin: 18px 0;
-      text-align:left; box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin: 18px 0;
+      text-align: left;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
-    h2 { margin: 0 0 10px; color:#111827; }
-    .tag { display:inline-block; font-size: 13px; padding: 4px 10px; border-radius: 999px; background:#e8eefc; color:#1e3a8a; }
-    .small { font-size: 15px; color:#4b5563; }
-    .footer { margin-top: 30px; font-size: 14px; color:#6b7280; }
-    .toplink { float:right; font-size:14px; text-decoration:none; color:#2563eb; }
-    hr { border:none; border-top:1px solid #e5e7eb; margin: 22px 0; }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .small {
+      font-size: 14px;
+      color: #666;
+    }
+
+    hr {
+      margin: 25px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-top: 8px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <h1>Que Chévere Spanish 🇪🇸</h1>
-    <p>Interactive Spanish practice with <strong>Seño Bluemel</strong>.</p>
-    <p class="small">Learn here. Practice here. Grow your Spanish with confidence.</p>
 
-    <!-- YouTube Button -->
-    <a href="https://www.youtube.com/channel/UCvfq1AXJiDzXMV4VlA9ve_w" 
-       target="_blank" 
-       class="youtube-button">
-       🎥 Watch on YouTube
-    </a>
+<div class="wrap">
 
-    <div class="buttons">
-      <a href="#level" class="button">Practice by Level</a>
-      <a href="#skill" class="button">Practice by Skill</a>
-      <a href="#unit" class="button">Explore by Unit</a>
+  <h1>Que Chévere Spanish 🇪🇸</h1>
+  <p>Interactive Spanish practice with <strong>Seño Bluemel</strong>.</p>
+
+  <a href="https://www.youtube.com/channel/UCvfq1AXJiDzXMV4VlA9ve_w"
+     target="_blank"
+     class="youtube-button">
+     🎥 Watch on YouTube
+  </a>
+
+  <hr>
+
+  <div class="card">
+    <h2>Interactive Activity: Error Correction</h2>
+    <p class="small">Type the corrected sentence and click Check.</p>
+
+    <p>❌ <span id="ec-prompt"></span></p>
+
+    <input id="ec-input" placeholder="Type the corrected sentence here..." />
+
+    <div style="margin-top:15px;">
+      <button id="ec-check" class="button">Check</button>
+      <button id="ec-show" class="button" style="background:#6b7280;">Show Answer</button>
+      <button id="ec-next" class="button" style="background:#059669;">Next</button>
+      <button id="ec-reset" class="button" style="background:#7c3aed;">Restart</button>
     </div>
 
-    <hr>
+    <p id="ec-feedback" style="margin-top:15px;"></p>
+    <p class="small" id="ec-score"></p>
 
-    <!-- PRACTICE BY LEVEL -->
-    <div id="level" class="card">
-      <a class="toplink" href="#">Back to top ↑</a>
-      <span class="tag">Practice by Level</span>
-      <h2>Choose your level</h2>
-      <p><strong>Spanish A (Foundations):</strong> vocabulary, sentence frames, short readings, lots of support.</p>
-      <p><strong>Spanish B (Expanding):</strong> longer readings, more output, more independence.</p>
-      <p><strong>Challenge:</strong> extension tasks, higher-level writing, speed rounds.</p>
-      <p class="small">✅ Coming next: clickable level pages + auto-check activities.</p>
-    </div>
-
-    <!-- PRACTICE BY SKILL -->
-    <div id="skill" class="card">
-      <a class="toplink" href="#">Back to top ↑</a>
-      <span class="tag">Practice by Skill</span>
-      <h2>Choose a skill</h2>
-      <p><strong>Reading:</strong> Spanish texts + questions in English.</p>
-      <p><strong>Vocabulary:</strong> matching, multiple choice, and quick checks.</p>
-      <p><strong>Grammar:</strong> noticing + error correction.</p>
-      <p><strong>Writing:</strong> sentence building + short responses.</p>
-     <hr>
-
-<h2 style="margin-top:10px;">Interactive Activity: Error Correction</h2>
-<p class="small">Type the corrected sentence and click <strong>Check</strong>. (We can make it more forgiving later.)</p>
-
-<div id="activity" style="margin-top:12px;">
-  <div id="ec-card" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:16px;">
-    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-      <div>
-        <span class="tag">Error Correction</span>
-        <span id="ec-progress" class="small" style="margin-left:10px;"></span>
-      </div>
-      <div class="small" id="ec-score"></div>
-    </div>
-
-    <p style="font-size:18px; margin-top:12px;">
-      ❌ <span id="ec-prompt"></span>
-    </p>
-
-    <label class="small" for="ec-input"><strong>Your correction:</strong></label>
-    <input id="ec-input" type="text"
-      style="width:100%; padding:12px; border-radius:10px; border:1px solid #d1d5db; font-size:16px; margin-top:6px;"
-      placeholder="Type the corrected sentence here..." />
-
-    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-      <button id="ec-check" class="button" style="border:none; cursor:pointer;">Check</button>
-      <button id="ec-show" class="button" style="border:none; cursor:pointer; background:#6b7280;">Show Answer</button>
-      <button id="ec-next" class="button" style="border:none; cursor:pointer; background:#059669;">Next</button>
-      <button id="ec-reset" class="button" style="border:none; cursor:pointer; background:#7c3aed;">Restart</button>
-    </div>
-
-    <p id="ec-feedback" style="margin-top:12px; font-size:16px;"></p>
-    <p class="small" style="margin-top:6px;" id="ec-hint"></p>
   </div>
+
+  <div class="footer">
+    © Seño Bluemel • Que Chévere Spanish
+  </div>
+
 </div>
 
 <script>
-  // --- Error Correction Activity (starter set) ---
+window.addEventListener("DOMContentLoaded", () => {
+
   const errorItems = [
     {
       wrong: "España va en Europa.",
-      right: "España está en Europa.",
-      hint: "Use 'estar' for location."
+      right: "España está en Europa."
     },
     {
       wrong: "La capital de Puerto Rico está San Juan.",
-      right: "La capital de Puerto Rico es San Juan.",
-      hint: "Use 'ser' for identity/definition."
+      right: "La capital de Puerto Rico es San Juan."
     },
     {
       wrong: "Estoy a México en el verano.",
-      right: "Estoy en México en el verano.",
-      hint: "Use 'en' for location (in a place)."
-    },
-    {
-      wrong: "El cuaderno es rojo y la mochila es rojos.",
-      right: "El cuaderno es rojo y la mochila es roja.",
-      hint: "Adjectives agree in gender/number."
-    },
-    {
-      wrong: "Tengo una camisa azules.",
-      right: "Tengo una camisa azul.",
-      hint: "If it's singular, the color stays singular."
-    },
-    {
-      wrong: "Mis lápiz son amarillo.",
-      right: "Mis lápices son amarillos.",
-      hint: "Plural noun + plural adjective."
+      right: "Estoy en México en el verano."
     }
   ];
 
-  let idx = 0;
+  let index = 0;
   let score = 0;
-  let attempts = 0;
 
-  function normalize(s) {
-    return s.trim().replace(/\s+/g, " ");
-  }
-
-  function render() {
-    const item = errorItems[idx];
-    document.getElementById("ec-prompt").textContent = item.wrong;
+  function showQuestion() {
+    document.getElementById("ec-prompt").textContent = errorItems[index].wrong;
     document.getElementById("ec-input").value = "";
     document.getElementById("ec-feedback").textContent = "";
-    document.getElementById("ec-hint").textContent = item.hint ? ("Hint: " + item.hint) : "";
-    document.getElementById("ec-progress").textContent = `Item ${idx + 1} of ${errorItems.length}`;
-    document.getElementById("ec-score").textContent = `Score: ${score} / ${errorItems.length} • Attempts: ${attempts}`;
-    document.getElementById("ec-input").focus();
+    document.getElementById("ec-score").textContent =
+      "Score: " + score + " / " + errorItems.length;
   }
 
-  function renderScoreOnly() {
-    document.getElementById("ec-score").textContent = `Score: ${score} / ${errorItems.length} • Attempts: ${attempts}`;
-  }
-
-  function checkAnswer(showCorrect=false) {
-    const item = errorItems[idx];
-    const user = normalize(document.getElementById("ec-input").value);
-    const correct = normalize(item.right);
-
-    if (showCorrect) {
-      document.getElementById("ec-feedback").innerHTML =
-        `✅ Correct answer: <strong>${item.right}</strong>`;
-      return;
-    }
-
-    attempts += 1;
-
-    if (user.length === 0) {
-      document.getElementById("ec-feedback").textContent = "Type your correction first 🙂";
-      renderScoreOnly();
-      return;
-    }
-
-    if (user === correct) {
-      if (!errorItems[idx].done) {
-        score += 1;
-        errorItems[idx].done = true;
-      }
-      document.getElementById("ec-feedback").innerHTML = "✅ Nice! That’s correct.";
+  document.getElementById("ec-check").addEventListener("click", () => {
+    const userAnswer = document.getElementById("ec-input").value.trim();
+    if (userAnswer === errorItems[index].right) {
+      document.getElementById("ec-feedback").textContent = "✅ Correct!";
+      score++;
     } else {
-  document.getElementById("ec-feedback").innerHTML =
-    "❌ Not quite. Try again, or click <strong>Show Answer</strong>.";
-}
+      document.getElementById("ec-feedback").textContent = "❌ Try again.";
+    }
+    document.getElementById("ec-score").textContent =
+      "Score: " + score + " / " + errorItems.length;
+  });
+
+  document.getElementById("ec-show").addEventListener("click", () => {
+    document.getElementById("ec-feedback").textContent =
+      "Correct answer: " + errorItems[index].right;
+  });
+
+  document.getElementById("ec-next").addEventListener("click", () => {
+    index = (index + 1) % errorItems.length;
+    showQuestion();
+  });
+
+  document.getElementById("ec-reset").addEventListener("click", () => {
+    index = 0;
+    score = 0;
+    showQuestion();
+  });
+
+  showQuestion();
+
+});
 </script>
 
-      <p class="small">✅ Coming next: first interactive activities (no login).</p>
-    </div>
-
-    <!-- EXPLORE BY UNIT -->
-    <div id="unit" class="card">
-      <a class="toplink" href="#">Back to top ↑</a>
-      <span class="tag">Explore by Unit</span>
-      <h2>Explore your units</h2>
-      <p><strong>Unit 1:</strong> (Coming soon)</p>
-      <p><strong>Unit 2:</strong> (Coming soon)</p>
-      <p><strong>Unit 3:</strong> Colores y Descripciones</p>
-      <p class="small">✅ Coming next: Unit pages with readings + practice games.</p>
-    </div>
-
-    <div class="footer">
-      © Seño Bluemel • Que Chévere Spanish
-    </div>
-  </div>
 </body>
 </html>
