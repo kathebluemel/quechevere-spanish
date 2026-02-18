@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Level 1 • Unit 2 | Seño Bluemel Que Chévere</title>
+
+  <style>
+    :root{
+      --navy:#1F2A44;
+      --teal:#1CA7A6;
+      --bg:#F4F6F8;
+      --white:#FFFFFF;
+      --text:#182033;
+      --muted:#5C677D;
+      --border:#DDE3EA;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
+    header{
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+    .navbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{display:flex;flex-direction:column}
+    .brand .name{font-weight:800;color:var(--navy)}
+    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+
+    .navlinks{
+      display:flex;
+      gap:14px;
+      font-weight:600;
+      color:var(--navy);
+    }
+    .navlinks a{padding:8px 10px;border-radius:10px}
+    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+
+    .hero{padding:36px 0 16px}
+    .hero-card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:20px;
+      padding:26px;
+      box-shadow:0 8px 22px rgba(0,0,0,.05);
+    }
+    .kicker{
+      display:inline-flex;
+      font-weight:800;
+      color:var(--teal);
+      background:rgba(28,167,166,.10);
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:12px;
+    }
+    h1{margin:0 0 8px;color:var(--navy);font-size:2rem}
+    .subhead{color:var(--muted)}
+
+    .section{padding:18px 0}
+    .card{
+      background:var(--white);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:22px;
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
+    }
+    .section-title{margin:0 0 10px;color:var(--navy)}
+    .section-desc{margin:0 0 14px;color:var(--muted)}
+
+    ul{padding-left:18px;color:var(--muted)}
+    li{margin:6px 0}
+
+    .culture{
+      border-left:6px solid var(--teal);
+      background:rgba(28,167,166,.07);
+    }
+
+    .checklist{display:grid;gap:10px;margin-top:10px}
+    .checkitem{
+      display:flex;
+      gap:10px;
+      padding:10px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#f9fafb;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="container navbar">
+    <a class="brand" href="/quechevere-spanish/">
+      <span class="name">Seño Bluemel</span>
+      <span class="tag">Que Chévere</span>
+    </a>
+
+    <nav class="navlinks">
+      <a href="/quechevere-spanish/">Home</a>
+      <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
+      <a href="/quechevere-spanish/about/">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-card">
+      <div class="kicker">Level 1 • Unit 2</div>
+      <h1>Numbers & Classroom Language</h1>
+      <p class="subhead">
+        In this unit, you will learn numbers and essential classroom phrases.
+      </p>
+      <a href="/quechevere-spanish/level-1/">← Back to Level 1</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container card">
+    <h2 class="section-title">Vocabulary</h2>
+    <ul>
+      <li>Uno, dos, tres, cuatro, cinco...</li>
+      <li>¿Cómo se dice...?</li>
+      <li>¿Qué significa...?</li>
+      <li>Repita, por favor.</li>
+      <li>Necesito ayuda.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container card culture">
+    <h2 class="section-title">🌎 Cultural Connection — Classroom Culture</h2>
+    <p>
+      In many Latin American classrooms, students greet the teacher when entering.
+      Respect and formality can be important depending on the region.
+    </p>
+    <p>
+      In Colombia, students often stand when greeting the teacher in more traditional schools.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="progress">
+  <div class="container card">
+    <h2 class="section-title">Track your progress</h2>
+
+    <div class="checklist">
+      <label class="checkitem">
+        <input type="checkbox" id="u2vocab"> Vocabulary completed
+      </label>
+
+      <label class="checkitem">
+        <input type="checkbox" id="u2practice"> Practice completed
+      </label>
+
+      <label class="checkitem">
+        <input type="checkbox" id="u2review"> Review completed
+      </label>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+  const boxes = ["u2vocab","u2practice","u2review"];
+  boxes.forEach(id => {
+    const checkbox = document.getElementById(id);
+    const saved = localStorage.getItem(id);
+    if (saved === "true") checkbox.checked = true;
+    checkbox.addEventListener("change", () => {
+      localStorage.setItem(id, checkbox.checked);
+    });
+  });
+</script>
+
+</body>
+</html>
