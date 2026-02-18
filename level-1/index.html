@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Level 1 • Unit 2 | Seño Bluemel Que Chévere</title>
+  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
@@ -16,146 +16,85 @@
       --border:#DDE3EA;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
     body{
+      margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
       background:var(--bg);
-      line-height:1.5;
+      color:var(--text);
     }
-    a{color:inherit;text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{width:min(1100px, 92vw); margin:0 auto;}
-
+    .container{width:min(1100px,92vw);margin:0 auto}
     header{
       background:var(--white);
       border-bottom:1px solid var(--border);
-      position:sticky;
-      top:0;
-      z-index:50;
     }
     .navbar{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      padding:14px 0;
-      gap:16px;
-    }
-    .brand{display:flex;flex-direction:column;line-height:1.1}
-    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
-    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
-
-    .navlinks{
-      display:flex;
-      gap:14px;
       align-items:center;
-      font-weight:600;
-      color:var(--navy);
-      flex-wrap:wrap;
-      justify-content:flex-end;
+      padding:14px 0;
     }
-    .navlinks a{padding:8px 10px;border-radius:10px}
-    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+    .brand{
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    }
+    .brand .name{font-weight:800;color:var(--navy)}
+    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+    .navlinks a{
+      margin-left:14px;
+      font-weight:600;
+      text-decoration:none;
+      color:var(--navy);
+    }
 
-    .hero{padding:36px 0 16px}
+    .hero{
+      padding:40px 0 20px;
+    }
     .hero-card{
       background:var(--white);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:26px;
-      box-shadow:0 8px 22px rgba(0,0,0,.05);
-    }
-    .kicker{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      font-weight:800;
-      color:var(--teal);
-      background:rgba(28,167,166,.10);
-      padding:8px 12px;
-      border-radius:999px;
-      margin-bottom:12px;
-    }
-    h1{margin:0 0 8px;color:var(--navy);font-size:2rem}
-    .subhead{margin:0;color:var(--muted);max-width:85ch}
-
-    .section{padding:18px 0}
-    .card{
-      background:var(--white);
-      border:1px solid var(--border);
+      padding:24px;
       border-radius:18px;
-      padding:22px;
-      box-shadow:0 6px 18px rgba(0,0,0,.04);
-    }
-    .section-title{margin:0 0 10px;color:var(--navy);font-size:1.25rem}
-    .section-desc{margin:0 0 14px;color:var(--muted);max-width:90ch}
-
-    .grid2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
-    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
-
-    ul{margin:0;padding-left:18px;color:var(--muted)}
-    li{margin:6px 0}
-
-    .culture{
-      border-left:6px solid var(--teal);
-      background:rgba(28,167,166,.07);
-    }
-    .prompt{
-      margin-top:10px;
-      padding:12px 14px;
-      border-radius:14px;
       border:1px solid var(--border);
+    }
+    h1{margin:0 0 8px;color:var(--navy)}
+    .section{padding:20px 0}
+    .unit-grid{
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    }
+    .unit{
       background:var(--white);
-      color:var(--text);
-    }
-
-    .reading{
-      padding:14px;
-      border-radius:14px;
+      padding:16px;
+      border-radius:16px;
       border:1px solid var(--border);
-      background:#fbfcfd;
-      color:var(--text);
     }
-    .q{
-      margin-top:12px;
-      padding:14px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:rgba(244,246,248,.7);
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(31,42,68,.08);
+      font-weight:800;
+      font-size:.8rem;
+      margin-bottom:8px;
     }
-    .q label{display:block;margin:10px 0 6px;color:var(--navy);font-weight:800}
-    .q input{
-      width:100%;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      font-size:1rem;
+    progress{width:100%;height:14px;margin-top:8px}
+    .status{
+      display:inline-block;
+      margin-top:6px;
+      font-weight:700;
+      font-size:.85rem;
     }
-
-    .checklist{display:grid;gap:10px;margin-top:10px}
-    .checkitem{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#f9fafb;
-    }
-    .checkitem input{margin-top:3px}
-    .checkitem strong{color:var(--navy)}
-    .checkitem span{color:var(--muted)}
   </style>
 </head>
 
 <body>
 <header>
   <div class="container navbar">
-    <a class="brand" href="/quechevere-spanish/">
+    <div class="brand">
       <span class="name">Seño Bluemel</span>
       <span class="tag">Que Chévere</span>
-    </a>
-
+    </div>
     <nav class="navlinks">
       <a href="/quechevere-spanish/">Home</a>
       <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
@@ -168,150 +107,73 @@
   <section class="hero">
     <div class="container">
       <div class="hero-card">
-        <div class="kicker">Level 1 • Unit 2</div>
-        <h1>Numbers & Classroom Language</h1>
-        <p class="subhead">
-          In this unit, you will learn numbers and essential classroom phrases to communicate during class.
-        </p>
-        <p class="subhead" style="margin-top:10px">
-          <a href="/quechevere-spanish/level-1/">← Back to Level 1</a>
-        </p>
+        <h1>Spanish Level 1 — Foundations of Communication</h1>
+        <p>Proficiency Target: Novice Low → Novice Mid</p>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container card">
-      <h2 class="section-title">Recommended path</h2>
-      <p class="section-desc">Vocabulary → Grammar basics → Reading → Writing → Review</p>
-    </div>
-  </section>
+    <div class="container">
+      <div class="unit-grid">
 
-  <section class="section">
-    <div class="container grid2">
-      <div class="card">
-        <h2 class="section-title">Vocabulary</h2>
-        <p class="section-desc">Core words and phrases for Unit 2:</p>
-        <ul>
-          <li>Cero, uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez</li>
-          <li>¿Cómo se dice…?</li>
-          <li>¿Qué significa…?</li>
-          <li>Repita, por favor.</li>
-          <li>Necesito ayuda.</li>
-          <li>¿Puedo ir al baño?</li>
-          <li>No entiendo.</li>
-        </ul>
-      </div>
+        <!-- UNIT 1 -->
+        <a href="/quechevere-spanish/level-1/unit-1/" style="text-decoration:none;color:inherit;">
+          <div class="unit">
+            <span class="pill">Unit 1</span>
+            <h3>Identity & First Encounters</h3>
+            <p>Greeting, name, origin, age, descriptors.</p>
 
-      <div class="card">
-        <h2 class="section-title">Grammar basics</h2>
-        <p class="section-desc">Simple classroom structures:</p>
-        <ul>
-          <li>¿Puedo…? = Can I…?</li>
-          <li>No entiendo. = I don’t understand.</li>
-          <li>Repita, por favor. = Repeat, please.</li>
-          <li>¿Qué significa…? = What does … mean?</li>
-        </ul>
+            <progress id="u1bar" value="0" max="5"></progress>
+            <div class="status" id="u1status"></div>
+          </div>
+        </a>
+
+        <!-- UNIT 2 -->
+        <a href="/quechevere-spanish/level-1/unit-2/" style="text-decoration:none;color:inherit;">
+          <div class="unit">
+            <span class="pill">Unit 2</span>
+            <h3>Numbers & Classroom Language</h3>
+            <p>Numbers and classroom survival phrases.</p>
+
+            <progress id="u2bar" value="0" max="3"></progress>
+            <div class="status" id="u2status"></div>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
-
-  <section class="section">
-    <div class="container card culture">
-      <h2 class="section-title">🌎 Cultural Connection — Classroom Routines</h2>
-      <p class="section-desc">
-        <strong>Informational:</strong> In many Spanish-speaking countries, students greet the teacher and use polite language in class.
-        Depending on the school, routines can feel more formal than in the U.S.
-      </p>
-      <p class="section-desc">
-        <strong>Personal:</strong> In Colombia, I learned to use “por favor” and “gracias” all the time in class.
-        Those small words show respect and good manners.
-      </p>
-      <div class="prompt">
-        <strong>Reflect:</strong> In your classroom, what phrases show respect? How do students usually ask for help?
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container card">
-      <h2 class="section-title">Reading practice</h2>
-      <p class="section-desc">Read the text in Spanish. Then answer the questions in English.</p>
-
-      <div class="reading">
-        <p><strong>En la clase de español</strong></p>
-        <p>
-          Hoy es lunes y estoy en la clase de español. La profesora dice: “Buenos días.”
-          En mi cuaderno hay dos lápices y una carpeta. Yo no entiendo una palabra, entonces digo:
-          “No entiendo. ¿Qué significa ‘tarea’?” La profesora explica y yo digo: “Gracias.”
-          Después, necesito ayuda con los números. Pregunto: “¿Cómo se dice ‘seven’?”
-          La profesora responde: “Siete.” Yo repito: “Siete.” Al final de la clase, digo: “Adiós.”
-        </p>
-      </div>
-
-      <div class="q">
-        <label>1) What day is it in the story?</label>
-        <input type="text" placeholder="Type your answer in English..." />
-
-        <label>2) What does the student ask about the word “tarea”?</label>
-        <input type="text" placeholder="Type your answer in English..." />
-
-        <label>3) What number does the student learn in Spanish?</label>
-        <input type="text" placeholder="Type your answer in English..." />
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container card">
-      <h2 class="section-title">Writing practice</h2>
-      <p class="section-desc">Write 4–5 simple classroom sentences using Unit 2 phrases.</p>
-      <ul>
-        <li>No entiendo.</li>
-        <li>Necesito ayuda.</li>
-        <li>¿Qué significa…?</li>
-        <li>¿Cómo se dice…?</li>
-        <li>Repita, por favor.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section" id="progress">
-    <div class="container card">
-      <h2 class="section-title">Track your progress (saved on this device)</h2>
-      <p class="section-desc">Check what you completed. Refresh — your checks should stay.</p>
-
-      <div class="checklist">
-        <label class="checkitem">
-          <input type="checkbox" id="u2vocab">
-          <div><strong>Vocabulary completed</strong><br><span>Reviewed and practiced Unit 2 vocabulary.</span></div>
-        </label>
-
-        <label class="checkitem">
-          <input type="checkbox" id="u2practice">
-          <div><strong>Practice completed</strong><br><span>Completed reading + writing practice.</span></div>
-        </label>
-
-        <label class="checkitem">
-          <input type="checkbox" id="u2review">
-          <div><strong>Review completed</strong><br><span>Quick review: numbers + classroom phrases.</span></div>
-        </label>
-      </div>
-    </div>
-  </section>
-
 </main>
 
 <script>
-  const boxes = ["u2vocab","u2practice","u2review"];
-  boxes.forEach(id => {
-    const checkbox = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (saved === "true") checkbox.checked = true;
-    checkbox.addEventListener("change", () => {
-      localStorage.setItem(id, checkbox.checked);
+  // UNIT 1 uses new stage-based checkboxes
+  const u1Keys = ["u1stage1","u1stage2","u1stage3","u1stage4","u1stage5"];
+  const u2Keys = ["u2vocab","u2practice","u2review"];
+
+  function render(keys, barId, statusId){
+    let done = 0;
+    keys.forEach(k=>{
+      if(localStorage.getItem(k)==="true"){done++;}
     });
-  });
+    const total = keys.length;
+    const bar = document.getElementById(barId);
+    const status = document.getElementById(statusId);
+
+    bar.max = total;
+    bar.value = done;
+
+    if(done===0){
+      status.textContent="Not started";
+    } else if(done===total){
+      status.textContent="✓ Complete";
+    } else {
+      status.textContent="In progress";
+    }
+  }
+
+  render(u1Keys,"u1bar","u1status");
+  render(u2Keys,"u2bar","u2status");
 </script>
 
 </body>
