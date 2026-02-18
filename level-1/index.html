@@ -182,22 +182,9 @@
         <div class="kicker">📘 Spanish Level 1</div>
         <h1>Foundations of Communication</h1>
         <p class="subhead">
-          Proficiency target: <strong>Novice Low → Novice Mid</strong>. Start here if you’re beginning Spanish.
-          Follow the recommended path or jump to any unit you need.
+          Proficiency target: <strong>Novice Low → Novice Mid</strong>. Follow the path or jump to any unit.
         </p>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container card">
-      <h2 class="section-title">Recommended learning path</h2>
-      <p class="section-desc">
-        Unit 1 → Unit 2 → Unit 3 → Unit 4 → Unit 5 → Unit 6
-      </p>
-      <p class="section-desc" style="margin-top:10px">
-        ✅ Your Unit 1 progress will show below (based on the checkboxes you complete inside Unit 1).
-      </p>
     </div>
   </section>
 
@@ -210,13 +197,12 @@
 
       <div class="unit-grid">
 
-        <!-- UNIT 1 (CLICKABLE + PROGRESS) -->
+        <!-- UNIT 1 -->
         <a href="/quechevere-spanish/level-1/unit-1/" style="text-decoration:none;">
           <div class="unit">
             <span class="pill">Unit 1</span>
             <h3>Greetings & Introductions</h3>
             <p>Learn how to greet people, introduce yourself, and ask simple questions.</p>
-
             <div class="mini-progress">
               <strong>Progress:</strong>
               <progress id="u1bar" value="0" max="5"></progress>
@@ -226,14 +212,22 @@
           </div>
         </a>
 
-        <!-- UNITS 2–6 (COMING NEXT) -->
-        <div class="unit">
-          <span class="pill">Unit 2</span>
-          <h3>Numbers & Classroom Language</h3>
-          <p>Numbers, classroom words, and beginner routines.</p>
-          <span class="muted">Coming next</span>
-        </div>
+        <!-- UNIT 2 -->
+        <a href="/quechevere-spanish/level-1/unit-2/" style="text-decoration:none;">
+          <div class="unit">
+            <span class="pill">Unit 2</span>
+            <h3>Numbers & Classroom Language</h3>
+            <p>Numbers, classroom words, and beginner routines.</p>
+            <div class="mini-progress">
+              <strong>Progress:</strong>
+              <progress id="u2bar" value="0" max="3"></progress>
+              <span class="muted" id="u2text">0/3</span>
+              <span class="status" id="u2status">In progress</span>
+            </div>
+          </div>
+        </a>
 
+        <!-- PLACEHOLDERS -->
         <div class="unit">
           <span class="pill">Unit 3</span>
           <h3>Descriptions & Adjectives</h3>
@@ -268,37 +262,43 @@
 </main>
 
 <script>
-  // Unit 1 uses these checkbox ids (saved in localStorage from the Unit 1 page):
-  const unit1Keys = ["u1vocab","u1grammar","u1reading","u1writing","u1review"];
+  // Unit 1 progress (5 items)
+  const u1Keys = ["u1vocab","u1grammar","u1reading","u1writing","u1review"];
+  // Unit 2 progress (3 items)
+  const u2Keys = ["u2vocab","u2practice","u2review"];
 
-  function getDone(keys){
+  function doneCount(keys){
     let done = 0;
-    keys.forEach(k => {
-      if (localStorage.getItem(k) === "true") done++;
-    });
+    keys.forEach(k => { if (localStorage.getItem(k) === "true") done++; });
     return done;
   }
 
-  const done = getDone(unit1Keys);
-  const total = unit1Keys.length;
+  function render(keys, barId, textId, statusId){
+    const done = doneCount(keys);
+    const total = keys.length;
 
-  const bar = document.getElementById("u1bar");
-  const text = document.getElementById("u1text");
-  const status = document.getElementById("u1status");
+    const bar = document.getElementById(barId);
+    const text = document.getElementById(textId);
+    const status = document.getElementById(statusId);
 
-  if (bar) { bar.max = total; bar.value = done; }
-  if (text) { text.textContent = `${done}/${total}`; }
+    if (bar){ bar.max = total; bar.value = done; }
+    if (text){ text.textContent = `${done}/${total}`; }
 
-  if (status){
-    if (done === total){
-      status.textContent = "✓ Complete";
-      status.classList.add("complete");
-    } else if (done === 0){
-      status.textContent = "Not started";
-    } else {
-      status.textContent = "In progress";
+    if (status){
+      status.classList.remove("complete");
+      if (done === total){
+        status.textContent = "✓ Complete";
+        status.classList.add("complete");
+      } else if (done === 0){
+        status.textContent = "Not started";
+      } else {
+        status.textContent = "In progress";
+      }
     }
   }
+
+  render(u1Keys, "u1bar", "u1text", "u1status");
+  render(u2Keys, "u2bar", "u2text", "u2status");
 </script>
 
 </body>
