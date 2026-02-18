@@ -83,6 +83,131 @@
       <p><strong>Vocabulary:</strong> matching, multiple choice, and quick checks.</p>
       <p><strong>Grammar:</strong> noticing + error correction.</p>
       <p><strong>Writing:</strong> sentence building + short responses.</p>
+     <hr>
+
+<h2 style="margin-top:10px;">Interactive Activity: Error Correction</h2>
+<p class="small">Type the corrected sentence and click <strong>Check</strong>. (We can make it more forgiving later.)</p>
+
+<div id="activity" style="margin-top:12px;">
+  <div id="ec-card" style="background:#f9fafb; border:1px solid #e5e7eb; border-radius:12px; padding:16px;">
+    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+      <div>
+        <span class="tag">Error Correction</span>
+        <span id="ec-progress" class="small" style="margin-left:10px;"></span>
+      </div>
+      <div class="small" id="ec-score"></div>
+    </div>
+
+    <p style="font-size:18px; margin-top:12px;">
+      ❌ <span id="ec-prompt"></span>
+    </p>
+
+    <label class="small" for="ec-input"><strong>Your correction:</strong></label>
+    <input id="ec-input" type="text"
+      style="width:100%; padding:12px; border-radius:10px; border:1px solid #d1d5db; font-size:16px; margin-top:6px;"
+      placeholder="Type the corrected sentence here..." />
+
+    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+      <button id="ec-check" class="button" style="border:none; cursor:pointer;">Check</button>
+      <button id="ec-show" class="button" style="border:none; cursor:pointer; background:#6b7280;">Show Answer</button>
+      <button id="ec-next" class="button" style="border:none; cursor:pointer; background:#059669;">Next</button>
+      <button id="ec-reset" class="button" style="border:none; cursor:pointer; background:#7c3aed;">Restart</button>
+    </div>
+
+    <p id="ec-feedback" style="margin-top:12px; font-size:16px;"></p>
+    <p class="small" style="margin-top:6px;" id="ec-hint"></p>
+  </div>
+</div>
+
+<script>
+  // --- Error Correction Activity (starter set) ---
+  const errorItems = [
+    {
+      wrong: "España va en Europa.",
+      right: "España está en Europa.",
+      hint: "Use 'estar' for location."
+    },
+    {
+      wrong: "La capital de Puerto Rico está San Juan.",
+      right: "La capital de Puerto Rico es San Juan.",
+      hint: "Use 'ser' for identity/definition."
+    },
+    {
+      wrong: "Estoy a México en el verano.",
+      right: "Estoy en México en el verano.",
+      hint: "Use 'en' for location (in a place)."
+    },
+    {
+      wrong: "El cuaderno es rojo y la mochila es rojos.",
+      right: "El cuaderno es rojo y la mochila es roja.",
+      hint: "Adjectives agree in gender/number."
+    },
+    {
+      wrong: "Tengo una camisa azules.",
+      right: "Tengo una camisa azul.",
+      hint: "If it's singular, the color stays singular."
+    },
+    {
+      wrong: "Mis lápiz son amarillo.",
+      right: "Mis lápices son amarillos.",
+      hint: "Plural noun + plural adjective."
+    }
+  ];
+
+  let idx = 0;
+  let score = 0;
+  let attempts = 0;
+
+  function normalize(s) {
+    return s.trim().replace(/\s+/g, " ");
+  }
+
+  function render() {
+    const item = errorItems[idx];
+    document.getElementById("ec-prompt").textContent = item.wrong;
+    document.getElementById("ec-input").value = "";
+    document.getElementById("ec-feedback").textContent = "";
+    document.getElementById("ec-hint").textContent = item.hint ? ("Hint: " + item.hint) : "";
+    document.getElementById("ec-progress").textContent = `Item ${idx + 1} of ${errorItems.length}`;
+    document.getElementById("ec-score").textContent = `Score: ${score} / ${errorItems.length} • Attempts: ${attempts}`;
+    document.getElementById("ec-input").focus();
+  }
+
+  function renderScoreOnly() {
+    document.getElementById("ec-score").textContent = `Score: ${score} / ${errorItems.length} • Attempts: ${attempts}`;
+  }
+
+  function checkAnswer(showCorrect=false) {
+    const item = errorItems[idx];
+    const user = normalize(document.getElementById("ec-input").value);
+    const correct = normalize(item.right);
+
+    if (showCorrect) {
+      document.getElementById("ec-feedback").innerHTML =
+        `✅ Correct answer: <strong>${item.right}</strong>`;
+      return;
+    }
+
+    attempts += 1;
+
+    if (user.length === 0) {
+      document.getElementById("ec-feedback").textContent = "Type your correction first 🙂";
+      renderScoreOnly();
+      return;
+    }
+
+    if (user === correct) {
+      if (!errorItems[idx].done) {
+        score += 1;
+        errorItems[idx].done = true;
+      }
+      document.getElementById("ec-feedback").innerHTML = "✅ Nice! That’s correct.";
+    } else {
+  document.getElementById("ec-feedback").innerHTML =
+    "❌ Not quite. Try again, or click <strong>Show Answer</strong>.";
+}
+</script>
+
       <p class="small">✅ Coming next: first interactive activities (no login).</p>
     </div>
 
