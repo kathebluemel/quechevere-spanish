@@ -197,60 +197,41 @@
       <a class="card" href="unit-1/index.html">
         <div class="unit-title">Unit 1 — Identity & First Encounters</div>
         <p class="unit-desc">Greetings, introductions, basic personal information.</p>
-
-        <div class="bar" aria-label="Unit 1 progress">
-          <div class="fill" id="u1Fill"></div>
-        </div>
-        <div class="progressRow">
-          <span>Progress</span>
-          <span id="u1Pct">0%</span>
-        </div>
+        <div class="bar"><div class="fill" id="u1Fill"></div></div>
+        <div class="progressRow"><span>Progress</span><span id="u1Pct">0%</span></div>
       </a>
 
       <!-- UNIT 2 -->
       <a class="card" href="unit-2/index.html">
         <div class="unit-title">Unit 2 — Numbers & Classroom Language</div>
         <p class="unit-desc">Numbers, classroom objects, essential communication phrases.</p>
-
-        <div class="bar" aria-label="Unit 2 progress">
-          <div class="fill" id="u2Fill"></div>
-        </div>
-        <div class="progressRow">
-          <span>Progress</span>
-          <span id="u2Pct">0%</span>
-        </div>
+        <div class="bar"><div class="fill" id="u2Fill"></div></div>
+        <div class="progressRow"><span>Progress</span><span id="u2Pct">0%</span></div>
       </a>
 
       <!-- UNIT 3 -->
       <a class="card" href="unit-3/index.html">
         <div class="unit-title">Unit 3 — Descriptions & Adjectives</div>
         <p class="unit-desc">Physical descriptions, adjectives, agreement, basic traits.</p>
-
-        <div class="bar" aria-label="Unit 3 progress">
-          <div class="fill" id="u3Fill"></div>
-        </div>
-        <div class="progressRow">
-          <span>Progress</span>
-          <span id="u3Pct">0%</span>
-        </div>
+        <div class="bar"><div class="fill" id="u3Fill"></div></div>
+        <div class="progressRow"><span>Progress</span><span id="u3Pct">0%</span></div>
       </a>
 
       <!-- UNIT 4 -->
       <a class="card" href="unit-4.html">
         <div class="unit-title">Unit 4 — Daily Life & Schedules</div>
         <p class="unit-desc">Daily routines, time telling, sequencing, simple preferences.</p>
+        <div class="bar"><div class="fill" id="u4Fill"></div></div>
+        <div class="progressRow"><span>Progress</span><span id="u4Pct">0%</span></div>
+        <div class="tiny">Tip: Progress is saved in your browser (localStorage).</div>
+      </a>
 
-        <div class="bar" aria-label="Unit 4 progress">
-          <div class="fill" id="u4Fill"></div>
-        </div>
-        <div class="progressRow">
-          <span>Progress</span>
-          <span id="u4Pct">0%</span>
-        </div>
-
-        <div class="tiny">
-          Tip: Progress is saved in your browser (localStorage).
-        </div>
+      <!-- UNIT 5 -->
+      <a class="card" href="unit-5/index.html">
+        <div class="unit-title">Unit 5 — Food & Preferences</div>
+        <p class="unit-desc">Likes/dislikes, simple ordering, and menu language.</p>
+        <div class="bar"><div class="fill" id="u5Fill"></div></div>
+        <div class="progressRow"><span>Progress</span><span id="u5Pct">0%</span></div>
       </a>
 
     </div>
@@ -263,7 +244,6 @@
       const done = keys.filter(k => localStorage.getItem(k) === "true").length;
       return Math.round((done / keys.length) * 100);
     }
-
     function setBar(fillId, pctId, pct){
       document.getElementById(fillId).style.width = pct + "%";
       document.getElementById(pctId).textContent = pct + "%";
@@ -273,18 +253,21 @@
     const U2_KEYS = ["l1u2_s1_understand","l1u2_s2_interact","l1u2_s3_create","l1u2_s4_reflect","l1u2_s5_perform"];
     const U3_KEYS = ["l1u3_s1_understand","l1u3_s2_interact","l1u3_s3_create","l1u3_s4_reflect","l1u3_s5_perform"];
     const U4_KEYS = ["l1u4_s1_understand","l1u4_s2_interact","l1u4_s3_create","l1u4_s4_reflect","l1u4_s5_perform"];
+    const U5_KEYS = ["l1u5_s1_understand","l1u5_s2_interact","l1u5_s3_create","l1u5_s4_reflect","l1u5_s5_perform"];
 
     const u1 = pctFromKeys(U1_KEYS);
     const u2 = pctFromKeys(U2_KEYS);
     const u3 = pctFromKeys(U3_KEYS);
     const u4 = pctFromKeys(U4_KEYS);
+    const u5 = pctFromKeys(U5_KEYS);
 
     setBar("u1Fill","u1Pct",u1);
     setBar("u2Fill","u2Pct",u2);
     setBar("u3Fill","u3Pct",u3);
     setBar("u4Fill","u4Pct",u4);
+    setBar("u5Fill","u5Pct",u5);
 
-    const overall = Math.round((u1 + u2 + u3 + u4) / 4);
+    const overall = Math.round((u1 + u2 + u3 + u4 + u5) / 5);
     document.getElementById("overallPill").textContent = "Overall: " + overall + "% complete";
   </script>
 </body>
