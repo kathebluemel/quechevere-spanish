@@ -187,6 +187,18 @@
           </div>
         </a>
 
+        <!-- UNIT 3 -->
+        <a href="/quechevere-spanish/level-1/unit-3/" style="text-decoration:none;color:inherit;">
+          <div class="unit">
+            <span class="pill">Unit 3</span>
+            <h3>Descriptions & Adjectives</h3>
+            <p>Describe people and objects using ser + adjectives and basic agreement.</p>
+
+            <progress id="u3bar" value="0" max="5"></progress>
+            <div class="status" id="u3status"></div>
+          </div>
+        </a>
+
       </div>
 
     </div>
@@ -196,30 +208,18 @@
 
 <script>
   // Unit 1 Stage-Based Keys
-  const u1Keys = [
-    "u1stage1",
-    "u1stage2",
-    "u1stage3",
-    "u1stage4",
-    "u1stage5"
-  ];
+  const u1Keys = ["u1stage1","u1stage2","u1stage3","u1stage4","u1stage5"];
 
   // Unit 2 Stage-Based Keys
-  const u2Keys = [
-    "u2stage1",
-    "u2stage2",
-    "u2stage3",
-    "u2stage4",
-    "u2stage5"
-  ];
+  const u2Keys = ["u2stage1","u2stage2","u2stage3","u2stage4","u2stage5"];
+
+  // Unit 3 Stage-Based Keys
+  const u3Keys = ["u3stage1","u3stage2","u3stage3","u3stage4","u3stage5"];
 
   function render(keys, barId, statusId){
     let done = 0;
-
     keys.forEach(key=>{
-      if(localStorage.getItem(key)==="true"){
-        done++;
-      }
+      if(localStorage.getItem(key)==="true"){ done++; }
     });
 
     const total = keys.length;
@@ -231,17 +231,16 @@
 
     if(done===0){
       status.textContent = "Not started";
-    }
-    else if(done===total){
+    } else if(done===total){
       status.textContent = "✓ Complete";
-    }
-    else{
+    } else {
       status.textContent = "In progress";
     }
   }
 
   render(u1Keys,"u1bar","u1status");
   render(u2Keys,"u2bar","u2status");
+  render(u3Keys,"u3bar","u3status");
 </script>
 
 </body>
