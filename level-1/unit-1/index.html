@@ -1,619 +1,442 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Level 1 • Unit 1 (Professional Model) | Seño Bluemel Que Chévere</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 1 • Unit 1 — Identity & First Encounters | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
-      --navy:#1F2A44;
-      --teal:#1CA7A6;
-      --bg:#F4F6F8;
-      --white:#FFFFFF;
-      --text:#182033;
-      --muted:#5C677D;
-      --border:#DDE3EA;
-      --soft:#f9fafb;
+      --bg:#0b0f14;
+      --panel:#121923;
+      --panel2:#0f1620;
+      --text:#e8eef6;
+      --muted:#b7c4d6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4aa3ff;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --radius2: 12px;
+      --max: 1100px;
     }
+
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:var(--bg);
-      line-height:1.55;
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:22px}
+    .topbar{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg,var(--panel),var(--panel2));box-shadow:var(--shadow);
+      position:sticky;top:12px;z-index:10
     }
-    a{color:inherit;text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{width:min(1100px, 92vw); margin:0 auto;}
+    .brand{display:flex;flex-direction:column;gap:2px}
+    .brand .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .brand .title{font-size:16px;font-weight:800}
+    .nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      padding:9px 12px;border-radius:999px;text-decoration:none;
+      font-weight:650;font-size:13px;display:inline-flex;gap:8px;align-items:center
+    }
+    .btn:hover{border-color:rgba(255,255,255,.22)}
+    .btn.primary{background:rgba(74,163,255,.12);border-color:rgba(74,163,255,.35)}
+    .btn.danger{background:rgba(251,113,133,.10);border-color:rgba(251,113,133,.35)}
+    .grid{display:grid;gap:16px;margin-top:16px}
+    @media(min-width:900px){ .grid{grid-template-columns: 1.2fr .8fr;} }
 
-    header{
-      background:var(--white);
-      border-bottom:1px solid var(--border);
-      position:sticky;
-      top:0;
-      z-index:50;
-    }
-    .navbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 0;
-      gap:16px;
-    }
-    .brand{display:flex;flex-direction:column;line-height:1.1}
-    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
-    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
-
-    .navlinks{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      font-weight:600;
-      color:var(--navy);
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .navlinks a{padding:8px 10px;border-radius:10px}
-    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
-
-    .hero{padding:34px 0 16px}
-    .hero-card{
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:26px;
-      box-shadow:0 8px 22px rgba(0,0,0,.05);
-    }
-    .kicker{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      font-weight:800;
-      color:var(--teal);
-      background:rgba(28,167,166,.10);
-      padding:8px 12px;
-      border-radius:999px;
-      margin-bottom:12px;
-    }
-    h1{margin:0 0 8px;color:var(--navy);font-size:2rem;letter-spacing:-.3px}
-    .subhead{margin:0;color:var(--muted);max-width:90ch}
-
-    .section{padding:16px 0}
     .card{
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:20px;
-      box-shadow:0 6px 18px rgba(0,0,0,.04);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px
     }
-    .section-title{margin:0 0 10px;color:var(--navy);font-size:1.25rem}
-    .section-desc{margin:0 0 12px;color:var(--muted);max-width:95ch}
 
+    h1{margin:0 0 8px 0;font-size:28px;letter-spacing:-.02em}
+    .subtitle{color:var(--muted);line-height:1.5;margin:0 0 14px 0}
+
+    .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px 0}
     .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(31,42,68,.18);
-      background:rgba(31,42,68,.04);
-      color:var(--navy);
-      font-weight:800;
-      font-size:.85rem;
+      font-size:12px;font-weight:700;letter-spacing:.02em;
+      padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--text)
+    }
+    .pill.accent{border-color:rgba(74,163,255,.35);background:rgba(74,163,255,.12)}
+    .pill.good{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.10)}
+    .pill.note{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.10)}
+
+    .sectionTitle{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px 0}
+    .bigQ{
+      font-size:18px;font-weight:800;margin:10px 0 0 0;
+      border-left:4px solid rgba(74,163,255,.6);padding-left:10px
     }
 
-    .nav-steps{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:14px;
+    .progressWrap{display:flex;flex-direction:column;gap:10px}
+    .bar{
+      width:100%;height:10px;border-radius:999px;background:rgba(255,255,255,.08);
+      overflow:hidden;border:1px solid rgba(255,255,255,.10)
     }
-    .stepbtn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:var(--white);
-      font-weight:800;
-      color:var(--navy);
+    .fill{height:100%;width:0%;background:linear-gradient(90deg, rgba(74,163,255,.95), rgba(52,211,153,.95))}
+    .small{font-size:13px;color:var(--muted);line-height:1.4}
+    .stageList{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    .stageRow{
+      display:flex;gap:10px;align-items:center;justify-content:space-between;
+      padding:10px 12px;border-radius:var(--radius2);
+      border:1px solid var(--line);background:rgba(255,255,255,.03)
     }
-    .stepbtn:hover{background:rgba(28,167,166,.10);text-decoration:none}
-
-    .grid2{display:grid;gap:14px;grid-template-columns:1fr 1fr}
-    @media (max-width: 900px){.grid2{grid-template-columns:1fr}}
-
-    .task{
-      border-left:6px solid var(--teal);
-      background:rgba(28,167,166,.07);
+    .stageRow strong{font-size:13px}
+    .stageRow .left{display:flex;gap:10px;align-items:center}
+    .dot{
+      width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.25);
+      border:1px solid rgba(255,255,255,.20)
     }
-    .task strong{color:var(--navy)}
-    .box{
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:14px;
-      background:var(--soft);
-      margin-top:12px;
+    .dot.done{background:rgba(52,211,153,.9);border-color:rgba(52,211,153,.9)}
+    .stageRow button{
+      cursor:pointer;border-radius:999px;padding:7px 10px;
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      color:var(--text);font-weight:700;font-size:12px
     }
-
-    .reading{
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:14px;
-      background:#fbfcfd;
-      color:var(--text);
-    }
-    .reading p{margin:10px 0}
-    .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .tag{
-      display:inline-flex;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(31,42,68,.18);
-      background:rgba(31,42,68,.04);
-      color:var(--navy);
-      font-weight:800;
-      font-size:.82rem;
-    }
-
-    .q{
-      margin-top:12px;
-      padding:14px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:rgba(244,246,248,.7);
-    }
-    .q label{display:block;margin:10px 0 6px;color:var(--navy);font-weight:800}
-    .q input, .q textarea{
-      width:100%;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      font-size:1rem;
-      font-family:inherit;
-    }
-    .q textarea{min-height:90px;resize:vertical}
-
-    .checklist{display:grid;gap:10px;margin-top:10px}
-    .checkitem{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:10px 12px;
-      border:1px solid var(--border);
-      border-radius:14px;
-      background:#f9fafb;
-    }
-    .checkitem input{margin-top:3px}
-    .checkitem strong{color:var(--navy)}
-    .checkitem span{color:var(--muted)}
+    .stageRow button:hover{border-color:rgba(255,255,255,.22)}
+    .stageRow button.doneBtn{border-color:rgba(52,211,153,.45);background:rgba(52,211,153,.10)}
+    .stageRow button.undoBtn{border-color:rgba(251,113,133,.40);background:rgba(251,113,133,.10)}
 
     details{
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:var(--white);
-      padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      box-shadow:var(--shadow);
+      padding:14px 16px
     }
+    details + details{margin-top:12px}
     summary{
-      cursor:pointer;
-      font-weight:900;
-      color:var(--navy);
-      list-style:none;
+      cursor:pointer;list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:10px
     }
     summary::-webkit-details-marker{display:none}
-    .teacher{
-      margin-top:12px;
-      color:var(--muted);
+    .sumLeft{display:flex;flex-direction:column;gap:2px}
+    .sumLeft .st{font-weight:900}
+    .sumLeft .mode{font-size:12px;color:var(--muted)}
+    .chev{color:var(--muted);font-weight:900}
+    .content{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+    ul{margin:8px 0 0 18px;color:var(--text)}
+    li{margin:6px 0;color:var(--text);line-height:1.45}
+    .callout{
+      border:1px dashed rgba(255,255,255,.22);
+      border-radius:var(--radius2);
+      padding:12px;
+      background:rgba(255,255,255,.03);
+      margin-top:10px
     }
-    .teacher h3{margin:14px 0 8px;color:var(--navy)}
-    .teacher ul{margin:0;padding-left:18px}
-    .teacher li{margin:6px 0}
-
-    .rubric{
+    .callout strong{display:block;margin-bottom:6px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+    .hiddenTeacher{display:none}
+    .toggleTeacher{
       width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-      font-size:.95rem;
+      text-align:left;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      padding:10px 12px;border-radius:var(--radius2);
+      font-weight:800;cursor:pointer
     }
-    .rubric th, .rubric td{
-      border:1px solid var(--border);
-      padding:10px;
-      vertical-align:top;
-    }
-    .rubric th{background:rgba(31,42,68,.04);color:var(--navy);text-align:left}
-
-    .note{
-      font-size:.95rem;
-      color:var(--muted);
-      margin-top:10px;
-    }
+    .toggleTeacher:hover{border-color:rgba(255,255,255,.25)}
+    code.inline{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.12)}
   </style>
 </head>
 
 <body>
-<header>
-  <div class="container navbar">
-    <a class="brand" href="/quechevere-spanish/">
-      <span class="name">Seño Bluemel</span>
-      <span class="tag">Que Chévere</span>
-    </a>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="kicker">Seño Bluemel Que Chévere • Level 1</div>
+        <div class="title">Unit 1 — Identity & First Encounters</div>
+      </div>
+      <div class="nav">
+        <a class="btn" href="../../index.html">← Home</a>
+        <a class="btn primary" href="../index.html">Level 1 Dashboard</a>
+        <a class="btn" href="#stages">Stages</a>
+      </div>
+    </div>
 
-    <nav class="navlinks">
-      <a href="/quechevere-spanish/">Home</a>
-      <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
-      <a href="/quechevere-spanish/about/">About</a>
-    </nav>
+    <div class="grid">
+      <div class="card">
+        <h1>Unit 1: Identity & First Encounters</h1>
+        <p class="subtitle">
+          Communicate identity clearly (not perfectly): greetings, names, origins, age, and simple descriptors.
+        </p>
+
+        <div class="pillrow">
+          <span class="pill accent">Proficiency: Novice Low → Novice Mid</span>
+          <span class="pill good">High-frequency identity language</span>
+          <span class="pill note">Talk about self + ask a question back</span>
+        </div>
+
+        <p class="sectionTitle">Proficiency Goal</p>
+        <p class="small">
+          Students understand and exchange basic personal information in familiar contexts using practiced phrases and
+          high-frequency language.
+        </p>
+
+        <p class="sectionTitle">Essential Question</p>
+        <p class="bigQ">¿Cómo expresamos identidad en diferentes culturas?</p>
+
+        <div class="hr"></div>
+
+        <p class="sectionTitle">Core Language Targets</p>
+        <ul>
+          <li>I can greet and say goodbye appropriately.</li>
+          <li>I can introduce myself (name, origin, age).</li>
+          <li>I can ask simple questions back (¿y tú?).</li>
+          <li>I can use 3 simple descriptors (ser + adjective).</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Unit 1 “Must-Have” Language</strong>
+          <div class="small">
+            <b>Greetings:</b> Hola, Buenos días, Buenas tardes, Buenas noches, Adiós, Hasta luego<br/>
+            <b>Identity:</b> Me llamo…, Soy de…, Tengo… años, ¿Cómo te llamas?, ¿De dónde eres?, ¿Cuántos años tienes?<br/>
+            <b>Descriptors:</b> soy simpático/a, soy inteligente, soy amable, soy atlético/a, soy divertido/a
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="sectionTitle">Progress</p>
+        <div class="progressWrap">
+          <div class="bar"><div class="fill" id="progressFill"></div></div>
+          <div class="small" id="progressText">0% complete</div>
+
+          <div class="stageList" id="stageList"></div>
+
+          <button class="btn danger" id="resetBtn" style="justify-content:center;width:100%">
+            Reset Unit 1 Progress
+          </button>
+
+          <div class="small">Tip: Progress saves in your browser (localStorage).</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="stages" style="margin-top:16px"></div>
+
+    <details open>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 1: Understand</div>
+          <div class="mode">Interpretive • Comprehension first</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <ul>
+          <li>I can understand greetings and introductions in context.</li>
+          <li>I can identify key details (name, origin, age).</li>
+          <li>I can match simple descriptors to meaning.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Lectura (10+ sentences)</strong>
+          <p class="small" style="margin:0">
+            Hola. Me llamo Mateo y soy de México. Tengo trece años. En la escuela soy estudiante y soy muy amable.
+            Mi mejor amiga se llama Sofía. Ella es de Puerto Rico y tiene doce años. Sofía es inteligente y simpática.
+            Nosotros hablamos en clase y practicamos español. Después de la escuela, yo estudio y ella escucha música.
+            En casa, mi familia es grande y muy divertida. ¡Mucho gusto!
+          </p>
+          <div class="hr"></div>
+          <strong>Comprehension (answer in English)</strong>
+          <ol class="small" style="margin:8px 0 0 18px">
+            <li>What is Mateo’s name and where is he from?</li>
+            <li>How old is Mateo?</li>
+            <li>Who is Sofía and where is she from?</li>
+            <li>List two adjectives used to describe Sofía.</li>
+            <li>What do Mateo and Sofía do in class?</li>
+            <li>What does Mateo do after school?</li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 2: Interact</div>
+          <div class="mode">Interpersonal • Ask & answer with support</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="callout">
+          <strong>Core Q/A Frames</strong>
+          <ul>
+            <li><b>¿Cómo te llamas?</b> → Me llamo…</li>
+            <li><b>¿De dónde eres?</b> → Soy de…</li>
+            <li><b>¿Cuántos años tienes?</b> → Tengo… años.</li>
+            <li><b>¿Cómo eres?</b> → Soy… (simpático/a, amable, etc.)</li>
+            <li><b>¿Y tú?</b> → (Ask one question back)</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Interpersonal Tasks</strong>
+          <ul>
+            <li><b>Speed introductions:</b> 60 seconds each partner, switch.</li>
+            <li><b>Identity cards:</b> ask 3 questions, record answers.</li>
+            <li><b>Class survey:</b> “¿De dónde eres?” graph results.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 3: Create</div>
+          <div class="mode">Presentational • Make an intro product</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <div class="callout">
+          <strong>Presentational Options</strong>
+          <ul>
+            <li><b>30-second intro video:</b> greeting, name, origin, age, 3 descriptors, and 1 question back.</li>
+            <li><b>“About Me” card:</b> 8–10 sentences + simple icons.</li>
+            <li><b>Mini-poster:</b> “Me llamo…, Soy…, Tengo…”</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 4: Reflect</div>
+          <div class="mode">Culture + Metacognition</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <ul>
+          <li>How do greetings change by context (formal/informal)?</li>
+          <li>What identity details feel important in different cultures?</li>
+          <li>What strategy helps me when I forget a word?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 5: Perform</div>
+          <div class="mode">Assessment • Balanced across modes</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <ul>
+          <li><b>Interpretive:</b> short intro text + English questions</li>
+          <li><b>Interpersonal:</b> partner intro conversation (checklist)</li>
+          <li><b>Presentational:</b> intro video OR paragraph</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="card" style="margin-top:16px">
+      <button class="toggleTeacher" id="teacherBtn">Teacher Alignment (click to show/hide)</button>
+      <div class="hiddenTeacher" id="teacherBox" style="margin-top:12px">
+        <p class="sectionTitle">Standards</p>
+        <p class="small"><b>Standards:</b> ACTFL – Interpretive, Interpersonal, Presentational | <b>MO WL.1 & WL.3</b></p>
+
+        <p class="sectionTitle">LocalStorage Keys</p>
+        <p class="small">
+          <code class="inline">l1u1_s1_understand</code>,
+          <code class="inline">l1u1_s2_interact</code>,
+          <code class="inline">l1u1_s3_create</code>,
+          <code class="inline">l1u1_s4_reflect</code>,
+          <code class="inline">l1u1_s5_perform</code>
+        </p>
+      </div>
+    </div>
+
+    <p class="small" style="text-align:center;margin:18px 0 0 0;color:var(--muted)">
+      © Seño Bluemel Que Chévere • Unit 1
+    </p>
   </div>
-</header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="hero-card">
-        <div class="kicker">Level 1 • Unit 1 (Professional Model)</div>
-        <h1>Identity & First Encounters</h1>
-        <p class="subhead">
-          Focus: greeting, name, origin, age, and basic descriptors (ser + adjectives). Goal: communicate identity clearly — not perfectly.
-        </p>
+  <script>
+    const STAGES = [
+      { key: "l1u1_s1_understand", label: "Stage 1: Understand" },
+      { key: "l1u1_s2_interact",   label: "Stage 2: Interact" },
+      { key: "l1u1_s3_create",     label: "Stage 3: Create" },
+      { key: "l1u1_s4_reflect",    label: "Stage 4: Reflect" },
+      { key: "l1u1_s5_perform",    label: "Stage 5: Perform" }
+    ];
 
-        <div class="nav-steps" aria-label="Unit roadmap">
-          <a class="stepbtn" href="#stage1">Stage 1: Understand</a>
-          <a class="stepbtn" href="#stage2">Stage 2: Interact</a>
-          <a class="stepbtn" href="#stage3">Stage 3: Create</a>
-          <a class="stepbtn" href="#stage4">Stage 4: Reflect</a>
-          <a class="stepbtn" href="#stage5">Stage 5: Perform</a>
-          <a class="stepbtn" href="#progress">Progress</a>
-        </div>
+    const stageList = document.getElementById("stageList");
+    const progressFill = document.getElementById("progressFill");
+    const progressText = document.getElementById("progressText");
+    const resetBtn = document.getElementById("resetBtn");
 
-        <p class="note"><a href="/quechevere-spanish/level-1/">← Back to Level 1</a></p>
-      </div>
-    </div>
-  </section>
+    function getDone(key){ return localStorage.getItem(key) === "true"; }
+    function setDone(key, value){ localStorage.setItem(key, value ? "true" : "false"); render(); }
+    function calcPercent(){
+      const doneCount = STAGES.filter(s => getDone(s.key)).length;
+      return Math.round((doneCount / STAGES.length) * 100);
+    }
 
-  <!-- PROficiency + Essential Question + Performance Task Preview -->
-  <section class="section">
-    <div class="container card task">
-      <h2 class="section-title">Unit Goal + Performance Task</h2>
-      <p class="section-desc">
-        <span class="pill">Proficiency target: Novice Low → Novice Mid</span>
-      </p>
-      <p class="section-desc">
-        <strong>Student-friendly goal:</strong> By the end of this unit, I can introduce myself and describe who I am in simple Spanish.
-      </p>
-      <p class="section-desc">
-        <strong>Essential Question:</strong> How do we express identity in different cultures?
-      </p>
+    function render(){
+      stageList.innerHTML = "";
+      STAGES.forEach(stage => {
+        const done = getDone(stage.key);
 
-      <div class="box">
-        <p style="margin:0 0 8px"><strong>End-of-Unit Performance Task (Preview):</strong></p>
-        <p style="margin:0">
-          Record a <strong>30-second video</strong> introducing yourself to a virtual pen pal in a Spanish-speaking country. Include:
-          <strong>greeting</strong>, <strong>name</strong>, <strong>origin</strong>, <strong>age</strong>, <strong>3 descriptors</strong>, and <strong>one question back</strong> (ex: “¿Y tú?”).
-        </p>
-        <p class="note" style="margin:10px 0 0">
-          Success = a sympathetic native speaker can understand you. Mistakes are normal (interlanguage = growth).
-        </p>
-      </div>
-    </div>
-  </section>
+        const row = document.createElement("div");
+        row.className = "stageRow";
 
-  <!-- STAGE 1 -->
-  <section class="section" id="stage1">
-    <div class="container card">
-      <h2 class="section-title">Stage 1 — Understand (Interpretive)</h2>
-      <p class="section-desc">
-        Your job: understand the gist and identity details (name, origin, age, descriptors). Use cognates and context.
-      </p>
+        const left = document.createElement("div");
+        left.className = "left";
 
-      <div class="reading">
-        <p><strong>Text A (semi-authentic intro)</strong></p>
-        <p>Hola. Me llamo Sofía. Soy de Colombia. Tengo quince años. Soy creativa y simpática. Mucho gusto.</p>
+        const dot = document.createElement("div");
+        dot.className = "dot" + (done ? " done" : "");
 
-        <p><strong>Text B (semi-authentic intro)</strong></p>
-        <p>Buenas. Me llamo Marcos. Soy de Texas, pero mi familia es de México. Tengo catorce años. Soy trabajador y tranquilo.</p>
+        const name = document.createElement("strong");
+        name.textContent = stage.label;
 
-        <p><strong>Text C (profile-style intro)</strong></p>
-        <p>Hola 👋 Soy Camila, de Barranquilla. 16 años. Soy amable, activa y muy sociable. 🇨🇴</p>
+        left.appendChild(dot);
+        left.appendChild(name);
 
-        <div class="tagrow">
-          <span class="tag">Gist</span>
-          <span class="tag">Cognates</span>
-          <span class="tag">Name • Origin • Age • Descriptors</span>
-        </div>
-      </div>
+        const btn = document.createElement("button");
+        btn.className = done ? "undoBtn" : "doneBtn";
+        btn.textContent = done ? "Mark not done" : "Mark done";
+        btn.addEventListener("click", () => setDone(stage.key, !done));
 
-      <div class="q">
-        <label>1) In English: What is Text C mostly about?</label>
-        <input type="text" placeholder="Example: It is a short profile introducing a person." />
+        row.appendChild(left);
+        row.appendChild(btn);
+        stageList.appendChild(row);
+      });
 
-        <label>2) In English: Who is from Colombia? How do you know?</label>
-        <input type="text" placeholder="Use evidence from the text." />
+      const pct = calcPercent();
+      progressFill.style.width = pct + "%";
+      progressText.textContent = pct + "% complete";
+    }
 
-        <label>3) In English: List 3 adjectives you see and what they likely mean (use cognates/context).</label>
-        <textarea placeholder="Example: sociable = social; creativa = creative; tranquilo = calm"></textarea>
-
-        <label>4) In English: What does “Tengo quince años” communicate?</label>
-        <input type="text" placeholder="Hint: age." />
-      </div>
-    </div>
-  </section>
-
-  <!-- STAGE 2 -->
-  <section class="section" id="stage2">
-    <div class="container card">
-      <h2 class="section-title">Stage 2 — Interact (Interpersonal)</h2>
-      <p class="section-desc">
-        Your job: sustain a basic exchange. Ask and answer. Use rejoinders to negotiate meaning.
-      </p>
-
-      <div class="grid2">
-        <div class="box">
-          <p style="margin:0 0 8px"><strong>Core exchange (practice aloud)</strong></p>
-          <p style="margin:0">
-            A: Hola. Me llamo _____. ¿Cómo te llamas?<br/>
-            B: Me llamo _____. Mucho gusto.<br/>
-            A: Soy de _____. ¿Y tú?<br/>
-            B: Soy de _____. Tengo ____ años.
-          </p>
-          <p class="note" style="margin:10px 0 0">
-            Goal: keep going even with mistakes.
-          </p>
-        </div>
-
-        <div class="box">
-          <p style="margin:0 0 8px"><strong>Rejoinders (stay in Spanish)</strong></p>
-          <ul style="margin:0;padding-left:18px;color:var(--muted)">
-            <li>¿Cómo? (What?)</li>
-            <li>Más lento, por favor. (Slower, please.)</li>
-            <li>Repita, por favor. (Repeat, please.)</li>
-            <li>No entiendo. (I don’t understand.)</li>
-            <li>¿Qué significa…? (What does … mean?)</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="q">
-        <label>Practice Task (Student): Write 4 lines of a simple conversation (Spanish).</label>
-        <textarea placeholder="Example: Hola. Me llamo... / Mucho gusto... / Soy de... / ¿Y tú?"></textarea>
-
-        <label>Teacher/Partner check: Did you ask at least 1 question back (ex: ¿Y tú?)?</label>
-        <input type="text" placeholder="Yes / No" />
-      </div>
-    </div>
-  </section>
-
-  <!-- STAGE 3 -->
-  <section class="section" id="stage3">
-    <div class="container card">
-      <h2 class="section-title">Stage 3 — Create (Presentational)</h2>
-      <p class="section-desc">
-        Your job: create a clear self-portrait (written first, then spoken). Use ser + adjectives and origin structures.
-      </p>
-
-      <div class="grid2">
-        <div class="box">
-          <p style="margin:0 0 8px"><strong>Sentence frames (use 4–6)</strong></p>
-          <ul style="margin:0;padding-left:18px;color:var(--muted)">
-            <li>Hola. Me llamo ____.</li>
-            <li>Soy de ____.</li>
-            <li>Tengo ____ años.</li>
-            <li>Soy ____ y ____.</li>
-            <li>Mucho gusto.</li>
-            <li>¿Y tú?</li>
-          </ul>
-        </div>
-
-        <div class="box">
-          <p style="margin:0 0 8px"><strong>Mini focus: tú vs usted (very basic)</strong></p>
-          <p style="margin:0;color:var(--muted)">
-            Use <strong>tú</strong> with friends/peers. Use <strong>usted</strong> with adults or formal situations.
-            Example: ¿Cómo <strong>se llama</strong> usted?
-          </p>
-        </div>
-      </div>
-
-      <div class="q">
-        <label>Write your self-portrait (Spanish). Aim for 5–7 short sentences.</label>
-        <textarea placeholder="Hola. Me llamo... Soy de... Tengo... Soy... Mucho gusto."></textarea>
-
-        <label>In English: What is one place you can improve clarity (not perfection)?</label>
-        <input type="text" placeholder="Example: I need to pronounce my age clearly." />
-      </div>
-    </div>
-  </section>
-
-  <!-- STAGE 4 -->
-  <section class="section" id="stage4">
-    <div class="container card task">
-      <h2 class="section-title">Stage 4 — Reflect (Culture + Growth)</h2>
-      <p class="section-desc">
-        Your job: connect language to culture and notice your learning strategies.
-      </p>
-
-      <div class="box">
-        <p style="margin:0 0 8px"><strong>Cultural Lens (Products • Practices • Perspectives)</strong></p>
-        <ul style="margin:0;padding-left:18px;color:var(--muted)">
-          <li><strong>Product:</strong> Many people in Hispanic cultures use two surnames.</li>
-          <li><strong>Practice:</strong> Naming often shows connection to both family lines.</li>
-          <li><strong>Perspective:</strong> Family identity and relationships can be deeply valued.</li>
-        </ul>
-        <p class="note" style="margin:10px 0 0">
-          Spanish-speaking is not one culture. Name at least 2 Spanish-speaking places (countries/regions).
-        </p>
-      </div>
-
-      <div class="q">
-        <label>In English: Name 2 Spanish-speaking countries (not just “Mexico”).</label>
-        <input type="text" placeholder="Example: Colombia and Spain" />
-
-        <label>In English: Compare greetings—how do people greet where you live vs. in Colombia?</label>
-        <textarea placeholder="Think: formality, eye contact, physical greeting, tone."></textarea>
-
-        <label>In English: What strategy helped you most (cognates, context, gestures, rejoinders)?</label>
-        <input type="text" placeholder="Example: cognates and asking for repetition." />
-      </div>
-    </div>
-  </section>
-
-  <!-- STAGE 5 -->
-  <section class="section" id="stage5">
-    <div class="container card">
-      <h2 class="section-title">Stage 5 — Perform (Assessment)</h2>
-      <p class="section-desc">
-        Complete the performance task. Focus on being understood and completing the task requirements.
-      </p>
-
-      <div class="box">
-        <p style="margin:0 0 8px"><strong>Performance Task:</strong> 30-second video intro</p>
-        <ul style="margin:0;padding-left:18px;color:var(--muted)">
-          <li>Greeting</li>
-          <li>Name</li>
-          <li>Origin</li>
-          <li>Age (0–31)</li>
-          <li>3 descriptors (adjectives)</li>
-          <li>One question back (¿Y tú?)</li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <p style="margin:0 0 8px"><strong>Student-friendly rubric</strong></p>
-        <table class="rubric" aria-label="Student-friendly rubric">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Developing</th>
-              <th>On Target</th>
-              <th>Strong</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Task completion</strong></td>
-              <td>Some parts missing</td>
-              <td>All required parts included</td>
-              <td>All parts + smooth flow</td>
-            </tr>
-            <tr>
-              <td><strong>Comprehensibility</strong></td>
-              <td>Hard to understand</td>
-              <td>Mostly understandable</td>
-              <td>Easy to understand</td>
-            </tr>
-            <tr>
-              <td><strong>Language control</strong></td>
-              <td>Many errors block meaning</td>
-              <td>Errors don’t block meaning</td>
-              <td>More accurate + clear</td>
-            </tr>
-            <tr>
-              <td><strong>Communication strategies</strong></td>
-              <td>Stops when stuck</td>
-              <td>Uses at least 1 strategy</td>
-              <td>Uses strategies confidently</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="note">Reminder: mistakes are normal at Novice levels. Growth is the goal.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROGRESS -->
-  <section class="section" id="progress">
-    <div class="container card">
-      <h2 class="section-title">Track your progress (saved on this device)</h2>
-      <p class="section-desc">Check what you completed. Refresh — your checks should stay.</p>
-
-      <div class="checklist">
-        <label class="checkitem">
-          <input type="checkbox" id="u1stage1">
-          <div><strong>Stage 1 complete</strong><br><span>I can get the gist and identify identity details in short texts.</span></div>
-        </label>
-
-        <label class="checkitem">
-          <input type="checkbox" id="u1stage2">
-          <div><strong>Stage 2 complete</strong><br><span>I can sustain a basic exchange and ask a question back.</span></div>
-        </label>
-
-        <label class="checkitem">
-          <input type="checkbox" id="u1stage3">
-          <div><strong>Stage 3 complete</strong><br><span>I wrote a self-portrait using simple sentence frames.</span></div>
-        </label>
-
-        <label class="checkitem">
-          <input type="checkbox" id="u1stage4">
-          <div><strong>Stage 4 complete</strong><br><span>I reflected on culture and my learning strategies.</span></div>
-        </label>
-
-        <label class="checkitem">
-          <input type="checkbox" id="u1stage5">
-          <div><strong>Stage 5 complete</strong><br><span>I completed the 30-second performance task.</span></div>
-        </label>
-      </div>
-
-      <p class="note">
-        Tip: If you are using the Level 1 dashboard progress bar, we will sync it to these 5 new checkboxes next.
-      </p>
-    </div>
-  </section>
-
-  <!-- TEACHER ALIGNMENT (HIDDEN) -->
-  <section class="section">
-    <div class="container">
-      <details>
-        <summary>Teacher Alignment & Standards (click to expand)</summary>
-
-        <div class="teacher">
-          <h3>ACTFL Modes Alignment</h3>
-          <ul>
-            <li><strong>Interpretive:</strong> Students interpret short self-introductions for gist + key identity details; leverage cognates/context.</li>
-            <li><strong>Interpersonal:</strong> Students sustain a basic exchange, ask questions back, and use rejoinders to negotiate meaning.</li>
-            <li><strong>Presentational:</strong> Students produce a short written and spoken self-introduction focused on comprehensibility.</li>
-          </ul>
-
-          <h3>Proficiency Target</h3>
-          <ul>
-            <li>Novice Low → Novice Mid (formulaic language; emerging sentence creation; understood by sympathetic listener/reader).</li>
-          </ul>
-
-          <h3>Can-Do Statements (Teacher-facing)</h3>
-          <ul>
-            <li>I can identify the main idea and key information (name, origin, age, descriptors) in short, highly contextualized texts.</li>
-            <li>I can exchange basic personal information using memorized and practiced phrases, asking at least one question back.</li>
-            <li>I can present a short self-introduction with understandable pronunciation and message clarity.</li>
-            <li>I can compare greeting norms and identify cultural diversity within the Spanish-speaking world.</li>
-          </ul>
-
-          <h3>Assessment Notes</h3>
-          <ul>
-            <li>Performance task prioritizes comprehensibility + task completion over accuracy (interlanguage expected).</li>
-            <li>Rubric aligns to proficiency descriptors: meaning-making, message clarity, and strategy use.</li>
-          </ul>
-
-          <h3>Suggested Pacing</h3>
-          <ul>
-            <li>5–8 instructional days (flexible): Stage 1 (2 days), Stage 2 (2 days), Stage 3 (1–2 days), Stage 4 (1 day), Stage 5 (1 day).</li>
-          </ul>
-        </div>
-      </details>
-    </div>
-  </section>
-
-</main>
-
-<script>
-  // Save progress for the 5 stages
-  const boxes = ["u1stage1","u1stage2","u1stage3","u1stage4","u1stage5"];
-  boxes.forEach(id => {
-    const checkbox = document.getElementById(id);
-    const saved = localStorage.getItem(id);
-    if (saved === "true") checkbox.checked = true;
-    checkbox.addEventListener("change", () => {
-      localStorage.setItem(id, checkbox.checked);
+    resetBtn.addEventListener("click", () => {
+      const ok = confirm("Reset Unit 1 progress? This only affects your browser.");
+      if(!ok) return;
+      STAGES.forEach(s => localStorage.removeItem(s.key));
+      render();
     });
-  });
-</script>
 
+    const teacherBtn = document.getElementById("teacherBtn");
+    const teacherBox = document.getElementById("teacherBox");
+    teacherBtn.addEventListener("click", () => {
+      const isHidden = teacherBox.style.display === "" || teacherBox.style.display === "none";
+      teacherBox.style.display = isHidden ? "block" : "none";
+    });
+
+    render();
+  </script>
 </body>
 </html>
