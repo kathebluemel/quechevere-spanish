@@ -55,6 +55,14 @@
       line-height:1.4;
     }
 
+    .rightControls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
     .pill{
       display:inline-flex;
       align-items:center;
@@ -64,9 +72,27 @@
       border:1px solid rgba(74,163,255,.35);
       background:rgba(74,163,255,.12);
       color:var(--text);
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       white-space:nowrap;
+    }
+
+    .homeBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      font-weight:800;
+      font-size:13px;
+      text-decoration:none;
+      white-space:nowrap;
+    }
+    .homeBtn:hover{
+      border-color:rgba(255,255,255,.28);
     }
 
     .grid{
@@ -117,7 +143,7 @@
       margin-top:10px;
       color:var(--muted);
       font-size:13px;
-      font-weight:700;
+      font-weight:800;
     }
 
     .bar{
@@ -156,9 +182,13 @@
     <div class="top">
       <div>
         <h1>Spanish Level 1</h1>
-        <p class="subtitle">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+        <p class="subtitle">Student Learning Space (Dark Mode) — Seño Bluemel Que Chévere</p>
       </div>
-      <div class="pill" id="overallPill">Overall: 0% complete</div>
+
+      <div class="rightControls">
+        <a class="homeBtn" href="../index.html">← Home</a>
+        <div class="pill" id="overallPill">Overall: 0% complete</div>
+      </div>
     </div>
 
     <div class="grid">
@@ -229,7 +259,6 @@
   </div>
 
   <script>
-    // ===== Helper =====
     function pctFromKeys(keys){
       const done = keys.filter(k => localStorage.getItem(k) === "true").length;
       return Math.round((done / keys.length) * 100);
@@ -240,8 +269,6 @@
       document.getElementById(pctId).textContent = pct + "%";
     }
 
-    // ===== Stage Keys (5 stages per unit) =====
-    // NOTE: These keys must match what your unit pages use.
     const U1_KEYS = ["l1u1_s1_understand","l1u1_s2_interact","l1u1_s3_create","l1u1_s4_reflect","l1u1_s5_perform"];
     const U2_KEYS = ["l1u2_s1_understand","l1u2_s2_interact","l1u2_s3_create","l1u2_s4_reflect","l1u2_s5_perform"];
     const U3_KEYS = ["l1u3_s1_understand","l1u3_s2_interact","l1u3_s3_create","l1u3_s4_reflect","l1u3_s5_perform"];
