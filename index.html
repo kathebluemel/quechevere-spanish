@@ -1,294 +1,236 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Seño Bluemel Que Chévere | Learn Spanish with Confidence</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Seño Bluemel Que Chévere</title>
 
-  <style>
-    :root{
-      --navy:#1F2A44;
-      --teal:#1CA7A6;
-      --bg:#F4F6F8;
-      --white:#FFFFFF;
-      --text:#182033;
-      --muted:#5C677D;
-      --border:#DDE3EA;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
-      background:var(--bg);
-      line-height:1.5;
-    }
-    a{color:inherit;text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{width:min(1100px, 92vw); margin:0 auto;}
-    header{
-      background:var(--white);
-      border-bottom:1px solid var(--border);
-      position:sticky;
-      top:0;
-      z-index:50;
-    }
-    .navbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 0;
-      gap:16px;
-    }
-    .brand{display:flex;flex-direction:column;line-height:1.1}
-    .brand .name{font-weight:800;color:var(--navy);letter-spacing:.2px}
-    .brand .tag{font-weight:700;color:var(--teal);font-size:.95rem}
+<style>
+:root{
+  --bg:#f4f6f8;
+  --panel:#ffffff;
+  --text:#1f2a44;
+  --muted:#5f6b82;
+  --accent:#1b3a6b;
+  --accent-soft:#dce4f2;
+  --line:rgba(0,0,0,.08);
+  --radius:16px;
+  --max:1100px;
+}
 
-    .navlinks{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      align-items:center;
-      justify-content:flex-end;
-      font-weight:600;
-      color:var(--navy);
-    }
-    .navlinks a{padding:8px 10px;border-radius:10px}
-    .navlinks a.active,
-    .navlinks a:hover{background:rgba(28,167,166,.10);text-decoration:none}
+*{box-sizing:border-box}
 
-    .hero{padding:56px 0 26px}
-    .hero-card{
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:34px;
-      box-shadow:0 8px 22px rgba(0,0,0,.05);
-    }
-    .kicker{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      font-weight:700;
-      color:var(--teal);
-      background:rgba(28,167,166,.10);
-      padding:8px 12px;
-      border-radius:999px;
-      margin-bottom:14px;
-    }
-    h1{
-      margin:0 0 10px;
-      font-size:clamp(2rem, 3.4vw, 3rem);
-      color:var(--navy);
-      letter-spacing:-.4px;
-    }
-    .subhead{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:1.05rem;
-      max-width:70ch;
-    }
-    .btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:var(--white);
-      font-weight:800;
-    }
-    .btn.primary{background:var(--navy);color:var(--white);border-color:transparent}
-    .btn.secondary{background:rgba(28,167,166,.12);color:var(--navy);border-color:rgba(28,167,166,.30)}
-    .btn:hover{text-decoration:none;transform:translateY(-1px)}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
 
-    .section{padding:22px 0}
-    .section-title{margin:0 0 10px;font-size:1.35rem;color:var(--navy)}
-    .section-desc{margin:0 0 16px;color:var(--muted);max-width:85ch}
+.wrap{
+  max-width:var(--max);
+  margin:auto;
+  padding:50px 20px;
+}
 
-    .grid{display:grid;gap:14px}
-    .grid.levels{grid-template-columns:repeat(5, minmax(0,1fr))}
-    @media (max-width: 980px){.grid.levels{grid-template-columns:repeat(2, minmax(0,1fr))}}
-    @media (max-width: 640px){
-      .grid.levels{grid-template-columns:1fr}
-      .hero-card{padding:22px}
-      .navlinks{gap:8px}
-    }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+}
 
-    .level-card{
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:16px;
-      background:linear-gradient(180deg, rgba(28,167,166,.08), rgba(255,255,255,1));
-    }
-    .level-card h3{margin:0 0 6px;color:var(--navy);font-size:1.05rem}
-    .level-card .subtitle{margin:0 0 8px;color:var(--muted);font-weight:700}
-    .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(31,42,68,.18);
-      background:rgba(31,42,68,.04);
-      color:var(--navy);
-      font-weight:800;
-      font-size:.85rem;
-    }
+.logo{
+  font-weight:900;
+  font-size:20px;
+}
 
-    .card{
-      background:var(--white);
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:22px;
-      box-shadow:0 6px 18px rgba(0,0,0,.04);
-    }
+nav a{
+  text-decoration:none;
+  color:var(--text);
+  margin-left:20px;
+  font-weight:600;
+}
 
-    .journey{display:flex;gap:16px;align-items:flex-start}
-    .journey svg{flex:0 0 110px;width:110px;height:auto}
-    .journey p{margin:0;color:var(--muted)}
+.hero{
+  background:var(--panel);
+  padding:60px 40px;
+  border-radius:var(--radius);
+  box-shadow:0 20px 40px rgba(0,0,0,.05);
+  margin-bottom:50px;
+}
 
-    .footer{
-      margin-top:22px;
-      padding:26px 0;
-      background:var(--white);
-      border-top:1px solid var(--border);
-    }
-    .footgrid{
-      display:grid;
-      gap:14px;
-      grid-template-columns:2fr 1fr;
-    }
-    @media (max-width: 640px){.footgrid{grid-template-columns:1fr}}
-    .footer h4{margin:0 0 8px;color:var(--navy)}
-    .footer a{color:var(--navy);font-weight:700}
-    small.muted{color:var(--muted)}
-  </style>
+.tag{
+  display:inline-block;
+  background:var(--accent-soft);
+  color:var(--accent);
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:48px;
+  line-height:1.1;
+  margin:0 0 20px 0;
+}
+
+.subtext{
+  color:var(--muted);
+  font-size:18px;
+  max-width:600px;
+  margin-bottom:30px;
+}
+
+.buttons{
+  display:flex;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+.primary-btn{
+  background:var(--accent);
+  color:white;
+  padding:14px 22px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.secondary-btn{
+  background:#e8ecf3;
+  color:var(--text);
+  padding:14px 22px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.features{
+  margin-top:25px;
+  color:var(--muted);
+  font-size:15px;
+}
+
+.section-title{
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.level-grid{
+  display:grid;
+  gap:20px;
+}
+
+@media(min-width:900px){
+  .level-grid{
+    grid-template-columns:repeat(5,1fr);
+  }
+}
+
+.level-card{
+  background:var(--panel);
+  padding:20px;
+  border-radius:var(--radius);
+  box-shadow:0 12px 25px rgba(0,0,0,.05);
+}
+
+.level-card h3{
+  margin:0 0 8px 0;
+}
+
+.level-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+footer{
+  text-align:center;
+  margin-top:60px;
+  color:var(--muted);
+  font-size:13px;
+}
+</style>
 </head>
 
 <body>
-<header>
-  <div class="container navbar">
-    <a class="brand" href="/quechevere-spanish/">
-      <span class="name">Seño Bluemel</span>
-      <span class="tag">Que Chévere</span>
-    </a>
 
-    <nav class="navlinks" aria-label="Main navigation">
-      <a class="active" href="/quechevere-spanish/">Home</a>
-      <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
-      <a href="/quechevere-spanish/about/">About</a>
-    </nav>
-  </div>
+<div class="wrap">
+
+<header>
+  <div class="logo">Seño Bluemel<br><span style="color:#3b5c88">Que Chévere</span></div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="level-1/">Spanish Level 1</a>
+    <a href="about/">About</a>
+  </nav>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div class="hero-card">
-        <div class="kicker">🌿 A Spanish learning library</div>
-        <h1>Learn Spanish with Confidence.<br/>Step by step. Skill by skill.</h1>
-        <p class="subhead">
-          Welcome to a structured Spanish learning space designed for students and teachers.
-          Explore levels, practice skills, and grow your communication with clarity and confidence.
-        </p>
-        <div class="btnrow">
-          <a class="btn primary" href="/quechevere-spanish/level-1/">Start with Spanish Level 1</a>
-          <a class="btn secondary" href="#levels">Explore All Levels</a>
-        </div>
-        <p class="subhead" style="margin-top:14px">
-          ✔ Proficiency-driven learning • ✔ Scaffolded reading • ✔ Clear routines • ✔ Practice that builds confidence
-        </p>
-      </div>
-    </div>
-  </section>
+<div class="hero">
+  <div class="tag">🌿 A Spanish learning library</div>
 
-  <section class="section" id="levels">
-    <div class="container">
-      <h2 class="section-title">A Clear Learning Path</h2>
-      <p class="section-desc">
-        Move through each level at your own pace. Each step builds skills intentionally and aligns with ACTFL proficiency growth.
-      </p>
+  <h1>Learn Spanish with Confidence.<br>Step by step. Skill by skill.</h1>
 
-      <div class="grid levels">
-        <a class="level-card" href="/quechevere-spanish/level-1/">
-          <h3>Spanish Level 1</h3>
-          <p class="subtitle">Foundations of Communication</p>
-          <span class="pill">Novice Low → Novice Mid</span>
-        </a>
-
-        <div class="level-card">
-          <h3>Spanish Level 2</h3>
-          <p class="subtitle">Building Confidence</p>
-          <span class="pill">Novice Mid → Novice High</span>
-          <p class="section-desc" style="margin:10px 0 0">Coming soon</p>
-        </div>
-
-        <div class="level-card">
-          <h3>Spanish Level 3</h3>
-          <p class="subtitle">Expanding Expression</p>
-          <span class="pill">Novice High → Intermediate Low</span>
-          <p class="section-desc" style="margin:10px 0 0">Coming soon</p>
-        </div>
-
-        <div class="level-card">
-          <h3>Spanish Level 4</h3>
-          <p class="subtitle">Confident & Connected Communication</p>
-          <span class="pill">Intermediate Low → Intermediate Mid</span>
-          <p class="section-desc" style="margin:10px 0 0">Coming soon</p>
-        </div>
-
-        <div class="level-card">
-          <h3>AP Spanish</h3>
-          <p class="subtitle">Advanced Communication</p>
-          <span class="pill">Intermediate Mid → Advanced Low</span>
-          <p class="section-desc" style="margin:10px 0 0">Coming soon</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container card">
-      <div class="journey">
-        <svg viewBox="0 0 220 140" aria-label="Chiva icon" role="img">
-          <path d="M24 92h170c10 0 18-8 18-18V52c0-10-8-18-18-18H64c-8 0-16 3-22 9l-14 14c-3 3-4 7-4 11v24z"
-                fill="none" stroke="#1F2A44" stroke-width="6" stroke-linejoin="round"/>
-          <path d="M56 34v58M98 34v58M140 34v58M182 34v58" fill="none" stroke="#1CA7A6" stroke-width="4"/>
-          <circle cx="66" cy="104" r="12" fill="none" stroke="#1F2A44" stroke-width="6"/>
-          <circle cx="168" cy="104" r="12" fill="none" stroke="#1F2A44" stroke-width="6"/>
-          <path d="M24 70h188" fill="none" stroke="#1F2A44" stroke-width="6"/>
-        </svg>
-
-        <div>
-          <h2 class="section-title" style="margin-top:0">The Learning Journey</h2>
-          <p>
-            In Colombia, the traditional <strong>chiva</strong> carries people across landscapes and communities.
-            Learning Spanish is also a journey — built <strong>step by step</strong>, <strong>skill by skill</strong>.
-            Explore, practice, and return anytime. Growth happens over time.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <div class="container footgrid">
-    <div>
-      <h4>Seño Bluemel Que Chévere</h4>
-      <small class="muted">Learn Spanish with Confidence. Step by step. Skill by skill.</small>
-    </div>
-    <div>
-      <h4>Quick Links</h4>
-      <div class="grid" style="gap:8px">
-        <a href="/quechevere-spanish/level-1/">Spanish Level 1</a>
-        <a href="/quechevere-spanish/about/">About</a>
-      </div>
-    </div>
+  <div class="subtext">
+    A structured, ACTFL-aligned Spanish curriculum designed for clarity, consistency,
+    and confidence. Enter the student learning portal to begin.
   </div>
-  <div class="container" style="margin-top:14px">
-    <small class="muted">© 2026 Seño Bluemel Que Chévere</small>
+
+  <div class="buttons">
+    <a class="primary-btn" href="level-1/">
+      Enter Spanish Level 1 Portal →
+    </a>
+
+    <a class="secondary-btn" href="#">
+      Explore All Levels
+    </a>
   </div>
+
+  <div class="features">
+    ✓ Proficiency-driven learning  
+    ✓ Scaffolded input  
+    ✓ Clear routines  
+    ✓ Progress tracking
+  </div>
+</div>
+
+<h2 class="section-title">A Clear Learning Path</h2>
+
+<div class="level-grid">
+  <div class="level-card">
+    <h3>Spanish Level 1</h3>
+    <p>Foundations of Communication</p>
+  </div>
+
+  <div class="level-card">
+    <h3>Spanish Level 2</h3>
+    <p>Building Confidence</p>
+  </div>
+
+  <div class="level-card">
+    <h3>Spanish Level 3</h3>
+    <p>Expanding Expression</p>
+  </div>
+
+  <div class="level-card">
+    <h3>Spanish Level 4</h3>
+    <p>Confident & Connected Communication</p>
+  </div>
+
+  <div class="level-card">
+    <h3>AP Spanish</h3>
+    <p>Advanced Communication</p>
+  </div>
+</div>
+
+<footer>
+  © Seño Bluemel Que Chévere
 </footer>
+
+</div>
+
 </body>
 </html>
