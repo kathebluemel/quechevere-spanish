@@ -6,109 +6,259 @@
   <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
 
   <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#121923;
+      --panel2:#0f1620;
+      --text:#e8eef6;
+      --muted:#b7c4d6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4aa3ff;
+      --good:#34d399;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius:16px;
+      --radius2:12px;
+      --max:1100px;
+    }
+
+    *{box-sizing:border-box}
     body{
       margin:0;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      background:#0b0f14;
-      color:#e8eef6;
+      background:var(--bg);
+      color:var(--text);
     }
 
     .wrap{
-      max-width:1100px;
+      max-width:var(--max);
       margin:auto;
       padding:40px 20px;
     }
 
+    .top{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:22px;
+    }
+
     h1{
       font-size:32px;
-      margin-bottom:10px;
+      margin:0 0 6px 0;
     }
 
     .subtitle{
-      color:#b7c4d6;
-      margin-bottom:30px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.4;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(74,163,255,.35);
+      background:rgba(74,163,255,.12);
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+      white-space:nowrap;
     }
 
     .grid{
       display:grid;
-      gap:20px;
+      gap:18px;
     }
-
-    @media(min-width:800px){
+    @media(min-width:860px){
       .grid{
         grid-template-columns:1fr 1fr;
       }
     }
 
     .card{
-      background:#121923;
-      border-radius:16px;
-      padding:20px;
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border-radius:var(--radius);
+      padding:18px;
       text-decoration:none;
-      color:white;
-      border:1px solid rgba(255,255,255,.1);
-      transition:.2s;
+      color:var(--text);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      transition:.18s;
       display:block;
     }
-
     .card:hover{
-      transform:translateY(-4px);
-      border-color:#4aa3ff;
+      transform:translateY(-3px);
+      border-color:rgba(74,163,255,.55);
     }
 
     .unit-title{
-      font-size:20px;
-      font-weight:700;
-      margin-bottom:6px;
+      font-size:18px;
+      font-weight:900;
+      margin:0 0 6px 0;
+      letter-spacing:-.01em;
     }
 
     .unit-desc{
-      color:#b7c4d6;
+      color:var(--muted);
       font-size:14px;
+      margin:0 0 12px 0;
+      line-height:1.4;
+    }
+
+    .progressRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .bar{
+      width:100%;
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+    }
+
+    .fill{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, rgba(74,163,255,.95), rgba(52,211,153,.95));
     }
 
     .footer{
-      margin-top:50px;
+      margin-top:40px;
       text-align:center;
       color:#7f8ea3;
       font-size:13px;
+    }
+
+    .tiny{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:8px;
+      line-height:1.35;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <h1>Spanish Level 1</h1>
-    <p class="subtitle">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+    <div class="top">
+      <div>
+        <h1>Spanish Level 1</h1>
+        <p class="subtitle">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+      </div>
+      <div class="pill" id="overallPill">Overall: 0% complete</div>
+    </div>
 
     <div class="grid">
 
+      <!-- UNIT 1 -->
       <a class="card" href="unit-1/index.html">
         <div class="unit-title">Unit 1 — Identity & First Encounters</div>
-        <div class="unit-desc">Greetings, introductions, basic personal information.</div>
+        <p class="unit-desc">Greetings, introductions, basic personal information.</p>
+
+        <div class="bar" aria-label="Unit 1 progress">
+          <div class="fill" id="u1Fill"></div>
+        </div>
+        <div class="progressRow">
+          <span>Progress</span>
+          <span id="u1Pct">0%</span>
+        </div>
       </a>
 
+      <!-- UNIT 2 -->
       <a class="card" href="unit-2/index.html">
         <div class="unit-title">Unit 2 — Numbers & Classroom Language</div>
-        <div class="unit-desc">Numbers, classroom objects, essential communication phrases.</div>
+        <p class="unit-desc">Numbers, classroom objects, essential communication phrases.</p>
+
+        <div class="bar" aria-label="Unit 2 progress">
+          <div class="fill" id="u2Fill"></div>
+        </div>
+        <div class="progressRow">
+          <span>Progress</span>
+          <span id="u2Pct">0%</span>
+        </div>
       </a>
 
+      <!-- UNIT 3 -->
       <a class="card" href="unit-3/index.html">
         <div class="unit-title">Unit 3 — Descriptions & Adjectives</div>
-        <div class="unit-desc">Physical descriptions, adjectives, agreement, basic traits.</div>
+        <p class="unit-desc">Physical descriptions, adjectives, agreement, basic traits.</p>
+
+        <div class="bar" aria-label="Unit 3 progress">
+          <div class="fill" id="u3Fill"></div>
+        </div>
+        <div class="progressRow">
+          <span>Progress</span>
+          <span id="u3Pct">0%</span>
+        </div>
       </a>
 
+      <!-- UNIT 4 -->
       <a class="card" href="unit-4.html">
         <div class="unit-title">Unit 4 — Daily Life & Schedules</div>
-        <div class="unit-desc">Daily routines, time telling, sequencing, simple preferences.</div>
+        <p class="unit-desc">Daily routines, time telling, sequencing, simple preferences.</p>
+
+        <div class="bar" aria-label="Unit 4 progress">
+          <div class="fill" id="u4Fill"></div>
+        </div>
+        <div class="progressRow">
+          <span>Progress</span>
+          <span id="u4Pct">0%</span>
+        </div>
+
+        <div class="tiny">
+          Tip: Progress is saved in your browser (localStorage).
+        </div>
       </a>
 
     </div>
 
-    <div class="footer">
-      © Seño Bluemel Que Chévere
-    </div>
-
+    <div class="footer">© Seño Bluemel Que Chévere</div>
   </div>
+
+  <script>
+    // ===== Helper =====
+    function pctFromKeys(keys){
+      const done = keys.filter(k => localStorage.getItem(k) === "true").length;
+      return Math.round((done / keys.length) * 100);
+    }
+
+    function setBar(fillId, pctId, pct){
+      document.getElementById(fillId).style.width = pct + "%";
+      document.getElementById(pctId).textContent = pct + "%";
+    }
+
+    // ===== Stage Keys (5 stages per unit) =====
+    // NOTE: These keys must match what your unit pages use.
+    const U1_KEYS = ["l1u1_s1_understand","l1u1_s2_interact","l1u1_s3_create","l1u1_s4_reflect","l1u1_s5_perform"];
+    const U2_KEYS = ["l1u2_s1_understand","l1u2_s2_interact","l1u2_s3_create","l1u2_s4_reflect","l1u2_s5_perform"];
+    const U3_KEYS = ["l1u3_s1_understand","l1u3_s2_interact","l1u3_s3_create","l1u3_s4_reflect","l1u3_s5_perform"];
+    const U4_KEYS = ["l1u4_s1_understand","l1u4_s2_interact","l1u4_s3_create","l1u4_s4_reflect","l1u4_s5_perform"];
+
+    const u1 = pctFromKeys(U1_KEYS);
+    const u2 = pctFromKeys(U2_KEYS);
+    const u3 = pctFromKeys(U3_KEYS);
+    const u4 = pctFromKeys(U4_KEYS);
+
+    setBar("u1Fill","u1Pct",u1);
+    setBar("u2Fill","u2Pct",u2);
+    setBar("u3Fill","u3Pct",u3);
+    setBar("u4Fill","u4Pct",u4);
+
+    const overall = Math.round((u1 + u2 + u3 + u4) / 4);
+    document.getElementById("overallPill").textContent = "Overall: " + overall + "% complete";
+  </script>
 </body>
 </html>
