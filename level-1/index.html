@@ -1,216 +1,324 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#121923;
+      --panel2:#0f1620;
+      --text:#e8eef6;
+      --muted:#b7c4d6;
+      --line:rgba(255,255,255,.12);
+      --accent:#4aa3ff;
+      --good:#34d399;
+      --shadow:0 14px 36px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:12px;
+      --max:1100px;
+    }
 
-<style>
-:root{
-  --bg:#0b0f14;
-  --panel:#121923;
-  --panel2:#0f1620;
-  --text:#e8eef6;
-  --muted:#b7c4d6;
-  --line:rgba(255,255,255,.08);
-  --accent:#4aa3ff;
-  --radius:16px;
-  --max:1100px;
-}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:26px 18px 34px}
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;
+      padding:16px 18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius:var(--radius);box-shadow:var(--shadow);
+    }
+    .brand{display:flex;flex-direction:column;gap:4px}
+    .brand h1{margin:0;font-size:28px;letter-spacing:.2px}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
 
-.wrapper{
-  max-width:var(--max);
-  margin:auto;
-  padding:30px 20px 60px;
-}
+    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:700;font-size:13px;
+    }
+    .btn:hover{border-color:rgba(255,255,255,.25)}
+    .btn.primary{border-color:rgba(74,163,255,.45);background:rgba(74,163,255,.10)}
+    .btn.danger{border-color:rgba(239,68,68,.45);background:rgba(239,68,68,.08)}
+    .pill{
+      padding:8px 12px;border-radius:999px;
+      border:1px solid rgba(74,163,255,.45);
+      background:rgba(74,163,255,.10);
+      font-weight:800;font-size:13px;
+      white-space:nowrap;
+    }
 
-h1{
-  font-size:2.2rem;
-  margin-bottom:5px;
-}
+    .overall{
+      margin-top:14px;
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px 16px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+    .overall .label{font-weight:800}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;border:1px solid rgba(255,255,255,.10)}
+    .bar > span{display:block;height:100%;width:0%;background:linear-gradient(90deg, rgba(74,163,255,.9), rgba(52,211,153,.9))}
+    .overall .left{display:flex;flex-direction:column;gap:8px;min-width:min(520px,100%);flex:1}
+    .overall .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 
-.sub{
-  color:var(--muted);
-  margin-bottom:30px;
-}
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:14px;
+    }
+    @media (max-width: 860px){
+      .grid{grid-template-columns:1fr}
+      .brand h1{font-size:24px}
+    }
 
-.grid{
-  display:grid;
-  gap:20px;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-}
-
-.card{
-  background:linear-gradient(145deg,var(--panel),var(--panel2));
-  padding:20px;
-  border-radius:var(--radius);
-  border:1px solid var(--line);
-  transition:0.2s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-  border-color:var(--accent);
-}
-
-.card h2{
-  margin-top:0;
-  font-size:1.1rem;
-}
-
-.progress-bar{
-  height:8px;
-  background:#1a2532;
-  border-radius:8px;
-  overflow:hidden;
-  margin-top:12px;
-}
-
-.progress-fill{
-  height:100%;
-  width:0%;
-  background:var(--accent);
-  transition:width .3s;
-}
-
-.progress-text{
-  font-size:.85rem;
-  margin-top:6px;
-  color:var(--muted);
-}
-
-.overall{
-  margin-bottom:30px;
-  padding:15px 20px;
-  border-radius:12px;
-  background:linear-gradient(145deg,var(--panel),var(--panel2));
-  border:1px solid var(--line);
-}
-
-.footer{
-  margin-top:40px;
-  text-align:center;
-  font-size:.8rem;
-  color:var(--muted);
-}
-a{
-  text-decoration:none;
-  color:inherit;
-}
-</style>
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:16px 16px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:hover{border-color:rgba(255,255,255,.22)}
+    .card h2{
+      margin:0 0 6px 0;
+      font-size:18px;letter-spacing:.2px;
+    }
+    .card p{
+      margin:0 0 12px 0;
+      color:var(--muted);
+      font-size:13px;line-height:1.35;
+      min-height:34px;
+    }
+    .meta{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-top:10px;
+      font-size:12px;color:var(--muted);
+    }
+    .smallbar{margin-top:8px}
+    .smallbar .bar{height:9px}
+    .pct{font-weight:900;color:var(--text)}
+    footer{
+      margin-top:18px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .tip{margin-top:10px;color:var(--muted);font-size:12px}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <h1>Spanish Level 1</h1>
+        <p>Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+      </div>
 
-<div class="wrapper">
+      <div class="actions">
+        <a class="btn" href="../index.html">← Home</a>
+        <span class="pill" id="overallPill">Overall: 0% complete</span>
+        <button class="btn danger" id="resetAllBtn" type="button">Reset ALL Level 1 Progress</button>
+      </div>
+    </div>
 
-<h1>Spanish Level 1</h1>
-<div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
+    <div class="overall">
+      <div class="left">
+        <div class="label">Overall Progress</div>
+        <div class="bar"><span id="overallBar"></span></div>
+        <div class="tip">Tip: Progress is saved in your browser (localStorage).</div>
+      </div>
+      <div class="right">
+        <span class="btn primary" style="pointer-events:none;">
+          Units: <span id="unitCount">6</span> • Stages: 5 each
+        </span>
+      </div>
+    </div>
 
-<div class="overall">
-<strong>Overall Progress:</strong>
-<span id="overallPercent">0%</span>
-<div class="progress-bar">
-  <div class="progress-fill" id="overallBar"></div>
-</div>
-</div>
+    <div class="grid" id="unitGrid">
+      <!-- Cards injected by JS -->
+    </div>
 
-<div class="grid">
-
-<a href="unit-1/">
-<div class="card">
-<h2>Unit 1 — Identity & First Encounters</h2>
-<div class="progress-bar">
-<div class="progress-fill" id="u1"></div>
-</div>
-<div class="progress-text" id="u1text">0%</div>
-</div>
-</a>
-
-<a href="unit-2/">
-<div class="card">
-<h2>Unit 2 — Numbers & Classroom Language</h2>
-<div class="progress-bar">
-<div class="progress-fill" id="u2"></div>
-</div>
-<div class="progress-text" id="u2text">0%</div>
-</div>
-</a>
-
-<a href="unit-3/">
-<div class="card">
-<h2>Unit 3 — Descriptions & Adjectives</h2>
-<div class="progress-bar">
-<div class="progress-fill" id="u3"></div>
-</div>
-<div class="progress-text" id="u3text">0%</div>
-</div>
-</a>
-
-<a href="unit-4/">
-<div class="card">
-<h2>Unit 4 — Daily Life & Schedules</h2>
-<div class="progress-bar">
-<div class="progress-fill" id="u4"></div>
-</div>
-<div class="progress-text" id="u4text">0%</div>
-</div>
-</div>
-</a>
-
-<a href="unit-5/">
-<div class="card">
-<h2>Unit 5 — Food & Preferences</h2>
-<div class="progress-bar">
-<div class="progress-fill" id="u5"></div>
-</div>
-<div class="progress-text" id="u5text">0%</div>
-</div>
-</div>
-</a>
-
-<a href="unit-6/">
-<div class="card">
-<h2>Unit 6 — Free Time & Hobbies</h2>
-<div class="progress-bar">
-<div class="progress-fill" id="u6"></div>
-</div>
-<div class="progress-text" id="u6text">0%</div>
-</div>
-</div>
-</a>
-
-</div>
-
-<div class="footer">
-© Seño Bluemel Que Chévere • Level 1
-</div>
-
-</div>
+    <footer>© Seño Bluemel Que Chévere</footer>
+  </div>
 
 <script>
-const units = 6;
-let total = 0;
+  // ==========
+  // Dashboard config (EDIT HERE if you rename titles/paths)
+  // ==========
+  const UNITS = [
+    { n: 1, title: "Unit 1 — Identity & First Encounters", desc: "Greetings, introductions, basic personal information.", href: "./unit-1/" },
+    { n: 2, title: "Unit 2 — Numbers & Classroom Language", desc: "Numbers, classroom objects, essential communication phrases.", href: "./unit-2/" },
+    { n: 3, title: "Unit 3 — Descriptions & Adjectives", desc: "Physical descriptions, adjectives, agreement, basic traits.", href: "./unit-3/" },
+    { n: 4, title: "Unit 4 — Daily Life & Schedules", desc: "Daily routines, time telling, sequencing, simple preferences.", href: "./unit-4/" },
+    { n: 5, title: "Unit 5 — Food & Preferences", desc: "Likes/dislikes, simple requests, ordering politely.", href: "./unit-5/" },
+    { n: 6, title: "Unit 6 — Free Time & Hobbies", desc: "Activities you do, what you like to do, and when.", href: "./unit-6/" },
+  ];
 
-for(let i=1;i<=units;i++){
-  let progress = localStorage.getItem("unit"+i+"Progress") || 0;
-  document.getElementById("u"+i).style.width = progress+"%";
-  document.getElementById("u"+i+"text").textContent = progress+"%";
-  total += parseInt(progress);
-}
+  const STAGES = 5;
 
-let overall = Math.round(total/units);
-document.getElementById("overallBar").style.width = overall+"%";
-document.getElementById("overallPercent").textContent = overall+"%";
+  // ==========
+  // Progress reading logic (robust across different key styles)
+  // ==========
+  function truthy(v){
+    if (v === true) return true;
+    if (v === "true") return true;
+    if (v === "1") return true;
+    if (v === 1) return true;
+    return false;
+  }
+
+  function tryParseJSON(s){
+    try { return JSON.parse(s); } catch { return null; }
+  }
+
+  // Try multiple possible storage formats:
+  // 1) JSON object: { stages: [true,false,...] } or { stage1:true, stage2:false, ... }
+  // 2) Individual keys per stage (many naming patterns)
+  function getUnitStageDone(unitN, stageN){
+    const keysToTry = [
+      // common explicit patterns
+      `qc_lvl1_unit${unitN}_stage${stageN}`,
+      `qc_lvl1_unit${unitN}_stage${stageN}_done`,
+      `qc_unit${unitN}_stage${stageN}_done`,
+      `lvl1_unit${unitN}_stage${stageN}_done`,
+      `level1_unit${unitN}_stage${stageN}_done`,
+      `unit${unitN}_stage${stageN}_done`,
+      `unit-${unitN}-stage-${stageN}-done`,
+      // short patterns
+      `qc_l1_u${unitN}_s${stageN}`,
+      `qc_l1_u${unitN}_s${stageN}_done`,
+    ];
+
+    // Check per-stage keys
+    for (const k of keysToTry){
+      const v = localStorage.getItem(k);
+      if (v !== null && truthy(v)) return true;
+    }
+
+    // Check JSON blobs (per-unit)
+    const jsonKeys = [
+      `qc_lvl1_unit${unitN}_progress`,
+      `qc_unit${unitN}_progress`,
+      `lvl1_unit${unitN}_progress`,
+      `unit${unitN}_progress`,
+      `qc_lvl1_unit${unitN}`,
+      `qc_unit${unitN}`,
+    ];
+
+    for (const jk of jsonKeys){
+      const raw = localStorage.getItem(jk);
+      if (!raw) continue;
+      const obj = tryParseJSON(raw);
+      if (!obj) continue;
+
+      if (Array.isArray(obj.stages) && obj.stages.length >= STAGES){
+        return !!obj.stages[stageN - 1];
+      }
+      if (typeof obj[`stage${stageN}`] !== "undefined"){
+        return !!obj[`stage${stageN}`];
+      }
+      if (typeof obj[`stage${stageN}_done`] !== "undefined"){
+        return !!obj[`stage${stageN}_done`];
+      }
+    }
+
+    return false;
+  }
+
+  function getUnitPercent(unitN){
+    let done = 0;
+    for (let s = 1; s <= STAGES; s++){
+      if (getUnitStageDone(unitN, s)) done++;
+    }
+    return Math.round((done / STAGES) * 100);
+  }
+
+  function setBar(el, pct){
+    el.style.width = Math.max(0, Math.min(100, pct)) + "%";
+  }
+
+  // ==========
+  // Render
+  // ==========
+  const grid = document.getElementById("unitGrid");
+
+  function render(){
+    grid.innerHTML = "";
+
+    const percents = UNITS.map(u => getUnitPercent(u.n));
+    const overall = percents.length ? Math.round(percents.reduce((a,b)=>a+b,0) / percents.length) : 0;
+
+    document.getElementById("overallPill").textContent = `Overall: ${overall}% complete`;
+    setBar(document.getElementById("overallBar"), overall);
+    document.getElementById("unitCount").textContent = String(UNITS.length);
+
+    UNITS.forEach((u, idx) => {
+      const pct = percents[idx];
+
+      const a = document.createElement("a");
+      a.href = u.href;
+      a.className = "card";
+      a.setAttribute("aria-label", `${u.title} (${pct}% complete)`);
+
+      a.innerHTML = `
+        <h2>${u.title}</h2>
+        <p>${u.desc}</p>
+        <div class="smallbar">
+          <div class="bar"><span style="width:${pct}%"></span></div>
+        </div>
+        <div class="meta">
+          <span>Progress</span>
+          <span class="pct">${pct}%</span>
+        </div>
+      `;
+      grid.appendChild(a);
+    });
+  }
+
+  // ==========
+  // Reset all Level 1 progress (safe + broad key sweep)
+  // ==========
+  function resetAll(){
+    const confirmMsg =
+      "Reset ALL Level 1 progress?\n\nThis clears saved progress in THIS browser only (localStorage).";
+    if (!confirm(confirmMsg)) return;
+
+    const prefixes = [
+      "qc_lvl1_", "qc_l1_", "qc_unit", "lvl1_", "level1_", "unit"
+    ];
+
+    // Remove keys that look like they belong to unit progress/stages
+    const toDelete = [];
+    for (let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if (!k) continue;
+
+      const looksLikeStage = /stage\d/i.test(k) || /stage_\d/i.test(k) || /progress/i.test(k);
+      const hasPrefix = prefixes.some(p => k.startsWith(p));
+      if (looksLikeStage && hasPrefix) toDelete.push(k);
+    }
+    toDelete.forEach(k => localStorage.removeItem(k));
+
+    render();
+  }
+
+  document.getElementById("resetAllBtn").addEventListener("click", resetAll);
+
+  // Initial + refresh when coming back
+  render();
+  window.addEventListener("focus", render);
 </script>
-
 </body>
 </html>
