@@ -1,1 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Level 1 • Unit 4 — Daily Life & Schedules | Seño Bluemel Que Chévere</title>
 
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#121923;
+      --panel2:#0f1620;
+      --text:#e8eef6;
+      --muted:#b7c4d6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4aa3ff;
+      --good:#34d399;
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --radius2: 12px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:22px}
+    .topbar{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg,var(--panel),var(--panel2));box-shadow:var(--shadow);
+      position:sticky;top:12px;z-index:10
+    }
+    .brand{display:flex;flex-direction:column;gap:2px}
+    .brand .kicker{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .brand .title{font-size:16px;font-weight:800}
+    .nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      padding:9px 12px;border-radius:999px;text-decoration:none;
+      font-weight:650;font-size:13px;display:inline-flex;gap:8px;align-items:center
+    }
+    .btn:hover{border-color:rgba(255,255,255,.22)}
+    .btn.primary{background:rgba(74,163,255,.12);border-color:rgba(74,163,255,.35)}
+    .btn.danger{background:rgba(251,113,133,.10);border-color:rgba(251,113,133,.35)}
+    .grid{display:grid;gap:16px;margin-top:16px}
+    @media(min-width:900px){
+      .grid{grid-template-columns: 1.2fr .8fr;}
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px
+    }
+
+    h1{margin:0 0 8px 0;font-size:28px;letter-spacing:-.02em}
+    .subtitle{color:var(--muted);line-height:1.5;margin:0 0 14px 0}
+
+    .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px 0}
+    .pill{
+      font-size:12px;font-weight:700;letter-spacing:.02em;
+      padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--text)
+    }
+    .pill.accent{border-color:rgba(74,163,255,.35);background:rgba(74,163,255,.12)}
+    .pill.good{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.10)}
+    .pill.note{border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.10)}
+
+    .sectionTitle{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px 0}
+    .bigQ{
+      font-size:18px;font-weight:800;margin:10px 0 0 0;
+      border-left:4px solid rgba(74,163,255,.6);padding-left:10px
+    }
+
+    .progressWrap{display:flex;flex-direction:column;gap:10px}
+    .bar{
+      width:100%;height:10px;border-radius:999px;background:rgba(255,255,255,.08);
+      overflow:hidden;border:1px solid rgba(255,255,255,.10)
+    }
+    .fill{height:100%;width:0%;background:linear-gradient(90deg, rgba(74,163,255,.95), rgba(52,211,153,.95))}
+    .small{font-size:13px;color:var(--muted);line-height:1.4}
+    .stageList{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    .stageRow{
+      display:flex;gap:10px;align-items:center;justify-content:space-between;
+      padding:10px 12px;border-radius:var(--radius2);
+      border:1px solid var(--line);background:rgba(255,255,255,.03)
+    }
+    .stageRow strong{font-size:13px}
+    .stageRow .left{display:flex;gap:10px;align-items:center}
+    .dot{
+      width:10px;height:10px;border-radius:99px;background:rgba(255,255,255,.25);
+      border:1px solid rgba(255,255,255,.20)
+    }
+    .dot.done{background:rgba(52,211,153,.9);border-color:rgba(52,211,153,.9)}
+    .stageRow button{
+      cursor:pointer;border-radius:999px;padding:7px 10px;
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      color:var(--text);font-weight:700;font-size:12px
+    }
+    .stageRow button:hover{border-color:rgba(255,255,255,.22)}
+    .stageRow button.doneBtn{border-color:rgba(52,211,153,.45);background:rgba(52,211,153,.10)}
+    .stageRow button.undoBtn{border-color:rgba(251,113,133,.40);background:rgba(251,113,133,.10)}
+
+    details{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      box-shadow:var(--shadow);
+      padding:14px 16px
+    }
+    details + details{margin-top:12px}
+    summary{
+      cursor:pointer;list-style:none;
+      display:flex;align-items:center;justify-content:space-between;gap:10px
+    }
+    summary::-webkit-details-marker{display:none}
+    .sumLeft{display:flex;flex-direction:column;gap:2px}
+    .sumLeft .st{font-weight:900}
+    .sumLeft .mode{font-size:12px;color:var(--muted)}
+    .chev{color:var(--muted);font-weight:900}
+    .content{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+    ul{margin:8px 0 0 18px;color:var(--text)}
+    li{margin:6px 0;color:var(--text);line-height:1.45}
+    .callout{
+      border:1px dashed rgba(255,255,255,.22);
+      border-radius:var(--radius2);
+      padding:12px;
+      background:rgba(255,255,255,.03);
+      margin-top:10px
+    }
+    .callout strong{display:block;margin-bottom:6px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+    .hiddenTeacher{display:none}
+    .toggleTeacher{
+      width:100%;
+      text-align:left;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.03);
+      padding:10px 12px;border-radius:var(--radius2);
+      font-weight:800;cursor:pointer
+    }
+    .toggleTeacher:hover{border-color:rgba(255,255,255,.25)}
+    code.inline{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:8px;border:1px solid rgba(255,255,255,.12)}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="kicker">Seño Bluemel Que Chévere • Level 1</div>
+        <div class="title">Unit 4 — Daily Life & Schedules</div>
+      </div>
+      <div class="nav">
+        <a class="btn" href="../index.html">← Home</a>
+        <a class="btn primary" href="./index.html">Level 1 Dashboard</a>
+        <a class="btn" href="#stages">Stages</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: Unit Overview -->
+      <div class="card">
+        <h1>Unit 4: Daily Life & Schedules</h1>
+        <p class="subtitle">
+          Build confidence talking about your day: routines, times, and simple preferences — with lots of repetition and support.
+        </p>
+
+        <div class="pillrow">
+          <span class="pill accent">Proficiency: Novice Mid → Novice High (supported)</span>
+          <span class="pill good">High-frequency routines</span>
+          <span class="pill note">Sequencing + time telling</span>
+        </div>
+
+        <p class="sectionTitle">Proficiency Goal</p>
+        <p class="small">
+          Students understand and communicate about daily routines, time, and simple preferences in familiar contexts using
+          short, practiced language.
+        </p>
+
+        <p class="sectionTitle">Essential Question</p>
+        <p class="bigQ">¿Cómo es mi día y cómo es tu día?</p>
+
+        <div class="hr"></div>
+
+        <p class="sectionTitle">Core Language Targets</p>
+        <ul>
+          <li>I can understand the main idea of a routine (morning/school/after school).</li>
+          <li>I can ask and answer simple questions about my day.</li>
+          <li>I can tell time to the hour/half hour (optional: quarter hour).</li>
+          <li>I can present my schedule using sequencing words.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Unit 4 “Must-Have” Vocabulary</strong>
+          <div class="small">
+            <b>Routine verbs:</b> me despierto, me levanto, me baño / me ducho, me visto, desayuno, voy a la escuela, tengo clase,
+            almuerzo, regreso a casa, hago la tarea, estudio, juego, practico deportes, ceno, miro televisión, me acuesto, duermo<br/>
+            <b>Time & sequencing:</b> a las…, son las…, por la mañana / por la tarde / por la noche, primero, después, luego, finalmente
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Progress -->
+      <div class="card">
+        <p class="sectionTitle">Progress</p>
+        <div class="progressWrap">
+          <div class="bar" aria-label="Unit progress bar">
+            <div class="fill" id="progressFill"></div>
+          </div>
+          <div class="small" id="progressText">0% complete</div>
+
+          <div class="stageList" id="stageList">
+            <!-- Filled by JS -->
+          </div>
+
+          <button class="btn danger" id="resetBtn" style="justify-content:center;width:100%">
+            Reset Unit 4 Progress
+          </button>
+
+          <div class="small">
+            Tip: Your progress saves automatically in your browser (localStorage).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STAGES -->
+    <div id="stages" style="margin-top:16px"></div>
+
+    <details open>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 1: Understand</div>
+          <div class="mode">Interpretive • Comprehension first</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <p class="small"><b>Learning Targets</b></p>
+        <ul>
+          <li>I can identify routine verbs in context.</li>
+          <li>I can understand time expressions and sequencing words.</li>
+          <li>I can match routines to a timeline.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Interpretive Tasks (Student-Clean)</strong>
+          <ul>
+            <li>Picture-to-text match: match 10 routine images to Spanish sentences.</li>
+            <li>Timeline sort: put 8 routine sentences in logical order.</li>
+            <li>Reading check: short routine paragraph + comprehension questions in English.</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Lectura (10+ sentences)</strong>
+          <p class="small" style="margin:0">
+            Me llamo Sofía. Por la mañana me despierto a las seis. Después me levanto y me visto.
+            Desayuno a las seis y media. Luego voy a la escuela a las siete. En la escuela tengo clases y
+            almuerzo a las once y media. Por la tarde regreso a casa y hago la tarea. A veces estudio para un examen.
+            Después ceno con mi familia. Por la noche miro televisión un poco y me acuesto a las diez. Finalmente duermo.
+          </p>
+          <div class="hr"></div>
+          <strong>Comprehension (answer in English)</strong>
+          <ol class="small" style="margin:8px 0 0 18px;color:var(--text)">
+            <li>What time does Sofía wake up?</li>
+            <li>What does Sofía do after she gets dressed?</li>
+            <li>What time does she go to school?</li>
+            <li>When does she eat lunch?</li>
+            <li>What does she do in the afternoon?</li>
+            <li>What does she do at night before bed?</li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 2: Interact</div>
+          <div class="mode">Interpersonal • Ask & answer with support</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <p class="small"><b>Learning Targets</b></p>
+        <ul>
+          <li>I can ask and answer about routines using simple questions.</li>
+          <li>I can clarify and respond with basic follow-ups.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Core Q/A Frames</strong>
+          <ul>
+            <li><b>¿A qué hora te despiertas?</b> → Me despierto a las…</li>
+            <li><b>¿Qué haces por la mañana?</b> → Primero… Después…</li>
+            <li><b>¿A qué hora almuerzas?</b> → Almuerzo a las…</li>
+            <li><b>¿Te gusta…?</b> → Sí, me gusta / No, no me gusta</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Interpersonal Tasks</strong>
+          <ul>
+            <li><b>Find Someone Who…</b> (routine edition): ask classmates about times and routines.</li>
+            <li><b>Schedule Swap (info gap):</b> Partner A has Sofía’s schedule; Partner B has Mateo’s schedule. Ask questions to fill in missing times.</li>
+            <li><b>Micro-Conversation Cards:</b> rotate, ask 2 questions, answer with sequencing words.</li>
+          </ul>
+        </div>
+
+        <p class="small"><b>Success Criteria</b></p>
+        <ul>
+          <li>I ask at least 2 questions.</li>
+          <li>I answer with a complete phrase (verb + time or sequencing).</li>
+          <li>I use at least 2 sequencing words.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 3: Create</div>
+          <div class="mode">Presentational • Build a simple “Mi día” product</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <p class="small"><b>Learning Targets</b></p>
+        <ul>
+          <li>I can describe my daily routine in connected sentences.</li>
+          <li>I can present a simple schedule with time and order.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Choose 1 Presentational Option</strong>
+          <ul>
+            <li><b>Mi día paragraph</b> (10–12 sentences) with: 6+ routine verbs, 4 times, 3 sequencing words</li>
+            <li><b>Schedule poster/slide</b>: timeline + Spanish captions</li>
+            <li><b>Recorded routine tour</b> (30–60 seconds): “Primero… después… luego…”</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Student Checklist</strong>
+          <ul>
+            <li>I used routine verbs (me levanto, desayuno, voy…).</li>
+            <li>I included times (a las…).</li>
+            <li>I used sequencing words.</li>
+            <li>My meaning is clear and easy to follow.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 4: Reflect</div>
+          <div class="mode">Culture + Metacognition • Compare & grow</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <p class="small"><b>Cultural Focus</b></p>
+        <ul>
+          <li>Daily schedules can vary across Spanish-speaking communities.</li>
+          <li>School start/end times differ by place.</li>
+          <li>Meal times and evening routines can be later in many places (varies widely).</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Reflection Prompts</strong>
+          <ul>
+            <li>One thing that is similar between my routine and Sofía’s routine is…</li>
+            <li>One thing that is different is…</li>
+            <li>When I don’t know a word, I can… (use context, look for cognates, ask a question)</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <strong>Strategy Stoplight</strong>
+          <ul>
+            <li>🟢 I can understand routine verbs in context.</li>
+            <li>🟡 I can understand times with support.</li>
+            <li>🔴 I need more practice asking questions.</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <div class="sumLeft">
+          <div class="st">Stage 5: Perform</div>
+          <div class="mode">Assessment • Balanced across modes</div>
+        </div>
+        <div class="chev">▾</div>
+      </summary>
+      <div class="content">
+        <p class="small"><b>Assessment Package</b></p>
+        <ul>
+          <li><b>Interpretive:</b> new routine text (10–12 sentences) + 8 English questions + timeline order</li>
+          <li><b>Interpersonal:</b> 2-minute partner conversation (routines + times) with checklist</li>
+          <li><b>Presentational:</b> “Mi día” paragraph OR speaking task (6 verbs, 4 times, 3 sequencing words)</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Quick “Fast Check” Quiz Ideas</strong>
+          <ul>
+            <li>Match routine verbs → English</li>
+            <li>Choose the correct time expression</li>
+            <li>Reorder routine steps</li>
+            <li>Fill in a missing sequencing word</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Teacher Alignment (Hidden by default) -->
+    <div class="card" style="margin-top:16px">
+      <button class="toggleTeacher" id="teacherBtn">Teacher Alignment (click to show/hide)</button>
+      <div class="hiddenTeacher" id="teacherBox" style="margin-top:12px">
+        <p class="sectionTitle">ACTFL Alignment (Modes)</p>
+        <ul>
+          <li><b>Interpretive:</b> routine texts/listening with main idea + details</li>
+          <li><b>Interpersonal:</b> routine conversation using questions/answers</li>
+          <li><b>Presentational:</b> routine paragraph or short spoken presentation</li>
+        </ul>
+
+        <p class="sectionTitle">Standards</p>
+        <p class="small">
+          <b>Standards:</b> ACTFL – Interpretive, Interpersonal, Presentational | <b>MO WL.1 & WL.3</b> (+ WL.2 if you include comparisons)
+        </p>
+
+        <p class="sectionTitle">SLA / Research-Based Notes</p>
+        <ul>
+          <li>High-frequency verbs + repetition in context supports acquisition.</li>
+          <li>Structured interaction (info gaps) creates meaningful communication with low cognitive load.</li>
+          <li>Output is guided (frames + checklists) to support clarity without over-editing.</li>
+          <li>Recycling prior language strengthens retention.</li>
+        </ul>
+
+        <p class="small">
+          LocalStorage keys used in this unit:
+          <code class="inline">l1u4_s1_understand</code>,
+          <code class="inline">l1u4_s2_interact</code>,
+          <code class="inline">l1u4_s3_create</code>,
+          <code class="inline">l1u4_s4_reflect</code>,
+          <code class="inline">l1u4_s5_perform</code>
+        </p>
+      </div>
+    </div>
+
+    <p class="small" style="text-align:center;margin:18px 0 0 0;color:var(--muted)">
+      © Seño Bluemel Que Chévere • Unit 4
+    </p>
+
+  </div>
+
+  <script>
+    // ===== Unit 4 Progress Keys =====
+    const STAGES = [
+      { key: "l1u4_s1_understand", label: "Stage 1: Understand" },
+      { key: "l1u4_s2_interact",   label: "Stage 2: Interact" },
+      { key: "l1u4_s3_create",     label: "Stage 3: Create" },
+      { key: "l1u4_s4_reflect",    label: "Stage 4: Reflect" },
+      { key: "l1u4_s5_perform",    label: "Stage 5: Perform" }
+    ];
+
+    const stageList = document.getElementById("stageList");
+    const progressFill = document.getElementById("progressFill");
+    const progressText = document.getElementById("progressText");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function getDone(key){
+      return localStorage.getItem(key) === "true";
+    }
+
+    function setDone(key, value){
+      localStorage.setItem(key, value ? "true" : "false");
+      render();
+    }
+
+    function calcPercent(){
+      const doneCount = STAGES.filter(s => getDone(s.key)).length;
+      return Math.round((doneCount / STAGES.length) * 100);
+    }
+
+    function render(){
+      stageList.innerHTML = "";
+      STAGES.forEach(stage => {
+        const done = getDone(stage.key);
+
+        const row = document.createElement("div");
+        row.className = "stageRow";
+
+        const left = document.createElement("div");
+        left.className = "left";
+
+        const dot = document.createElement("div");
+        dot.className = "dot" + (done ? " done" : "");
+
+        const name = document.createElement("strong");
+        name.textContent = stage.label;
+
+        left.appendChild(dot);
+        left.appendChild(name);
+
+        const btn = document.createElement("button");
+        btn.className = done ? "undoBtn" : "doneBtn";
+        btn.textContent = done ? "Mark not done" : "Mark done";
+        btn.addEventListener("click", () => setDone(stage.key, !done));
+
+        row.appendChild(left);
+        row.appendChild(btn);
+        stageList.appendChild(row);
+      });
+
+      const pct = calcPercent();
+      progressFill.style.width = pct + "%";
+      progressText.textContent = pct + "% complete";
+    }
+
+    resetBtn.addEventListener("click", () => {
+      const ok = confirm("Reset Unit 4 progress? This only affects your browser.");
+      if(!ok) return;
+      STAGES.forEach(s => localStorage.removeItem(s.key));
+      render();
+    });
+
+    // Teacher alignment show/hide
+    const teacherBtn = document.getElementById("teacherBtn");
+    const teacherBox = document.getElementById("teacherBox");
+    teacherBtn.addEventListener("click", () => {
+      const isHidden = teacherBox.style.display === "" || teacherBox.style.display === "none";
+      teacherBox.style.display = isHidden ? "block" : "none";
+    });
+
+    render();
+  </script>
+</body>
+</html>
