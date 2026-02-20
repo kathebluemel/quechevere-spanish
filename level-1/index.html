@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
 
   <style>
@@ -17,135 +17,100 @@
       --good:#34d399;
       --warn:#fbbf24;
       --bad:#fb7185;
-      --shadow: 0 12px 30px rgba(0,0,0,.35);
-      --radius: 18px;
-      --radius2: 12px;
-      --max: 1200px;
+      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --radius2:12px;
+      --max:1100px;
     }
 
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      background: radial-gradient(1200px 800px at 20% 0%, rgba(74,163,255,.12), transparent 55%),
-                  radial-gradient(900px 700px at 100% 30%, rgba(52,211,153,.10), transparent 60%),
-                  var(--bg);
-      color: var(--text);
-    }
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px}
+    .wrap{max-width:var(--max);margin:0 auto;padding:22px}
 
     .topbar{
-      display:flex; gap:12px; align-items:center; justify-content:space-between;
-      padding:18px 18px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
+      display:flex;gap:12px;align-items:center;justify-content:space-between;
+      padding:18px 18px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
     }
-    .brand h1{margin:0; font-size:28px; letter-spacing:.2px}
-    .brand p{margin:4px 0 0; color:var(--muted); font-size:13px}
-    .top-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+    .brand h1{margin:0;font-size:30px;letter-spacing:.2px}
+    .brand .sub{margin-top:4px;color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
 
     .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      font-weight:650;
-      font-size:13px;
-      display:inline-flex; gap:8px; align-items:center;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      font-weight:700;font-size:13px;
+      white-space:nowrap;
     }
     .btn{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      font-weight:700;
-      font-size:13px;
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      font-weight:700;font-size:13px;
       cursor:pointer;
+      user-select:none;
     }
-    .btn:hover{border-color: rgba(74,163,255,.55)}
-    .btn.danger{border-color: rgba(251,113,133,.35)}
-    .btn.danger:hover{border-color: rgba(251,113,133,.75)}
+    .btn:hover{border-color:rgba(74,163,255,.55)}
+    .btn.danger{border-color:rgba(251,113,133,.55);background:rgba(251,113,133,.08)}
+    .btn.danger:hover{border-color:rgba(251,113,133,.85)}
 
-    .overall{
+    .section{
       margin-top:16px;
-      padding:16px 18px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
+      padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      box-shadow:var(--shadow);
     }
-    .overall-head{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    .sectionHead{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
       margin-bottom:10px;
     }
-    .overall-title{font-weight:800}
-    .overall-tip{color:var(--muted); font-size:12px}
+    .sectionHead .label{font-weight:800}
+    .sectionHead .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+    .tip{color:var(--muted);font-size:12px;margin-top:8px}
 
     .bar{
-      height:12px;
-      border-radius:999px;
-      background: rgba(255,255,255,.06);
-      overflow:hidden;
-      border:1px solid var(--line);
+      height:10px;border-radius:999px;background:rgba(255,255,255,.08);
+      overflow:hidden;border:1px solid var(--line);
     }
     .bar > div{
       height:100%;
       width:0%;
-      background: linear-gradient(90deg, var(--accent), var(--good));
-      transition: width .35s ease;
+      background:linear-gradient(90deg,var(--accent),var(--good));
+      transition:width .25s ease;
     }
 
     .grid{
-      margin-top:16px;
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:repeat(2,1fr);
       gap:14px;
+      margin-top:14px;
     }
-    @media (max-width: 900px){
-      .grid{grid-template-columns: 1fr}
-      .topbar{gap:14px; flex-direction:column; align-items:flex-start}
-      .top-actions{justify-content:flex-start}
-    }
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
 
     .card{
-      padding:16px 16px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow: var(--shadow);
-      transition: transform .08s ease, border-color .12s ease;
       position:relative;
-      overflow:hidden;
-      min-height:116px;
+      padding:16px 16px 14px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      transition:transform .12s ease, border-color .12s ease;
     }
-    .card:hover{
-      transform: translateY(-1px);
-      border-color: rgba(74,163,255,.55);
-    }
-    .card h2{
-      margin:0;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    .card p{
-      margin:6px 0 12px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
-      max-width: 56ch;
-    }
+    .card:hover{transform:translateY(-1px);border-color:rgba(74,163,255,.55)}
+    .card h3{margin:0 0 6px;font-size:18px;letter-spacing:.2px}
+    .card p{margin:0 0 12px;color:var(--muted);font-size:13px;line-height:1.35}
 
-    .row{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    .cardRow{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-top:10px;
     }
     .pct{font-weight:900}
-    .progress-label{color:var(--muted); font-size:12px; font-weight:700}
-
+    .small{font-size:12px;color:var(--muted);font-weight:700}
     .footer{
-      margin:18px 0 6px;
+      margin-top:14px;
       text-align:center;
       color:var(--muted);
       font-size:12px;
@@ -155,26 +120,29 @@
 
 <body>
   <div class="wrap">
-    <div class="topbar">
+    <header class="topbar">
       <div class="brand">
         <h1>Spanish Level 1</h1>
-        <p>Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+        <div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
       </div>
-      <div class="top-actions">
+
+      <div class="actions">
         <a class="btn" href="../index.html">← Home</a>
         <span class="pill" id="overallPill">Overall: 0% complete</span>
-        <button class="btn danger" id="resetAllBtn">Reset ALL Level 1 Progress</button>
+        <button class="btn danger" id="resetAllBtn" type="button">Reset ALL Level 1 Progress</button>
       </div>
-    </div>
+    </header>
 
-    <div class="overall">
-      <div class="overall-head">
-        <div class="overall-title">Overall Progress</div>
-        <div class="pill" id="unitsPill">Units: 7 • Stages: 5 each</div>
+    <section class="section">
+      <div class="sectionHead">
+        <div class="label">Overall Progress</div>
+        <div class="meta">
+          <span class="pill" id="unitsPill">Units: 7 • Stages: 5 each</span>
+        </div>
       </div>
       <div class="bar"><div id="overallBar"></div></div>
-      <div class="overall-tip" style="margin-top:8px;">Tip: Progress is saved in your browser (localStorage).</div>
-    </div>
+      <div class="tip">Tip: Progress is saved in your browser (localStorage).</div>
+    </section>
 
     <div class="grid" id="unitGrid"></div>
 
@@ -182,9 +150,13 @@
   </div>
 
   <script>
-    // ---------------------------
-    // Units on the Level 1 dashboard
-    // ---------------------------
+    // -----------------------------
+    // CONFIG
+    // -----------------------------
+    const STAGE_COUNT = 5;
+
+    // IMPORTANT: These hrefs must point to folders that contain index.html
+    // Example: level-1/unit-7/index.html  => href "unit-7/"
     const UNITS = [
       { n: 1, title: "Unit 1 — Identity & First Encounters", desc: "Greetings, introductions, basic personal information.", href: "unit-1/" },
       { n: 2, title: "Unit 2 — Numbers & Classroom Language", desc: "Numbers, classroom objects, essential communication phrases.", href: "unit-2/" },
@@ -192,140 +164,92 @@
       { n: 4, title: "Unit 4 — Daily Life & Schedules", desc: "Daily routines, time telling, sequencing, simple preferences.", href: "unit-4/" },
       { n: 5, title: "Unit 5 — Food & Preferences", desc: "Likes/dislikes, simple requests, ordering politely.", href: "unit-5/" },
       { n: 6, title: "Unit 6 — Free Time & Hobbies", desc: "Activities you do, what you like to do, and when.", href: "unit-6/" },
-      { n: 7, title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and describing people in your world.", href: "unit-7/" },
+      { n: 7, title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and describing people in your world.", href: "unit-7/" }
     ];
 
-    const STAGE_COUNT = 5;
-
-    // ---------------------------
-    // Progress key guessing (works even if older units used slightly different key formats)
-    // ---------------------------
-    function allKeys(){
-      const keys = [];
-      for (let i=0; i<localStorage.length; i++){
-        keys.push(localStorage.key(i));
-      }
-      return keys;
+    // -----------------------------
+    // PROGRESS STORAGE (robust)
+    // Each unit page uses a key like:
+    //   lvl1_u{unit}_s{stage}
+    // where stage is 1..5
+    // -----------------------------
+    function keyFor(unitNum, stageNum){
+      return `lvl1_u${unitNum}_s${stageNum}`;
     }
 
-    function readBool(key){
-      const v = localStorage.getItem(key);
-      return v === "1" || v === "true" || v === "done" || v === "yes";
-    }
-
-    // Try multiple patterns so we don’t break older units
-    function stageDone(unitNum, stageNum){
-      const candidates = [
-        // Newer preferred patterns
-        `l1_u${unitNum}_s${stageNum}`,
-        `l1-u${unitNum}-s${stageNum}`,
-        `level1_u${unitNum}_s${stageNum}`,
-        `level1-u${unitNum}-s${stageNum}`,
-        `unit${unitNum}_stage${stageNum}`,
-        `unit-${unitNum}-stage-${stageNum}`,
-        `unit${unitNum}-stage${stageNum}`,
-        // Sometimes stage ids are like "s1"
-        `l1_u${unitNum}_stage${stageNum}`,
-      ];
-
-      for (const k of candidates){
-        if (localStorage.getItem(k) !== null) return readBool(k);
-      }
-
-      // Heuristic fallback: scan keys containing unit number + stage number
-      const keys = allKeys();
-      const u = String(unitNum);
-      const s = String(stageNum);
-      for (const k of keys){
-        const kk = k.toLowerCase();
-        if ((kk.includes(`unit-${u}`) || kk.includes(`unit${u}`) || kk.includes(`u${u}`)) &&
-            (kk.includes(`stage-${s}`) || kk.includes(`stage${s}`) || kk.includes(`s${s}`))){
-          if (readBool(k)) return true;
-        }
-      }
-      return false;
+    function getDone(unitNum, stageNum){
+      return localStorage.getItem(keyFor(unitNum, stageNum)) === "1";
     }
 
     function unitPct(unitNum){
       let done = 0;
-      for (let s=1; s<=STAGE_COUNT; s++){
-        if (stageDone(unitNum, s)) done++;
+      for(let s=1; s<=STAGE_COUNT; s++){
+        if(getDone(unitNum, s)) done++;
       }
       return Math.round((done / STAGE_COUNT) * 100);
     }
 
     function overallPct(){
-      let totalStages = UNITS.length * STAGE_COUNT;
-      let doneStages = 0;
-      for (const u of UNITS){
-        for (let s=1; s<=STAGE_COUNT; s++){
-          if (stageDone(u.n, s)) doneStages++;
+      const totalStages = UNITS.length * STAGE_COUNT;
+      let done = 0;
+      for(const u of UNITS){
+        for(let s=1; s<=STAGE_COUNT; s++){
+          if(getDone(u.n, s)) done++;
         }
       }
-      return totalStages ? Math.round((doneStages / totalStages) * 100) : 0;
+      return Math.round((done / totalStages) * 100);
     }
 
-    // Reset everything that looks like Level 1 progress
-    function resetAll(){
-      const keys = allKeys();
-      const kill = [];
-      for (const k of keys){
-        const kk = k.toLowerCase();
-        // Only remove keys that appear to be unit/stage progress
-        if (kk.includes("l1") || kk.includes("level1") || kk.includes("unit-") || kk.includes("unit") || kk.includes("stage")){
-          // but keep unrelated stuff if it doesn't look stage-like
-          if (kk.includes("stage") || kk.match(/\bs[1-5]\b/) || kk.match(/s[1-5]/)) kill.push(k);
-        }
-      }
-      // Also remove the common simple patterns we use
-      for (const u of UNITS){
-        for (let s=1; s<=STAGE_COUNT; s++){
-          kill.push(`l1_u${u.n}_s${s}`);
-          kill.push(`l1-u${u.n}-s${s}`);
-        }
-      }
-      [...new Set(kill)].forEach(k => localStorage.removeItem(k));
-      render();
-    }
-
-    // ---------------------------
-    // Render UI
-    // ---------------------------
+    // -----------------------------
+    // RENDER
+    // -----------------------------
     const grid = document.getElementById("unitGrid");
-    const overallBar = document.getElementById("overallBar");
     const overallPill = document.getElementById("overallPill");
+    const overallBar = document.getElementById("overallBar");
+    const resetAllBtn = document.getElementById("resetAllBtn");
 
     function render(){
+      // overall
+      const op = overallPct();
+      overallPill.textContent = `Overall: ${op}% complete`;
+      overallBar.style.width = op + "%";
+
+      // unit cards
       grid.innerHTML = "";
-
-      const ov = overallPct();
-      overallBar.style.width = ov + "%";
-      overallPill.textContent = `Overall: ${ov}% complete`;
-
-      UNITS.forEach(u => {
+      for(const u of UNITS){
         const pct = unitPct(u.n);
 
-        const a = document.createElement("a");
-        a.href = u.href;
-        a.className = "card";
+        const card = document.createElement("a");
+        card.className = "card";
+        card.href = u.href;                 // <-- THIS is what makes Unit 7 open Unit 7
+        card.setAttribute("aria-label", u.title);
 
-        a.innerHTML = `
-          <h2>${u.title}</h2>
+        card.innerHTML = `
+          <h3>${u.title}</h3>
           <p>${u.desc}</p>
-          <div class="bar" aria-label="unit progress"><div style="width:${pct}%"></div></div>
-          <div class="row" style="margin-top:8px;">
-            <div class="progress-label">Progress</div>
-            <div class="pct">${pct}%</div>
+          <div class="bar" aria-hidden="true"><div style="width:${pct}%"></div></div>
+          <div class="cardRow">
+            <span class="small">Progress</span>
+            <span class="pct">${pct}%</span>
           </div>
         `;
-
-        grid.appendChild(a);
-      });
+        grid.appendChild(card);
+      }
     }
 
-    document.getElementById("resetAllBtn").addEventListener("click", () => {
-      const ok = confirm("Reset ALL Level 1 progress for this browser? This cannot be undone.");
-      if (ok) resetAll();
+    // -----------------------------
+    // RESET ALL
+    // -----------------------------
+    resetAllBtn.addEventListener("click", () => {
+      const ok = confirm("Reset ALL Level 1 progress for every unit and stage?");
+      if(!ok) return;
+
+      for(const u of UNITS){
+        for(let s=1; s<=STAGE_COUNT; s++){
+          localStorage.removeItem(keyFor(u.n, s));
+        }
+      }
+      render();
     });
 
     render();
