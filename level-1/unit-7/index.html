@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Level 1 • Unit 7 — Family & Relationships | Seño Bluemel Que Chévere</title>
+
+<style>
+:root{
+--bg:#0b0f14;
+--panel:#121923;
+--panel2:#0f1620;
+--text:#e8eef6;
+--muted:#b7c4d6;
+--line:rgba(255,255,255,.10);
+--accent:#4aa3ff;
+--good:#34d399;
+--warn:#fbbf24;
+--bad:#fb7185;
+--shadow:0 12px 30px rgba(0,0,0,.35);
+--radius:16px;
+--max:1100px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui}
+.wrap{max-width:var(--max);margin:auto;padding:22px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:18px}
+.pad{padding:18px}
+h1{margin:0 0 10px;font-size:32px}
+.lead{color:var(--muted)}
+.btn{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);text-decoration:none;font-weight:600}
+.btn:hover{border-color:var(--accent)}
+.stage{margin-top:12px}
+.bar{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar div{height:100%;background:linear-gradient(90deg,var(--accent),var(--good));width:0%;transition:.3s}
+.stageRow{display:flex;justify-content:space-between;align-items:center;margin:6px 0}
+.stageRow button{background:rgba(52,211,153,.1);border:1px solid var(--good);border-radius:999px;padding:6px 10px;color:var(--text);font-weight:700;cursor:pointer}
+.stageRow button.off{background:rgba(251,113,133,.1);border-color:var(--bad)}
+details{margin-top:12px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.03)}
+summary{padding:14px;font-weight:800;cursor:pointer}
+.stageBody{padding:0 14px 14px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<div class="card pad">
+<a class="btn" href="../index.html">← Level 1 Dashboard</a>
+<h1>Unit 7 — Family & Relationships</h1>
+<p class="lead">
+Describe your family, explain relationships, and talk about how family shapes identity using Novice-Mid language.
+</p>
+
+<p><strong>Essential Question:</strong><br>
+¿<strong>Cómo influyen la familia y las relaciones en quién soy?</strong></p>
+
+<p><strong>Core Targets:</strong></p>
+<ul>
+<li>I can name family members.</li>
+<li>I can say how many people are in my family.</li>
+<li>I can describe what someone is like (es / tiene).</li>
+<li>I can ask someone about their family.</li>
+<li>I can compare two family members (más que / menos que — supported).</li>
+</ul>
+</div>
+
+<div class="card pad">
+<h3>Progress</h3>
+<div class="bar"><div id="barFill"></div></div>
+<div id="stageList"></div>
+<button id="resetBtn" class="btn" style="margin-top:10px;">Reset Unit 7 Progress</button>
+</div>
+
+<!-- Stage 1 -->
+<details open>
+<summary>Stage 1 — Understand (Interpretive)</summary>
+<div class="stageBody">
+<p><strong>Reading (10+ sentences):</strong></p>
+<p>
+Mi familia es pequeña. Hay cuatro personas en mi familia: mi mamá, mi papá, mi hermano y yo.
+Mi mamá es trabajadora y simpática. Tiene ojos cafés y pelo largo.
+Mi papá es serio pero divertido. Le gusta cocinar.
+Mi hermano es atlético y un poco perezoso.
+Después de la escuela, hablamos en la cocina y cenamos juntos.
+Los fines de semana visitamos a mis abuelos.
+Mi mejor amiga también es como familia para mí.
+En algunas familias, los abuelos viven en la misma casa.
+En otras familias, las personas viven lejos pero hablan todos los días.
+Mi familia es importante porque siempre me apoya.
+</p>
+
+<p><strong>Comprehension (answer in English):</strong></p>
+<ol>
+<li>How many people are in the family?</li>
+<li>What is the mom like?</li>
+<li>What does the dad like to do?</li>
+<li>Who is athletic?</li>
+<li>Why is family important?</li>
+</ol>
+</div>
+</details>
+
+<!-- Stage 2 -->
+<details>
+<summary>Stage 2 — Interact (Interpersonal)</summary>
+<div class="stageBody">
+<p>Practice asking and answering:</p>
+<ul>
+<li>¿Cuántas personas hay en tu familia?</li>
+<li>¿Tienes hermanos?</li>
+<li>¿Cómo es tu mamá?</li>
+<li>¿Quién es más divertido en tu familia?</li>
+</ul>
+</div>
+</details>
+
+<!-- Stage 3 -->
+<details>
+<summary>Stage 3 — Create (Presentational)</summary>
+<div class="stageBody">
+<p>Write 6–8 sentences describing your family. Include:</p>
+<ul>
+<li>How many people</li>
+<li>2 family members</li>
+<li>2 adjectives each</li>
+<li>1 activity you do together</li>
+</ul>
+</div>
+</details>
+
+<!-- Stage 4 -->
+<details>
+<summary>Stage 4 — Reflect (Culture)</summary>
+<div class="stageBody">
+<p>In many Spanish-speaking cultures, extended family lives close together.
+Name one similarity and one difference between your family and families in Spanish-speaking countries.</p>
+</div>
+</details>
+
+<!-- Stage 5 -->
+<details>
+<summary>Stage 5 — Perform (Assessment)</summary>
+<div class="stageBody">
+<p>Introduce your family to an exchange student in 30–45 seconds.
+Include:
+<ul>
+<li>3 family members</li>
+<li>2 descriptions per person</li>
+<li>1 shared activity</li>
+</ul>
+</p>
+</div>
+</details>
+
+<div class="footer">© Seño Bluemel Que Chévere • Level 1</div>
+
+</div>
+
+<script>
+const KEY="l1_u7";
+const STAGES=5;
+function load(){return JSON.parse(localStorage.getItem(KEY)||"[false,false,false,false,false]")}
+function save(arr){localStorage.setItem(KEY,JSON.stringify(arr))}
+function render(){
+let arr=load();
+let done=arr.filter(Boolean).length;
+document.getElementById("barFill").style.width=(done/STAGES*100)+"%";
+let list=document.getElementById("stageList");
+list.innerHTML="";
+arr.forEach((d,i)=>{
+let row=document.createElement("div");
+row.className="stageRow";
+row.innerHTML="<span>Stage "+(i+1)+"</span>";
+let btn=document.createElement("button");
+btn.textContent=d?"Mark not done":"Mark done";
+if(d)btn.classList.add("off");
+btn.onclick=()=>{arr[i]=!arr[i];save(arr);render()};
+row.appendChild(btn);
+list.appendChild(row);
+});
+}
+document.getElementById("resetBtn").onclick=()=>{save([false,false,false,false,false]);render()};
+render();
+</script>
+
+</body>
+</html>
