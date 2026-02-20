@@ -1,219 +1,451 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Level 1 • Unit 7 — Family & Relationships | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
       --bg:#0b0f14;
       --panel:#121923;
+      --panel2:#0f1620;
       --text:#e8eef6;
       --muted:#b7c4d6;
       --line:rgba(255,255,255,.10);
       --accent:#4aa3ff;
       --good:#34d399;
-      --shadow:0 12px 30px rgba(0,0,0,.35);
+      --warn:#fbbf24;
+      --bad:#fb7185;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
       --radius:16px;
+      --radius2:12px;
       --max:1100px;
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helveticaica,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}
+    a{color:inherit}
     .wrap{max-width:var(--max);margin:0 auto;padding:22px}
     .topbar{
       display:flex;gap:12px;align-items:center;justify-content:space-between;
-      padding:14px 16px;border:1px solid var(--line);border-radius:999px;
-      background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
+      padding:14px 16px;border:1px solid var(--line);border-radius:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
     }
-    .brand h1{margin:0;font-size:28px;letter-spacing:-.02em}
-    .brand .sub{margin:2px 0 0;color:var(--muted);font-size:13px}
-    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.05);font-weight:800
+    .brand small{display:block;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-size:11px}
+    .brand b{display:block;font-size:18px;margin-top:2px}
+    .nav{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end
     }
-    .pill:hover{border-color:rgba(74,163,255,.55)}
-    .danger{
-      border-color:rgba(251,113,133,.35);
-      background:rgba(251,113,133,.10);
+    .btn{
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);color:var(--text);
+      text-decoration:none;font-weight:600;font-size:13px;
+      transition:.15s transform,.15s border-color,.15s background;
+      display:inline-flex;align-items:center;gap:8px;
       cursor:pointer;
     }
-    .danger:hover{border-color:rgba(251,113,133,.65)}
-    .progressCard{
-      margin-top:16px;
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.20);background:rgba(255,255,255,.07)}
+    .btn.primary{border-color:rgba(74,163,255,.55);background:rgba(74,163,255,.10)}
+    .btn.danger{border-color:rgba(251,113,133,.45);background:rgba(251,113,133,.08)}
+    .pill{
+      display:inline-flex;gap:8px;flex-wrap:wrap;align-items:center;
+      font-size:12px;color:var(--text)
+    }
+    .tag{
+      border:1px solid var(--line);background:rgba(255,255,255,.05);
+      border-radius:999px;padding:6px 10px;font-weight:600;color:var(--text)
+    }
+    .tag.good{border-color:rgba(52,211,153,.45);background:rgba(52,211,153,.10)}
+    .tag.warn{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.10)}
+    .tag.blue{border-color:rgba(74,163,255,.45);background:rgba(74,163,255,.10)}
+    .grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:16px}
+    @media (max-width: 980px){ .grid2{grid-template-columns:1fr} }
+
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
       border:1px solid var(--line);
       border-radius:var(--radius);
-      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
-      padding:16px;
+      overflow:hidden;
     }
-    .progressHeader{
-      display:flex;justify-content:space-between;align-items:flex-end;gap:10px
+    .card .pad{padding:18px}
+    h1{margin:0 0 6px 0;font-size:34px;letter-spacing:-.02em}
+    .sub{color:var(--muted);line-height:1.45}
+    h2{margin:0 0 10px 0;font-size:14px;letter-spacing:.10em;text-transform:uppercase;color:var(--muted)}
+    .bigq{
+      margin:10px 0 0 0;
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:-.01em;
+      padding-left:12px;
+      border-left:4px solid rgba(74,163,255,.55);
     }
-    .progressHeader .label{
-      font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-size:12px
+    ul{margin:10px 0 0 0;color:var(--text)}
+    li{margin:8px 0}
+    .muted{color:var(--muted)}
+    .box{
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.12);
+      border-radius:14px;
+      padding:14px;
+      margin-top:12px;
     }
-    .bar{margin-top:10px;height:10px;border-radius:999px;overflow:hidden;border:1px solid var(--line);background:rgba(255,255,255,.06)}
-    .bar > div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .25s ease}
-    .tip{margin-top:10px;color:var(--muted);font-size:12px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-    .unitCard{
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      padding:16px;
+    .box b{display:block;margin-bottom:6px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+
+    /* Progress panel */
+    .progressTitle{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;border:1px solid rgba(255,255,255,.10);margin:10px 0 10px}
+    .bar > div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--good));transition:.3s}
+    .pct{color:var(--muted);font-weight:700;font-size:13px}
+    .stageList{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+    .row{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
     }
-    .unitCard h2{margin:0 0 4px;font-size:18px}
-    .unitCard p{margin:0 0 12px;color:var(--muted);font-size:13px;line-height:1.35}
-    .unitMeta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}
-    .miniLabel{color:var(--muted);font-weight:900;font-size:12px;letter-spacing:.08em}
-    .miniPct{font-weight:900}
-    footer{margin:18px 0 8px;text-align:center;color:var(--muted);font-size:12px}
+    .row b{font-size:13px}
+    .state{display:flex;gap:8px;align-items:center}
+    .dot{width:10px;height:10px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:transparent}
+    .dot.on{background:rgba(52,211,153,.95);border-color:rgba(52,211,153,.95)}
+    .mark{
+      padding:7px 10px;border-radius:999px;border:1px solid rgba(52,211,153,.45);
+      background:rgba(52,211,153,.10);color:var(--text);
+      font-weight:800;font-size:12px;cursor:pointer;
+    }
+    .mark.off{
+      border-color:rgba(251,113,133,.45);
+      background:rgba(251,113,133,.08);
+    }
+    .resetUnit{
+      width:100%;margin-top:10px;
+      padding:10px 12px;border-radius:999px;border:1px solid rgba(251,113,133,.40);
+      background:rgba(251,113,133,.08);color:var(--text);font-weight:900;cursor:pointer
+    }
+    .tip{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.35}
+
+    /* Stages accordion */
+    .stageCard{margin-top:14px}
+    details{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      background:rgba(255,255,255,.03);
+      overflow:hidden;
+      margin-top:12px;
+    }
+    summary{
+      list-style:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 14px;
+      font-weight:900;
+    }
+    summary::-webkit-details-marker{display:none}
+    .summaryLeft{display:flex;flex-direction:column;gap:2px}
+    .kicker{font-size:12px;color:var(--muted);font-weight:800}
+    .content{padding:0 14px 14px 14px;color:var(--text)}
+    .footer{
+      margin:18px 0 0 0;
+      color:var(--muted);
+      text-align:center;
+      font-size:12px;
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
+
     <div class="topbar">
       <div class="brand">
-        <h1>Spanish Level 1</h1>
-        <div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
+        <small>Seño Bluemel Que Chévere • Level 1</small>
+        <b>Unit 7 — Family & Relationships</b>
       </div>
       <div class="nav">
-        <a class="pill" href="../index.html">← Home</a>
-        <div class="pill" id="overallPill">Overall: 0% complete</div>
-        <button class="pill danger" id="resetAllBtn" type="button">Reset ALL Level 1 Progress</button>
+        <a class="btn" href="../../index.html">← Home</a>
+        <a class="btn primary" href="../index.html">Level 1 Dashboard</a>
+        <a class="btn" href="../index.html#stages">Stages</a>
       </div>
     </div>
 
-    <div class="progressCard">
-      <div class="progressHeader">
-        <div>
-          <div class="label">Overall Progress</div>
+    <div class="grid2">
+      <!-- LEFT: Unit overview -->
+      <div class="card">
+        <div class="pad">
+          <h1>Unit 7: Family & Relationships</h1>
+          <div class="sub">
+            Talk about family members, describe people in your world, and ask/answer simple questions about relationships
+            using high-frequency language.
+          </div>
+
+          <div class="pill" style="margin-top:12px">
+            <span class="tag blue">Proficiency: Novice Mid → Novice High (supported)</span>
+            <span class="tag good">High-frequency descriptions</span>
+            <span class="tag warn">Mi / tu + family words</span>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>Proficiency Goal</h2>
+          <div class="sub">
+            Students understand and communicate about family members and relationships in familiar contexts using short,
+            practiced phrases and simple sentences (Novice-Mid performance target).
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>Essential Question</h2>
+          <div class="bigq">¿Quiénes son las personas importantes en mi vida y por qué?</div>
+
+          <div class="hr"></div>
+
+          <h2>Core Language Targets</h2>
+          <ul>
+            <li>I can name family members (madre, padre, hermano/a, abuelo/a, etc.).</li>
+            <li>I can say who someone is (Es mi… / Es su…).</li>
+            <li>I can describe a person using basic adjectives (alto/a, simpático/a, trabajador/a, etc.).</li>
+            <li>I can ask and answer simple relationship questions (¿Quién es…? / ¿Cómo es…?).</li>
+          </ul>
+
+          <div class="box">
+            <b>Unit 7 “Must-Have” Language</b>
+            <div class="muted">
+              Family: madre, padre, mamá, papá, hermano/a, hijo/a, abuelo/a, tío/a, primo/a, familia, amigo/a<br/>
+              Relationships: mi, tu, su, de, con, y; ¿Quién es…?, Es mi… / Es su…, Tengo…, Vive en…<br/>
+              Descriptions: alto/a, bajo/a, joven, mayor, simpático/a, serio/a, trabajador/a, divertido/a, inteligente
+            </div>
+          </div>
         </div>
-        <div class="pill" style="cursor:default">Units: 7 • Stages: 5 each</div>
       </div>
-      <div class="bar"><div id="overallBar"></div></div>
-      <div class="tip">Tip: Progress is saved in your browser (localStorage).</div>
+
+      <!-- RIGHT: Progress -->
+      <div class="card">
+        <div class="pad">
+          <div class="progressTitle">
+            <h2 style="margin:0;color:var(--text)">Progress</h2>
+            <div class="pct"><span id="pctText">0%</span> complete</div>
+          </div>
+          <div class="bar"><div id="barFill"></div></div>
+
+          <div class="stageList" id="stageList"></div>
+
+          <button class="resetUnit" id="resetBtn">Reset Unit 7 Progress</button>
+          <div class="tip">Tip: Progress saves in your browser (localStorage).</div>
+        </div>
+      </div>
     </div>
 
-    <div class="grid" id="unitsGrid"></div>
+    <!-- Stages -->
+    <div class="stageCard">
+      <details open>
+        <summary>
+          <div class="summaryLeft">
+            <div>Stage 1: Understand</div>
+            <div class="kicker">Interpretive • Comprehension first</div>
+          </div>
+          <div class="kicker">▼</div>
+        </summary>
+        <div class="content">
+          <ul>
+            <li>I can understand who people are in a short text.</li>
+            <li>I can identify family words and basic descriptions.</li>
+            <li>I can match “Es mi…” statements to meaning.</li>
+          </ul>
 
-    <footer>© Seño Bluemel Que Chévere</footer>
+          <div class="box">
+            <b>Lectura (10+ sentences)</b>
+            <div class="muted">
+              En mi casa hay cinco personas. Mi madre se llama Ana y es muy simpática. Mi padre se llama Carlos y es trabajador.
+              Tengo un hermano y una hermana. Mi hermano se llama Luis y es alto. Mi hermana se llama Sofía y es inteligente.
+              Mis abuelos viven cerca y son muy amables. A veces, mi tío viene los sábados y cocina para la familia.
+              Mi primo juega deportes y es divertido. En mi familia, todos hablamos y reímos juntos.
+            </div>
+
+            <div class="hr"></div>
+
+            <b>Comprehension (answer in English)</b>
+            <ol class="muted">
+              <li>How many people are in the house?</li>
+              <li>What is the mother’s name?</li>
+              <li>Which person is described as “trabajador”?</li>
+              <li>Who is “alto”?</li>
+              <li>Where do the grandparents live?</li>
+              <li>What does the uncle do on Saturdays?</li>
+            </ol>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="summaryLeft">
+            <div>Stage 2: Interact</div>
+            <div class="kicker">Interpersonal • Ask & answer with support</div>
+          </div>
+          <div class="kicker">▼</div>
+        </summary>
+        <div class="content">
+          <div class="box">
+            <b>Partner Mini-Conversation (use the frames)</b>
+            <div class="muted">
+              A: ¿Quién es? <br/>
+              B: Es mi ________. <br/><br/>
+              A: ¿Cómo es? <br/>
+              B: Es ________ (simpático/a, trabajador/a, divertido/a…). <br/><br/>
+              A: ¿Vive contigo? <br/>
+              B: Sí / No. Vive en ________. <br/><br/>
+              A: ¡Qué bien! / ¡Interesante!
+            </div>
+          </div>
+
+          <div class="box">
+            <b>Quick Check</b>
+            <div class="muted">
+              Ask and answer about 3 people: (1) your family, (2) a friend, (3) a classmate’s family (with permission).
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="summaryLeft">
+            <div>Stage 3: Create</div>
+            <div class="kicker">Presentational • Short writing/speaking</div>
+          </div>
+          <div class="kicker">▼</div>
+        </summary>
+        <div class="content">
+          <div class="box">
+            <b>My People (6–8 sentences)</b>
+            <div class="muted">
+              Write about 3 important people in your life. Include:
+              <ul>
+                <li>Who they are (Es mi… / Es mi amigo/a…)</li>
+                <li>2 descriptions for each person</li>
+                <li>One place they live or one thing they like</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="summaryLeft">
+            <div>Stage 4: Reflect</div>
+            <div class="kicker">Culture + Metacognition</div>
+          </div>
+          <div class="kicker">▼</div>
+        </summary>
+        <div class="content">
+          <div class="box">
+            <b>Reflection (English is OK here)</b>
+            <div class="muted">
+              How do families show care in different cultures (food, time together, greetings, celebrations)?
+              Write 3–5 sentences. Include one connection to Spanish-speaking cultures you have learned about.
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <div class="summaryLeft">
+            <div>Stage 5: Perform</div>
+            <div class="kicker">Assessment • Balanced across modes</div>
+          </div>
+          <div class="kicker">▼</div>
+        </summary>
+        <div class="content">
+          <div class="box">
+            <b>Performance Task (Preview)</b>
+            <div class="muted">
+              Record a 30–45 second video: “These are my people.”
+              Include 3 people, 2 descriptions each, and 1 simple comparison sentence starter:
+              <br/><br/>
+              <i>En mi familia, ________. En (país/cultura), ________.</i>
+              <br/><br/>
+              Goal: be understood using clear, practiced phrases (Novice-Mid performance).
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="footer">© Seño Bluemel Que Chévere</div>
   </div>
 
   <script>
-    // ====== CONFIG ======
-    const STAGES_PER_UNIT = 5;
+    // -------------------------
+    // Unit 7 progress logic
+    // -------------------------
+    const UNIT_NUM = 7;
 
-    const units = [
-      {
-        n: 1,
-        title: "Unit 1 — Identity & First Encounters",
-        desc: "Greetings, introductions, basic personal information.",
-        href: "./unit-1/index.html"
-      },
-      {
-        n: 2,
-        title: "Unit 2 — Numbers & Classroom Language",
-        desc: "Numbers, classroom objects, essential communication phrases.",
-        href: "./unit-2/index.html"
-      },
-      {
-        n: 3,
-        title: "Unit 3 — Descriptions & Adjectives",
-        desc: "Physical descriptions, adjectives, agreement, basic traits.",
-        href: "./unit-3/index.html"
-      },
-      {
-        n: 4,
-        title: "Unit 4 — Daily Life & Schedules",
-        desc: "Daily routines, time telling, sequencing, simple preferences.",
-        href: "./unit-4/index.html"
-      },
-      {
-        n: 5,
-        title: "Unit 5 — Food & Preferences",
-        desc: "Likes/dislikes, simple requests, ordering politely.",
-        href: "./unit-5/index.html"
-      },
-      {
-        n: 6,
-        title: "Unit 6 — Free Time & Hobbies",
-        desc: "Activities you do, what you like to do, and when.",
-        href: "./unit-6/index.html"
-      },
-      {
-        n: 7,
-        title: "Unit 7 — Family & Relationships",
-        desc: "Family members, relationships, and basic descriptions.",
-        href: "./unit-7/index.html"
-      }
+    const STAGES = [
+      { id: "s1", name: "Stage 1: Understand" },
+      { id: "s2", name: "Stage 2: Interact" },
+      { id: "s3", name: "Stage 3: Create" },
+      { id: "s4", name: "Stage 4: Reflect" },
+      { id: "s5", name: "Stage 5: Perform" },
     ];
 
-    // Key pattern used in units: l1_u{UNIT}_s{STAGE}_done
-    const keyFor = (unitNum, stageNum) => `l1_u${unitNum}_s${stageNum}_done`;
+    const keyFor = (stageId) => `level1_unit${UNIT_NUM}_${stageId}_done`;
 
-    function unitPct(unitNum){
-      let done = 0;
-      for(let s=1; s<=STAGES_PER_UNIT; s++){
-        if(localStorage.getItem(keyFor(unitNum, s)) === "1") done++;
-      }
-      return Math.round((done / STAGES_PER_UNIT) * 100);
-    }
+    const isDone = (stageId) => localStorage.getItem(keyFor(stageId)) === "1";
+    const setDone = (stageId, val) => localStorage.setItem(keyFor(stageId), val ? "1" : "0");
 
-    function overallPct(){
-      const totalStages = units.length * STAGES_PER_UNIT;
-      let done = 0;
-      units.forEach(u=>{
-        for(let s=1; s<=STAGES_PER_UNIT; s++){
-          if(localStorage.getItem(keyFor(u.n, s)) === "1") done++;
-        }
-      });
-      return Math.round((done / totalStages) * 100);
+    const pctText = document.getElementById("pctText");
+    const barFill = document.getElementById("barFill");
+    const stageList = document.getElementById("stageList");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function calcPct(){
+      const doneCount = STAGES.filter(s => isDone(s.id)).length;
+      return Math.round((doneCount / STAGES.length) * 100);
     }
 
     function render(){
-      const grid = document.getElementById("unitsGrid");
-      grid.innerHTML = "";
+      stageList.innerHTML = "";
+      STAGES.forEach(s => {
+        const row = document.createElement("div");
+        row.className = "row";
 
-      units.forEach(u=>{
-        const pct = unitPct(u.n);
+        const left = document.createElement("div");
+        const state = document.createElement("div");
+        state.className = "state";
 
-        const card = document.createElement("a");
-        card.className = "unitCard";
-        card.href = u.href;
+        const dot = document.createElement("div");
+        dot.className = "dot" + (isDone(s.id) ? " on" : "");
+        const label = document.createElement("b");
+        label.textContent = s.name;
 
-        card.innerHTML = `
-          <h2>${u.title}</h2>
-          <p>${u.desc}</p>
-          <div class="bar"><div style="width:${pct}%"></div></div>
-          <div class="unitMeta">
-            <div class="miniLabel">Progress</div>
-            <div class="miniPct">${pct}%</div>
-          </div>
-        `;
+        state.appendChild(dot);
+        state.appendChild(label);
+        left.appendChild(state);
 
-        grid.appendChild(card);
+        const btn = document.createElement("button");
+        const done = isDone(s.id);
+        btn.className = "mark" + (done ? "" : " off");
+        btn.textContent = done ? "Mark done" : "Mark not done";
+        btn.addEventListener("click", () => {
+          setDone(s.id, !done);
+          render();
+        });
+
+        row.appendChild(left);
+        row.appendChild(btn);
+        stageList.appendChild(row);
       });
 
-      const o = overallPct();
-      document.getElementById("overallBar").style.width = o + "%";
-      document.getElementById("overallPill").textContent = `Overall: ${o}% complete`;
+      const pct = calcPct();
+      barFill.style.width = pct + "%";
+      pctText.textContent = pct + "%";
     }
 
-    document.getElementById("resetAllBtn").addEventListener("click", ()=>{
-      units.forEach(u=>{
-        for(let s=1; s<=STAGES_PER_UNIT; s++){
-          localStorage.removeItem(keyFor(u.n, s));
-        }
-      });
+    resetBtn.addEventListener("click", () => {
+      STAGES.forEach(s => localStorage.removeItem(keyFor(s.id)));
       render();
     });
 
