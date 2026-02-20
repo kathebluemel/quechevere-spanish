@@ -3,28 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Level 1 • Unit 7 — Family & Relationships | Seño Bluemel Que Chévere</title>
+  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
       --bg:#0b0f14;
       --panel:#121923;
-      --panel2:#0f1620;
       --text:#e8eef6;
       --muted:#b7c4d6;
       --line:rgba(255,255,255,.10);
       --accent:#4aa3ff;
       --good:#34d399;
-      --warn:#fbbf24;
-      --bad:#fb7185;
       --shadow:0 12px 30px rgba(0,0,0,.35);
       --radius:16px;
-      --radius2:12px;
       --max:1100px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helveticaica,Arial,sans-serif}
-    a{color:inherit}
+    a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max);margin:0 auto;padding:22px}
     .topbar{
       display:flex;gap:12px;align-items:center;justify-content:space-between;
@@ -32,95 +28,52 @@
       background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
     }
-    .brand{display:flex;flex-direction:column;gap:2px}
-    .brand .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-    .brand .title{font-weight:800;font-size:18px}
-    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
-    .btn{
+    .brand h1{margin:0;font-size:28px;letter-spacing:-.02em}
+    .brand .sub{margin:2px 0 0;color:var(--muted);font-size:13px}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+    .pill{
       display:inline-flex;align-items:center;gap:8px;
       padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.05);text-decoration:none;font-weight:700;
+      background:rgba(255,255,255,.05);font-weight:800
     }
-    .btn:hover{border-color:rgba(74,163,255,.55)}
-    .grid{
-      display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:16px;
+    .pill:hover{border-color:rgba(74,163,255,.55)}
+    .danger{
+      border-color:rgba(251,113,133,.35);
+      background:rgba(251,113,133,.10);
+      cursor:pointer;
     }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-    .card{
+    .danger:hover{border-color:rgba(251,113,133,.65)}
+    .progressCard{
+      margin-top:16px;
       border:1px solid var(--line);
-      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
-      border-radius:var(--radius);box-shadow:var(--shadow);
-      padding:18px;
-    }
-    h1{margin:0 0 6px;font-size:34px;letter-spacing:-.02em}
-    .lead{color:var(--muted);line-height:1.4;margin:0 0 14px}
-    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px}
-    .chip{
-      font-size:12px;font-weight:800;letter-spacing:.02em;
-      padding:6px 10px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(74,163,255,.10);
-    }
-    .chip.alt{background:rgba(52,211,153,.10)}
-    .chip.gold{background:rgba(251,191,36,.10);border-color:rgba(251,191,36,.35)}
-    .sectionTitle{margin:14px 0 8px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-    .bigQ{
-      font-size:20px;font-weight:900;margin:0 0 10px;letter-spacing:-.01em;
-      border-left:3px solid var(--accent);padding-left:12px
-    }
-    ul{margin:8px 0 0 18px;color:var(--text)}
-    li{margin:6px 0}
-    .vocab{
-      margin-top:14px;padding:12px;border-radius:var(--radius2);
-      border:1px dashed rgba(255,255,255,.22);
-      background:rgba(255,255,255,.03);color:var(--muted);font-size:13px;line-height:1.35
-    }
-    .progressHead{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:10px}
-    .progressHead .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-    .bar{height:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;overflow:hidden}
-    .bar > div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .25s ease}
-    .pct{margin-top:8px;color:var(--muted);font-weight:800;font-size:13px}
-    .stageList{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-    .stageRow{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
-      background:rgba(255,255,255,.03);
-    }
-    .stageRow .left{display:flex;align-items:center;gap:10px}
-    .dot{width:10px;height:10px;border-radius:999px;border:1px solid rgba(255,255,255,.30);background:transparent}
-    .dot.done{background:var(--good);border-color:rgba(52,211,153,.9)}
-    .stageRow .name{font-weight:900}
-    .toggle{
-      padding:6px 10px;border-radius:999px;border:1px solid rgba(52,211,153,.5);
-      background:rgba(52,211,153,.10);color:var(--text);font-weight:900;cursor:pointer
-    }
-    .toggle.not{border-color:rgba(251,113,133,.5);background:rgba(251,113,133,.10)}
-    .reset{
-      margin-top:12px;width:100%;
-      padding:10px 12px;border-radius:999px;border:1px solid rgba(251,113,133,.35);
-      background:rgba(251,113,133,.10);color:var(--text);font-weight:900;cursor:pointer
-    }
-    .tip{margin-top:10px;color:var(--muted);font-size:12px}
-    .accordion{margin-top:16px}
-    details{
-      border:1px solid var(--line);
-      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
       border-radius:var(--radius);
-      margin:10px 0;
+      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
-      overflow:hidden;
+      padding:16px;
     }
-    summary{
-      cursor:pointer;list-style:none;
-      padding:14px 16px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      font-weight:900;
+    .progressHeader{
+      display:flex;justify-content:space-between;align-items:flex-end;gap:10px
     }
-    summary::-webkit-details-marker{display:none}
-    .sub{display:block;color:var(--muted);font-weight:700;font-size:12px;margin-top:2px}
-    .content{padding:0 16px 16px;color:var(--muted);line-height:1.45}
-    .content h3{color:var(--text);margin:12px 0 6px}
-    .content .reading{color:var(--text);background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.22);border-radius:12px;padding:12px}
-    .content .q{margin-top:10px}
+    .progressHeader .label{
+      font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-size:12px
+    }
+    .bar{margin-top:10px;height:10px;border-radius:999px;overflow:hidden;border:1px solid var(--line);background:rgba(255,255,255,.06)}
+    .bar > div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .25s ease}
+    .tip{margin-top:10px;color:var(--muted);font-size:12px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+    .unitCard{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:16px;
+    }
+    .unitCard h2{margin:0 0 4px;font-size:18px}
+    .unitCard p{margin:0 0 12px;color:var(--muted);font-size:13px;line-height:1.35}
+    .unitMeta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px}
+    .miniLabel{color:var(--muted);font-weight:900;font-size:12px;letter-spacing:.08em}
+    .miniPct{font-weight:900}
     footer{margin:18px 0 8px;text-align:center;color:var(--muted);font-size:12px}
   </style>
 </head>
@@ -129,273 +82,138 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <div class="kicker">SEÑO BLUEMEL QUE CHÉVERE • LEVEL 1</div>
-        <div class="title">Unit 7 — Family & Relationships</div>
+        <h1>Spanish Level 1</h1>
+        <div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
       </div>
       <div class="nav">
-        <a class="btn" href="../../index.html">← Home</a>
-        <a class="btn" href="../index.html">Level 1 Dashboard</a>
-        <a class="btn" href="#stages">Stages</a>
+        <a class="pill" href="../index.html">← Home</a>
+        <div class="pill" id="overallPill">Overall: 0% complete</div>
+        <button class="pill danger" id="resetAllBtn" type="button">Reset ALL Level 1 Progress</button>
       </div>
     </div>
 
-    <div class="grid">
-      <section class="card">
-        <h1>Unit 7: Family & Relationships</h1>
-        <p class="lead">Talk about family members, relationships, and basic descriptions using high-frequency phrases.</p>
-
-        <div class="chips">
-          <span class="chip">Proficiency: Novice Mid → Novice High (supported)</span>
-          <span class="chip alt">High-frequency family words</span>
-          <span class="chip gold">Ser + descriptions • Tener • Hay</span>
+    <div class="progressCard">
+      <div class="progressHeader">
+        <div>
+          <div class="label">Overall Progress</div>
         </div>
-
-        <div class="sectionTitle">Proficiency Goal</div>
-        <p class="lead">Students understand and communicate about family members, relationships, and basic descriptions in familiar contexts using practiced language.</p>
-
-        <div class="sectionTitle">Essential Question</div>
-        <p class="bigQ">¿Cómo influye la familia en quiénes somos?</p>
-
-        <div class="sectionTitle">Core Language Targets</div>
-        <ul>
-          <li>I can name common family members (madre, padre, hermano/a, etc.).</li>
-          <li>I can describe a person using <strong>ser + adjectives</strong>.</li>
-          <li>I can say what someone has using <strong>tener</strong>.</li>
-          <li>I can ask and answer simple questions about family.</li>
-        </ul>
-
-        <div class="vocab">
-          <strong>Unit 7 “Must-Have” Vocabulary</strong><br/>
-          Family: madre, padre, hermano/a, abuelo/a, tío/a, primo/a, familia, amigos<br/>
-          Descriptions: alto/a, bajo/a, simpático/a, serio/a, trabajador/a, inteligente, cómico/a<br/>
-          Structures: <em>Es… / Son…</em> • <em>Tiene…</em> • <em>Hay…</em> • <em>¿Quién es…?</em> • <em>¿Cómo es…?</em>
-        </div>
-      </section>
-
-      <aside class="card" id="progressCard">
-        <div class="progressHead">
-          <div class="label">Progress</div>
-        </div>
-        <div class="bar"><div id="barFill"></div></div>
-        <div class="pct"><span id="pctText">0%</span> complete</div>
-
-        <div class="stageList" id="stageList"></div>
-
-        <button class="reset" id="resetBtn">Reset Unit 7 Progress</button>
-        <div class="tip">Tip: Progress saves automatically in your browser (localStorage).</div>
-      </aside>
+        <div class="pill" style="cursor:default">Units: 7 • Stages: 5 each</div>
+      </div>
+      <div class="bar"><div id="overallBar"></div></div>
+      <div class="tip">Tip: Progress is saved in your browser (localStorage).</div>
     </div>
 
-    <div class="accordion" id="stages">
-      <details open>
-        <summary>
-          <div>
-            Stage 1: Understand
-            <span class="sub">Interpretive • Comprehension first</span>
-          </div>
-          <span>▾</span>
-        </summary>
-        <div class="content">
-          <h3>Learning Targets</h3>
-          <ul>
-            <li>I can understand the main idea of a short description of a family.</li>
-            <li>I can identify who is who (mother/father/sibling).</li>
-            <li>I can match adjectives to meaning.</li>
-          </ul>
+    <div class="grid" id="unitsGrid"></div>
 
-          <h3>Lectura (10+ sentences)</h3>
-          <div class="reading">
-            En mi casa hay cinco personas. Mi madre se llama Ana y es muy simpática.
-            Mi padre se llama Carlos y es trabajador. Tengo un hermano y una hermana.
-            Mi hermano es alto y cómico. Mi hermana es inteligente y un poco seria.
-            Mis abuelos viven cerca y son muy amables. Los domingos, mi familia come juntos.
-            A mi madre le gusta cocinar y a mi padre le gusta mirar deportes.
-            Yo soy estudiante y tengo muchos amigos. Mi familia es importante para mí.
-          </div>
-
-          <div class="q">
-            <h3>Comprehension Questions (in English)</h3>
-            <ol>
-              <li>How many people are in the family?</li>
-              <li>What is the mother’s name and what is she like?</li>
-              <li>What is the father’s name and what is he like?</li>
-              <li>What is the brother like?</li>
-              <li>What is the sister like?</li>
-              <li>What does the family do on Sundays?</li>
-            </ol>
-          </div>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          <div>
-            Stage 2: Interact
-            <span class="sub">Interpersonal • Ask & answer with support</span>
-          </div>
-          <span>▾</span>
-        </summary>
-        <div class="content">
-          <h3>Partner Questions (Spanish)</h3>
-          <ul>
-            <li>¿Quién es una persona importante en tu familia?</li>
-            <li>¿Cómo es tu madre / tu padre?</li>
-            <li>¿Tienes hermanos? ¿Cómo son?</li>
-            <li>¿Hay mascotas en tu casa?</li>
-          </ul>
-
-          <h3>Sentence Frames</h3>
-          <ul>
-            <li>En mi familia hay…</li>
-            <li>Mi ____ es ____.</li>
-            <li>Tengo ____.</li>
-            <li>Mi familia es importante porque…</li>
-          </ul>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          <div>
-            Stage 3: Create
-            <span class="sub">Presentational • Describe your family</span>
-          </div>
-          <span>▾</span>
-        </summary>
-        <div class="content">
-          <h3>Task</h3>
-          <p>Write or record a short description (6–8 sentences) about your family. Include: who, how many people, and 3 descriptions.</p>
-
-          <h3>Checklist</h3>
-          <ul>
-            <li>Uses <strong>hay</strong> or a number</li>
-            <li>Uses <strong>ser + adjective</strong> at least 3 times</li>
-            <li>Includes at least 2 family words</li>
-          </ul>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          <div>
-            Stage 4: Reflect
-            <span class="sub">Culture + Metacognition</span>
-          </div>
-          <span>▾</span>
-        </summary>
-        <div class="content">
-          <h3>Reflection</h3>
-          <ul>
-            <li>What words were easiest to use?</li>
-            <li>What was hardest: family vocabulary or adjectives?</li>
-            <li>One goal for next time:</li>
-          </ul>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          <div>
-            Stage 5: Perform
-            <span class="sub">Assessment • Balanced across modes</span>
-          </div>
-          <span>▾</span>
-        </summary>
-        <div class="content">
-          <h3>Performance Prompt</h3>
-          <p>You are introducing your family to a new friend. Speak/write using practiced language (names optional). Include at least 6 sentences.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>
-          <div>
-            Teacher Alignment (click to show/hide)
-            <span class="sub">ACTFL + Missouri World Language</span>
-          </div>
-          <span>▾</span>
-        </summary>
-        <div class="content">
-          <p><strong>Standards:</strong> ACTFL — Interpersonal, Interpretive, Presentational | MO WL.1 & WL.3</p>
-          <p><strong>Proficiency target:</strong> Novice Mid (moving toward Novice High with support)</p>
-        </div>
-      </details>
-    </div>
-
-    <footer>© Seño Bluemel Que Chévere • Level 1</footer>
+    <footer>© Seño Bluemel Que Chévere</footer>
   </div>
 
   <script>
-    // === Unit 7 progress keys (matches dashboard math) ===
-    const UNIT_NUM = 7;
-    const STAGES = [
-      { id: 1, name: "Stage 1: Understand" },
-      { id: 2, name: "Stage 2: Interact" },
-      { id: 3, name: "Stage 3: Create" },
-      { id: 4, name: "Stage 4: Reflect" },
-      { id: 5, name: "Stage 5: Perform" },
+    // ====== CONFIG ======
+    const STAGES_PER_UNIT = 5;
+
+    const units = [
+      {
+        n: 1,
+        title: "Unit 1 — Identity & First Encounters",
+        desc: "Greetings, introductions, basic personal information.",
+        href: "./unit-1/index.html"
+      },
+      {
+        n: 2,
+        title: "Unit 2 — Numbers & Classroom Language",
+        desc: "Numbers, classroom objects, essential communication phrases.",
+        href: "./unit-2/index.html"
+      },
+      {
+        n: 3,
+        title: "Unit 3 — Descriptions & Adjectives",
+        desc: "Physical descriptions, adjectives, agreement, basic traits.",
+        href: "./unit-3/index.html"
+      },
+      {
+        n: 4,
+        title: "Unit 4 — Daily Life & Schedules",
+        desc: "Daily routines, time telling, sequencing, simple preferences.",
+        href: "./unit-4/index.html"
+      },
+      {
+        n: 5,
+        title: "Unit 5 — Food & Preferences",
+        desc: "Likes/dislikes, simple requests, ordering politely.",
+        href: "./unit-5/index.html"
+      },
+      {
+        n: 6,
+        title: "Unit 6 — Free Time & Hobbies",
+        desc: "Activities you do, what you like to do, and when.",
+        href: "./unit-6/index.html"
+      },
+      {
+        n: 7,
+        title: "Unit 7 — Family & Relationships",
+        desc: "Family members, relationships, and basic descriptions.",
+        href: "./unit-7/index.html"
+      }
     ];
 
-    const keyFor = (stageId) => `l1_u${UNIT_NUM}_s${stageId}_done`;
+    // Key pattern used in units: l1_u{UNIT}_s{STAGE}_done
+    const keyFor = (unitNum, stageNum) => `l1_u${unitNum}_s${stageNum}_done`;
 
-    const stageList = document.getElementById("stageList");
-    const barFill = document.getElementById("barFill");
-    const pctText = document.getElementById("pctText");
-    const resetBtn = document.getElementById("resetBtn");
-
-    function isDone(stageId){
-      return localStorage.getItem(keyFor(stageId)) === "1";
+    function unitPct(unitNum){
+      let done = 0;
+      for(let s=1; s<=STAGES_PER_UNIT; s++){
+        if(localStorage.getItem(keyFor(unitNum, s)) === "1") done++;
+      }
+      return Math.round((done / STAGES_PER_UNIT) * 100);
     }
 
-    function setDone(stageId, value){
-      localStorage.setItem(keyFor(stageId), value ? "1" : "0");
-    }
-
-    function calcPct(){
-      const doneCount = STAGES.filter(s => isDone(s.id)).length;
-      return Math.round((doneCount / STAGES.length) * 100);
+    function overallPct(){
+      const totalStages = units.length * STAGES_PER_UNIT;
+      let done = 0;
+      units.forEach(u=>{
+        for(let s=1; s<=STAGES_PER_UNIT; s++){
+          if(localStorage.getItem(keyFor(u.n, s)) === "1") done++;
+        }
+      });
+      return Math.round((done / totalStages) * 100);
     }
 
     function render(){
-      stageList.innerHTML = "";
-      STAGES.forEach(s => {
-        const row = document.createElement("div");
-        row.className = "stageRow";
+      const grid = document.getElementById("unitsGrid");
+      grid.innerHTML = "";
 
-        const left = document.createElement("div");
-        left.className = "left";
+      units.forEach(u=>{
+        const pct = unitPct(u.n);
 
-        const dot = document.createElement("div");
-        dot.className = "dot" + (isDone(s.id) ? " done" : "");
+        const card = document.createElement("a");
+        card.className = "unitCard";
+        card.href = u.href;
 
-        const name = document.createElement("div");
-        name.className = "name";
-        name.textContent = s.name;
+        card.innerHTML = `
+          <h2>${u.title}</h2>
+          <p>${u.desc}</p>
+          <div class="bar"><div style="width:${pct}%"></div></div>
+          <div class="unitMeta">
+            <div class="miniLabel">Progress</div>
+            <div class="miniPct">${pct}%</div>
+          </div>
+        `;
 
-        left.appendChild(dot);
-        left.appendChild(name);
-
-        const btn = document.createElement("button");
-        const done = isDone(s.id);
-        btn.className = "toggle" + (done ? "" : " not");
-        btn.textContent = done ? "Mark not done" : "Mark done";
-        btn.addEventListener("click", () => {
-          setDone(s.id, !done);
-          render();
-        });
-
-        row.appendChild(left);
-        row.appendChild(btn);
-        stageList.appendChild(row);
+        grid.appendChild(card);
       });
 
-      const pct = calcPct();
-      barFill.style.width = pct + "%";
-      pctText.textContent = pct + "%";
+      const o = overallPct();
+      document.getElementById("overallBar").style.width = o + "%";
+      document.getElementById("overallPill").textContent = `Overall: ${o}% complete`;
     }
 
-    resetBtn.addEventListener("click", () => {
-      STAGES.forEach(s => localStorage.removeItem(keyFor(s.id)));
+    document.getElementById("resetAllBtn").addEventListener("click", ()=>{
+      units.forEach(u=>{
+        for(let s=1; s<=STAGES_PER_UNIT; s++){
+          localStorage.removeItem(keyFor(u.n, s));
+        }
+      });
       render();
     });
 
