@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
+
+  <!-- Google Classroom: Share to Classroom (official) -->
+  <script>
+    window.___gcfg = { parsetags: "explicit" };
+  </script>
+  <script src="https://apis.google.com/js/platform.js"></script>
 
   <style>
     :root{
@@ -15,92 +21,82 @@
       --line:rgba(255,255,255,.10);
       --accent:#4aa3ff;
       --good:#34d399;
+      --warn:#fbbf24;
       --bad:#fb7185;
       --shadow:0 12px 30px rgba(0,0,0,.35);
       --radius:16px;
+      --radius2:12px;
       --max:1100px;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
-
     .wrap{max-width:var(--max);margin:0 auto;padding:22px}
     .topbar{
       display:flex;gap:12px;align-items:center;justify-content:space-between;
-      padding:14px 16px;border:1px solid var(--line);border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      padding:16px 18px;border:1px solid var(--line);border-radius:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
     }
-    .brand h1{margin:0;font-size:28px}
-    .brand p{margin:4px 0 0;color:var(--muted);font-size:13px}
-
-    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-    .pill{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
-      font-weight:800;font-size:13px;
-    }
+    .brand h1{margin:0;font-size:28px;line-height:1.1}
+    .brand .sub{margin-top:6px;color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
       padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
-      font-weight:800;font-size:13px;
-      cursor:pointer;
+      background:rgba(255,255,255,.06);color:var(--text);font-weight:700;
+      cursor:pointer;display:inline-flex;align-items:center;gap:8px;
     }
-    .btn:hover{border-color:rgba(74,163,255,.55)}
-    .btn-danger{border-color:rgba(251,113,133,.45)}
-    .btn-danger:hover{border-color:rgba(251,113,133,.75)}
-
-    .panel{
-      margin-top:16px;
-      padding:16px;border:1px solid var(--line);border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-    }
-    .panelHead{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .panelHead h2{margin:0;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#cfe2ff}
-    .hint{margin:0;color:var(--muted);font-size:12px}
-
-    .bar{
-      height:10px;border-radius:999px;background:rgba(255,255,255,.06);
-      overflow:hidden;border:1px solid var(--line);
-    }
-    .barFill{
-      height:100%;width:0%;
-      background:linear-gradient(90deg, var(--accent), var(--good));
-      transition:width .25s ease;
-    }
-
-    .grid{
-      display:grid;gap:14px;margin-top:16px;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-    }
-    @media (max-width: 860px){
-      .grid{grid-template-columns:1fr}
-      .actions{justify-content:flex-start}
+    .btn:hover{border-color:var(--accent)}
+    .btnDanger{border-color:rgba(251,113,133,.35);background:rgba(251,113,133,.08)}
+    .pill{
+      padding:8px 12px;border-radius:999px;border:1px solid rgba(74,163,255,.35);
+      background:rgba(74,163,255,.08);font-weight:800;font-size:12px;
     }
 
     .card{
-      padding:16px;border-radius:20px;border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      margin-top:16px;border:1px solid var(--line);border-radius:18px;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
-      cursor:pointer;
     }
-    .card:hover{border-color:rgba(74,163,255,.55)}
-    .card h3{margin:0 0 6px;font-size:18px}
-    .card p{margin:0 0 12px;color:var(--muted);font-size:13px;line-height:1.35}
+    .cardInner{padding:16px 18px}
+    .row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .h2{margin:0 0 8px 0;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,238,246,.9)}
+    .tiny{font-size:12px;color:var(--muted)}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid var(--line)}
+    .bar > div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .25s}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+    }
 
-    .cardRow{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      font-size:12px;color:var(--muted);margin-top:8px;
+    .unitCard{
+      border:1px solid var(--line);border-radius:18px;
+      background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      padding:16px 18px;
+      display:flex;flex-direction:column;gap:10px;
     }
-    .pct{font-weight:900;color:var(--text)}
-    .footer{margin:18px 0 0;text-align:center;color:var(--muted);font-size:12px}
+    .unitTop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .unitTitle{margin:0;font-size:18px}
+    .unitDesc{margin:0;color:var(--muted);font-size:13px;line-height:1.35}
+    .unitMeta{display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .pct{font-weight:900}
+    .miniLabel{font-size:12px;color:rgba(232,238,246,.85);font-weight:700}
+
+    .shareRow{
+      display:flex;justify-content:flex-start;align-items:center;gap:10px;flex-wrap:wrap;
+      padding-top:2px;
+    }
+    .shareHint{
+      font-size:12px;color:var(--muted);
+    }
+
+    .footer{margin:18px 0 6px 0;text-align:center;color:var(--muted);font-size:12px}
   </style>
 </head>
 
@@ -109,22 +105,27 @@
     <div class="topbar">
       <div class="brand">
         <h1>Spanish Level 1</h1>
-        <p>Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+        <div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
       </div>
+
       <div class="actions">
         <a class="btn" href="../index.html">← Home</a>
         <span class="pill" id="overallPill">Overall: 0% complete</span>
-        <button class="btn btn-danger" id="resetAllBtn" type="button">Reset ALL Level 1 Progress</button>
+        <button class="btn btnDanger" id="resetAllBtn">Reset ALL Level 1 Progress</button>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panelHead">
-        <h2>Overall Progress</h2>
-        <span class="pill" id="metaPill">Units: 7 • Stages: 5 each</span>
-        <p class="hint">Tip: Progress is saved in your browser (localStorage).</p>
+    <div class="card">
+      <div class="cardInner">
+        <div class="row">
+          <div>
+            <div class="h2">Overall Progress</div>
+            <div class="tiny">Tip: Progress is saved in your browser (localStorage).</div>
+          </div>
+          <div class="pill" id="unitCountPill">Units: 7 • Stages: 5 each</div>
+        </div>
+        <div style="margin-top:10px" class="bar"><div id="overallBar"></div></div>
       </div>
-      <div class="bar"><div class="barFill" id="overallBar"></div></div>
     </div>
 
     <div class="grid" id="unitGrid"></div>
@@ -133,6 +134,9 @@
   </div>
 
   <script>
+    // -----------------------------
+    // Dashboard config
+    // -----------------------------
     const STAGE_COUNT = 5;
 
     const UNITS = [
@@ -142,206 +146,190 @@
       { n: 4, title: "Unit 4 — Daily Life & Schedules", desc: "Daily routines, time telling, sequencing, simple preferences.", href: "unit-4/" },
       { n: 5, title: "Unit 5 — Food & Preferences", desc: "Likes/dislikes, simple requests, ordering politely.", href: "unit-5/" },
       { n: 6, title: "Unit 6 — Free Time & Hobbies", desc: "Activities you do, what you like to do, and when.", href: "unit-6/" },
-      { n: 7, title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and basic descriptions.", href: "unit-7/" },
+      { n: 7, title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and describing people in your world.", href: "unit-7/" },
     ];
 
     // -----------------------------
-    // UNIVERSAL progress reader
+    // Progress reader (robust)
+    // Works even if units used slightly different key names
     // -----------------------------
-    function truthy(v){
-      const s = String(v ?? "").toLowerCase().trim();
-      return s === "true" || s === "1" || s === "yes" || s === "done" || s === "complete" || s === "checked";
+    function isTruthyDone(v){
+      if (v == null) return false;
+      const s = String(v).toLowerCase().trim();
+      return s === "1" || s === "true" || s === "done" || s === "yes" || s === "y";
     }
 
-    function getKeys(){
-      const out = [];
-      for (let i = 0; i < localStorage.length; i++) out.push(localStorage.key(i));
-      return out.filter(Boolean);
-    }
+    function stageIsDone(unitNum, stageNum){
+      // We check common key patterns AND do a scan fallback.
+      const patterns = [
+        // common / newer styles
+        `l1_u${unitNum}_s${stageNum}`,
+        `l1-u${unitNum}-s${stageNum}`,
+        `unit${unitNum}_stage${stageNum}`,
+        `unit-${unitNum}-stage-${stageNum}`,
+        `u${unitNum}_s${stageNum}`,
+        `u${unitNum}-s${stageNum}`,
+        // sometimes with suffixes
+        `l1_u${unitNum}_s${stageNum}_done`,
+        `unit${unitNum}_stage${stageNum}_done`,
+        `u${unitNum}_s${stageNum}_done`,
+      ];
 
-    function parseUnitStageFromKey(key){
-      const k = key.toLowerCase();
-
-      // unit-6-stage-3 / unit_6_stage_3 / unit6stage3 / u6s3 / u6-stage3
-      let m = k.match(/(?:unit|u)\s*[-_:]?\s*(\d+)[^0-9a-z]+(?:stage|s)\s*[-_:]?\s*(\d+)/i);
-      if (m) return { unit: Number(m[1]), stage: Number(m[2]) };
-
-      m = k.match(/(?:unit|u)\s*(\d+).*?(?:stage|s)\s*(\d+)/i);
-      if (m) return { unit: Number(m[1]), stage: Number(m[2]) };
-
-      // qc:l1:u6:s3
-      m = k.match(/:u(\d+):s(\d+)/i);
-      if (m) return { unit: Number(m[1]), stage: Number(m[2]) };
-
-      // stage-first
-      m = k.match(/(?:stage|s)\s*[-_:]?\s*(\d+).*?(?:unit|u)\s*[-_:]?\s*(\d+)/i);
-      if (m) return { unit: Number(m[2]), stage: Number(m[1]) };
-
-      return null;
-    }
-
-    function extractDoneStagesFromJSON(obj){
-      // Accepts MANY shapes:
-      // {stages:[true,false,...]}
-      // {done:[true,false,...]}
-      // {stageDone:{1:true,2:false}}
-      // {stagesDone:{'1':true}}
-      // {1:true,2:false} (direct map)
-      const done = new Array(STAGE_COUNT + 1).fill(false);
-
-      if (!obj || typeof obj !== "object") return done;
-
-      const tryArray = (arr) => {
-        if (!Array.isArray(arr)) return;
-        for (let i = 1; i <= STAGE_COUNT; i++){
-          if (arr[i-1] === true) done[i] = true;
-        }
-      };
-
-      tryArray(obj.stages);
-      tryArray(obj.done);
-      tryArray(obj.stageDone);
-      tryArray(obj.stagesDone);
-
-      const tryMap = (m) => {
-        if (!m || typeof m !== "object") return;
-        for (let i = 1; i <= STAGE_COUNT; i++){
-          if (m[i] === true || m[String(i)] === true) done[i] = true;
-        }
-      };
-
-      tryMap(obj.stageDone);
-      tryMap(obj.stagesDone);
-      tryMap(obj.doneMap);
-      tryMap(obj.doneStages);
-
-      // direct numeric keys
-      tryMap(obj);
-
-      return done;
-    }
-
-    function getUnitDoneCount(unitNum){
-      const done = new Array(STAGE_COUNT + 1).fill(false);
-      const keys = getKeys();
-
-      // 1) Key-based stage booleans
-      for (const key of keys){
-        const parsed = parseUnitStageFromKey(key);
-        if (!parsed) continue;
-        if (parsed.unit !== unitNum) continue;
-        if (parsed.stage < 1 || parsed.stage > STAGE_COUNT) continue;
-
-        if (truthy(localStorage.getItem(key))) done[parsed.stage] = true;
+      for (const k of patterns){
+        const v = localStorage.getItem(k);
+        if (isTruthyDone(v)) return true;
       }
 
-      // 2) Unit-level JSON blobs (any key containing unit number)
-      // This is the missing piece in your situation.
-      const unitNeedle = String(unitNum);
-      for (const key of keys){
-        const k = key.toLowerCase();
-        if (!(k.includes("unit") || k.includes("u") || k.includes("level"))) continue;
-        if (!k.match(new RegExp(`\\b${unitNeedle}\\b`))) {
-          // also catch "unit-6" / "unit6" / "u6"
-          if (!k.includes(`unit-${unitNum}`) && !k.includes(`unit_${unitNum}`) && !k.includes(`unit${unitNum}`) && !k.includes(`u${unitNum}`)) continue;
-        }
+      // Fallback: scan keys and match unit+stage presence
+      // (This catches older keys like "progress_u6_s3" or "scqc_u6_s3_done")
+      for (let i=0; i<localStorage.length; i++){
+        const key = localStorage.key(i);
+        if (!key) continue;
+        const low = key.toLowerCase();
 
-        const raw = localStorage.getItem(key);
-        if (!raw) continue;
+        const unitHit =
+          low.includes(`u${unitNum}`) || low.includes(`unit${unitNum}`) || low.includes(`unit-${unitNum}`);
+        const stageHit =
+          low.includes(`s${stageNum}`) || low.includes(`stage${stageNum}`) || low.includes(`stage-${stageNum}`);
 
-        // If it's JSON, try to pull stage booleans from it
-        if (raw.trim().startsWith("{") || raw.trim().startsWith("[")){
-          try{
-            const obj = JSON.parse(raw);
-            const inferred = extractDoneStagesFromJSON(obj);
-            for (let i = 1; i <= STAGE_COUNT; i++){
-              if (inferred[i]) done[i] = true;
-            }
-          }catch(e){ /* ignore */ }
+        if (unitHit && stageHit){
+          const v = localStorage.getItem(key);
+          if (isTruthyDone(v)) return true;
         }
       }
 
-      let count = 0;
-      for (let i = 1; i <= STAGE_COUNT; i++){
-        if (done[i]) count++;
-      }
-      return count;
+      return false;
     }
 
-    function pct(doneCount){
-      return Math.round((doneCount / STAGE_COUNT) * 100);
+    function calcUnitPct(unitNum){
+      let done = 0;
+      for (let s=1; s<=STAGE_COUNT; s++){
+        if (stageIsDone(unitNum, s)) done++;
+      }
+      return Math.round((done / STAGE_COUNT) * 100);
     }
 
-    function resetAll(){
-      const keys = getKeys();
-      for (const key of keys){
-        const parsed = parseUnitStageFromKey(key);
-        if (parsed && parsed.unit >= 1 && parsed.unit <= 99 && parsed.stage >= 1 && parsed.stage <= 99){
-          localStorage.removeItem(key);
-          continue;
+    function calcOverallPct(){
+      const totalStages = UNITS.length * STAGE_COUNT;
+      let doneStages = 0;
+      UNITS.forEach(u => {
+        for (let s=1; s<=STAGE_COUNT; s++){
+          if (stageIsDone(u.n, s)) doneStages++;
         }
-        // Remove common unit progress blobs too
-        if (key.toLowerCase().includes("unit") || key.toLowerCase().includes("progress") || key.toLowerCase().includes("stage")){
-          localStorage.removeItem(key);
-        }
-      }
+      });
+      return Math.round((doneStages / totalStages) * 100);
     }
 
     // -----------------------------
     // Render
     // -----------------------------
-    const unitGrid = document.getElementById("unitGrid");
-    const overallPill = document.getElementById("overallPill");
-    const overallBar = document.getElementById("overallBar");
-    const metaPill = document.getElementById("metaPill");
-
     function render(){
-      metaPill.textContent = `Units: ${UNITS.length} • Stages: ${STAGE_COUNT} each`;
+      const unitGrid = document.getElementById("unitGrid");
       unitGrid.innerHTML = "";
 
-      let totalDone = 0;
-      const totalStages = UNITS.length * STAGE_COUNT;
+      UNITS.forEach(u => {
+        const pct = calcUnitPct(u.n);
 
-      for (const u of UNITS){
-        const doneCount = getUnitDoneCount(u.n);
-        const p = pct(doneCount);
-        totalDone += doneCount;
-
-        const card = document.createElement("div");
-        card.className = "card";
-        card.tabIndex = 0;
+        const card = document.createElement("a");
+        card.className = "unitCard";
+        card.href = u.href;
 
         card.innerHTML = `
-          <h3>${u.title}</h3>
-          <p>${u.desc}</p>
-          <div class="bar"><div class="barFill" style="width:${p}%;"></div></div>
-          <div class="cardRow">
-            <span>Progress</span>
-            <span class="pct">${p}%</span>
+          <div class="unitTop">
+            <div>
+              <h3 class="unitTitle">${u.title}</h3>
+              <p class="unitDesc">${u.desc}</p>
+            </div>
+          </div>
+
+          <div class="unitMeta">
+            <div class="miniLabel">Progress</div>
+            <div class="pct">${pct}%</div>
+          </div>
+          <div class="bar"><div style="width:${pct}%"></div></div>
+
+          <div class="shareRow">
+            <div class="shareBtn" id="share-unit-${u.n}"></div>
+            <div class="shareHint">Post this unit to Google Classroom</div>
           </div>
         `;
 
-        const go = () => window.location.href = u.href;
-        card.addEventListener("click", go);
-        card.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " "){ e.preventDefault(); go(); }
-        });
-
         unitGrid.appendChild(card);
-      }
+      });
 
-      const overallPct = totalStages ? Math.round((totalDone / totalStages) * 100) : 0;
-      overallPill.textContent = `Overall: ${overallPct}% complete`;
-      overallBar.style.width = overallPct + "%";
+      const overall = calcOverallPct();
+      document.getElementById("overallBar").style.width = overall + "%";
+      document.getElementById("overallPill").textContent = `Overall: ${overall}% complete`;
+      document.getElementById("unitCountPill").textContent = `Units: ${UNITS.length} • Stages: ${STAGE_COUNT} each`;
+
+      renderShareButtons(); // IMPORTANT: after cards exist
     }
 
+    // -----------------------------
+    // Google Classroom buttons
+    // -----------------------------
+    function renderShareButtons(){
+      if (!window.gapi || !gapi.sharetoclassroom) return;
+
+      UNITS.forEach((u) => {
+        const el = document.getElementById(`share-unit-${u.n}`);
+        if (!el) return;
+
+        // Build the real URL to the unit page
+        const unitUrl = new URL(u.href, window.location.href).toString();
+
+        // Clear placeholder (important when re-rendering)
+        el.innerHTML = "";
+
+        gapi.sharetoclassroom.render(el, {
+          url: unitUrl,
+          size: 32,
+          theme: "dark",
+          title: u.title
+        });
+      });
+    }
+
+    // -----------------------------
+    // Reset ALL progress
+    // -----------------------------
     document.getElementById("resetAllBtn").addEventListener("click", () => {
-      if (!confirm("Reset ALL Level 1 progress in this browser?")) return;
-      resetAll();
+      const ok = confirm("Reset ALL Level 1 progress? This clears saved progress in this browser.");
+      if (!ok) return;
+
+      // Remove any keys that look like unit/stage progress
+      const keysToRemove = [];
+      for (let i=0; i<localStorage.length; i++){
+        const key = localStorage.key(i);
+        if (!key) continue;
+        const low = key.toLowerCase();
+
+        const looksLikeProgress =
+          low.includes("stage") ||
+          low.includes("_s") ||
+          low.includes("-s") ||
+          low.includes("progress") ||
+          low.includes("unit") ||
+          low.includes("u1") || low.includes("u2") || low.includes("u3") || low.includes("u4") || low.includes("u5") || low.includes("u6") || low.includes("u7");
+
+        if (looksLikeProgress) keysToRemove.push(key);
+      }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
       render();
     });
 
-    render();
+    window.addEventListener("storage", render);
+    window.addEventListener("load", () => {
+      render();
+
+      // In case gapi loads after our first render:
+      let tries = 0;
+      const t = setInterval(() => {
+        tries++;
+        renderShareButtons();
+        if ((window.gapi && gapi.sharetoclassroom) || tries > 25) clearInterval(t);
+      }, 200);
+    });
   </script>
 </body>
 </html>
