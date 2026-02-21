@@ -321,8 +321,7 @@
           <span class="warn" id="diagSummaryTag">Not collected</span>
         </summary>
         <div class="diagSmall">
-          If some units show 0% even though you clicked “Mark done,” it means those unit pages saved progress under different localStorage key names.
-          This panel shows the keys so we can match them precisely.
+          This panel shows your saved localStorage keys so the dashboard can match every unit’s progress format.
         </div>
 
         <div class="diagGrid">
@@ -341,7 +340,7 @@
           <button class="btn" id="collectDiagBtn" type="button">Collect diagnostics</button>
           <button class="btn" id="copyDiagBtn" type="button">Copy diagnostics</button>
         </div>
-        <div class="diagSmall">After you click “Collect diagnostics”, copy/paste the diagnostics here (or screenshot the panel) and I’ll update the dashboard reader so Units 2–7 show correctly.</div>
+        <div class="diagSmall">Tip: You only need this if something looks wrong.</div>
       </details>
     </div>
 
@@ -375,7 +374,7 @@
       if (["done","true","1","yes","complete","completed"].includes(s)) return true;
 
       // JSON-ish values
-      if ((s.includes("{") && s.includes("}")) || s.includes(":")){
+      if ((s.includes("{") && s.includes("}")) || s.includes(":") || s.startsWith("[") ){
         if (s.includes("done") && (s.includes("true") || s.includes("1") || s.includes(":\"done\"") || s.includes("\"done\""))) return true;
         if (s.includes("completed") && (s.includes("true") || s.includes("1"))) return true;
         if (s.includes("status") && s.includes("done")) return true;
@@ -407,15 +406,66 @@
       return Array.from(aliases);
     }
 
+    // Newer units pattern
     function knownKey(unitId, stageNum){
       return `qc_l1_${unitId}_stage_${stageNum}`;
     }
 
+    // ✅ IMPORTANT: Some units (Unit 6) store all 5 stages in ONE array key like:
+    // l1_u6_stages = [true,true,false,false,false]
+    function matchStagesArrayKey(unitId, stageNum){
+      const n = unitNumber(unitId);
+      if(n == null) return null;
+
+      const arrayKeysToTry = [
+        `l1_u${n}_stages`,
+        `l1u${n}_stages`,
+        `level1_u${n}_stages`,
+        `level1u${n}_stages`,
+        `level1_unit${n}_stages`,
+        `l1_unit${n}_stages`,
+      ];
+
+      for(const k of arrayKeysToTry){
+        const raw = localStorage.getItem(k);
+        if(raw == null) continue;
+
+        try{
+          const parsed = JSON.parse(raw);
+          if(Array.isArray(parsed)){
+            const v = parsed[stageNum - 1];
+            if(v === true) return { key: k, value: raw };
+          } else if (parsed && typeof parsed === "object" && Array.isArray(parsed.stages)){
+            const v = parsed.stages[stageNum - 1];
+            if(v === true) return { key: k, value: raw };
+          }
+        }catch(e){
+          // Sometimes raw is like: [true,true,false,false,false] (valid JSON)
+          // If it still fails, attempt a very safe fallback:
+          const s = String(raw).trim();
+          if(s.startsWith("[") && s.endsWith("]")){
+            // naive parse for true/false list
+            const inner = s.slice(1, -1).split(",").map(x => x.trim().toLowerCase());
+            const v = inner[stageNum - 1];
+            if(v === "true") return { key: k, value: raw };
+          }
+        }
+      }
+
+      return null;
+    }
+
     function findStageMatch(unitId, stageNum){
+      // 0) Array-style key (fixes Unit 6)
+      const arrMatch = matchStagesArrayKey(unitId, stageNum);
+      if(arrMatch) return arrMatch;
+
+      // 1) Direct known key
       const direct = knownKey(unitId, stageNum);
       const dv = localStorage.getItem(direct);
       if (valueMeansDone(dv)) return { key: direct, value: dv };
 
+      // 2) Alias + stage tokens scan
       const aliases = unitAliases(unitId);
       const stageTokens = [
         `stage_${stageNum}`, `stage-${stageNum}`, `stage${stageNum}`,
@@ -424,7 +474,6 @@
         `s${stageNum}`
       ];
 
-      // scan for any key that includes an alias AND a stage token
       for(let i=0;i<localStorage.length;i++){
         const k = localStorage.key(i);
         if(!k) continue;
@@ -435,20 +484,6 @@
 
         if(!aliasHit || !stageHit) continue;
 
-        const v = localStorage.getItem(k);
-        if(valueMeansDone(v)) return { key: k, value: v };
-      }
-
-      // fallback: regex unit & stage in either order
-      const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const a = aliases.map(x => esc(String(x))).join("|");
-      const st = stageTokens.map(x => esc(String(x))).join("|");
-      const re = new RegExp(`(${a}).*(${st})|(${st}).*(${a})`, "i");
-
-      for(let i=0;i<localStorage.length;i++){
-        const k = localStorage.key(i);
-        if(!k) continue;
-        if(!re.test(k)) continue;
         const v = localStorage.getItem(k);
         if(valueMeansDone(v)) return { key: k, value: v };
       }
@@ -545,27 +580,17 @@
       if(!confirmed) return;
 
       for(const u of units){
+        const n = unitNumber(u.id);
         for(let s=1;s<=STAGES_PER_UNIT;s++){
           localStorage.removeItem(knownKey(u.id, s));
-          // also remove any keys we can match by alias+stage token
-          const aliases = unitAliases(u.id).map(x => String(x).toLowerCase());
-          const stageTokens = [
-            `stage_${s}`, `stage-${s}`, `stage${s}`,
-            `etapa_${s}`, `etapa-${s}`, `etapa${s}`,
-            `step_${s}`, `step-${s}`, `step${s}`,
-            `s${s}`
+        }
+        // Also clear array-style keys (like Unit 6)
+        if(n != null){
+          const arrKeys = [
+            `l1_u${n}_stages`, `l1u${n}_stages`, `level1_u${n}_stages`, `level1u${n}_stages`,
+            `level1_unit${n}_stages`, `l1_unit${n}_stages`
           ];
-
-          const toRemove = [];
-          for(let i=0;i<localStorage.length;i++){
-            const k = localStorage.key(i);
-            if(!k) continue;
-            const kl = k.toLowerCase();
-            const aliasHit = aliases.some(a => kl.includes(a));
-            const stageHit = stageTokens.some(t => kl.includes(t));
-            if(aliasHit && stageHit) toRemove.push(k);
-          }
-          toRemove.forEach(k => localStorage.removeItem(k));
+          arrKeys.forEach(k => localStorage.removeItem(k));
         }
       }
 
@@ -635,7 +660,7 @@
       }
 
       navigator.clipboard.writeText(blob)
-        .then(()=> alert("Diagnostics copied! Paste it into our chat."))
+        .then(()=> alert("Diagnostics copied!"))
         .catch(()=> alert("Copy failed. You can manually select/copy the text in the Diagnostics boxes."));
     }
 
