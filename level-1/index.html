@@ -1,12 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
-
-  <!-- Google Classroom Share button -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Level 1 • Unit 8 — La Vida Escolar (School & Perspectives) | Seño Bluemel Que Chévere</title>
 
   <style>
     :root{
@@ -21,14 +18,13 @@
       --warn:#fbbf24;
       --bad:#fb7185;
       --shadow: 0 12px 30px rgba(0,0,0,.35);
-      --radius:18px;
+      --radius:16px;
       --radius2:12px;
       --max:1100px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helveticaica,Arial,sans-serif}
     a{color:inherit;text-decoration:none}
-
     .wrap{max-width:var(--max);margin:0 auto;padding:22px}
     .topbar{
       display:flex;gap:12px;align-items:center;justify-content:space-between;
@@ -36,312 +32,460 @@
       background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       box-shadow:var(--shadow);
     }
-    .title h1{margin:0;font-size:28px;letter-spacing:.2px}
-    .title .sub{margin-top:4px;color:var(--muted);font-size:12px}
-    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .pill{
-      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);font-weight:700;font-size:12px
-    }
+    .brand small{color:var(--muted);display:block;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+    .brand h1{margin:4px 0 0;font-size:20px}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
     .btn{
-      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.06);color:var(--text);
-      font-weight:800;font-size:12px;cursor:pointer
+      padding:10px 14px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.04);color:var(--text);font-weight:650;
+      transition:.15s;cursor:pointer;display:inline-flex;align-items:center;gap:8px
     }
-    .btn:hover{border-color:rgba(255,255,255,.22)}
-    .btn-danger{border-color:rgba(251,113,133,.55);background:rgba(251,113,133,.08)}
-    .btn-danger:hover{border-color:rgba(251,113,133,.85)}
-    .btn-home{display:inline-flex;gap:8px;align-items:center}
-
+    .btn:hover{transform:translateY(-1px);border-color:rgba(74,163,255,.55)}
+    .btn.primary{border-color:rgba(74,163,255,.55)}
+    .grid2{display:grid;grid-template-columns: 1.4fr .9fr;gap:16px;margin-top:16px}
+    @media (max-width: 960px){.grid2{grid-template-columns:1fr}}
     .card{
-      margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      padding:16px 18px
-    }
-
-    .row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .muted{color:var(--muted);font-size:12px}
-    .progressWrap{margin-top:10px}
-    .bar{
-      height:10px;border-radius:999px;background:rgba(255,255,255,.08);
-      border:1px solid var(--line);overflow:hidden
-    }
-    .bar>div{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg, var(--accent), var(--good));
-      transition:width .25s ease;
-    }
-
-    .grid{
-      margin-top:16px;
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:14px;
-    }
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-    }
-
-    .unit{
       border:1px solid var(--line);border-radius:var(--radius);
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
       box-shadow:var(--shadow);
-      padding:16px 16px 14px 16px;
-      position:relative;
+      padding:18px;
+    }
+    .title{font-size:34px;line-height:1.08;margin:0 0 10px}
+    .lead{color:var(--muted);margin:0 0 14px;font-size:15px}
+    .chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 6px}
+    .chip{
+      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);font-weight:650;font-size:13px;color:var(--text)
+    }
+    .chip.accent{border-color:rgba(74,163,255,.55);background:rgba(74,163,255,.10)}
+    .chip.good{border-color:rgba(52,211,153,.55);background:rgba(52,211,153,.10)}
+    .chip.warn{border-color:rgba(251,191,36,.55);background:rgba(251,191,36,.10)}
+    h3{margin:16px 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .eq{
+      margin:6px 0 0;padding:10px 12px;border-left:3px solid rgba(74,163,255,.65);
+      background:rgba(255,255,255,.02);border-radius:10px;font-size:22px;font-weight:800
+    }
+    ul{margin:10px 0 0 18px}
+    li{margin:7px 0;color:var(--text)}
+    .box{
+      margin-top:14px;padding:14px;border-radius:var(--radius2);
+      border:1px dashed rgba(255,255,255,.18);
+      background:rgba(0,0,0,.18)
+    }
+    .box b{color:var(--text)}
+    .muted{color:var(--muted)}
+    /* Progress panel */
+    .progressHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid var(--line);margin:10px 0}
+    .bar > div{height:100%;width:0;background:linear-gradient(90deg, var(--accent), var(--good));transition:.25s}
+    .pct{font-weight:800}
+    .stageList{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+    .stageRow{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:12px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03)
+    }
+    .left{
+      display:flex;align-items:center;gap:10px;min-width:0
+    }
+    .dot{width:10px;height:10px;border-radius:999px;border:2px solid rgba(255,255,255,.35);flex:0 0 auto}
+    .dot.done{border-color:rgba(52,211,153,.9);background:rgba(52,211,153,.25)}
+    .stageName{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .small{font-size:12px;color:var(--muted);margin-top:2px}
+    .toggleBtn{
+      padding:8px 12px;border-radius:999px;border:1px solid rgba(52,211,153,.55);
+      background:rgba(52,211,153,.12);color:var(--text);font-weight:800;cursor:pointer
+    }
+    .toggleBtn.off{
+      border-color:rgba(251,113,133,.55);
+      background:rgba(251,113,133,.10);
+    }
+    .reset{
+      margin-top:12px;width:100%;padding:12px 14px;border-radius:999px;
+      border:1px solid rgba(251,113,133,.45);
+      background:rgba(251,113,133,.08);
+      color:var(--text);font-weight:900;cursor:pointer
+    }
+    .tip{margin-top:10px;color:var(--muted);font-size:12px}
+    /* Stage sections */
+    .stageCard{
+      margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+      box-shadow:var(--shadow);
       overflow:hidden;
     }
-    .unit h3{margin:0 0 6px 0;font-size:18px}
-    .unit p{margin:0;color:var(--muted);font-size:12px;line-height:1.35}
-    .unit .unitBar{margin-top:12px}
-    .unit .unitMeta{
-      margin-top:8px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px
+    .stageHdr{
+      padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+      cursor:pointer;user-select:none;
+      background:rgba(255,255,255,.02);
     }
-    .unit .pct{font-weight:900;font-size:12px}
-    .unit .shareRow{
-      margin-top:10px;
-      display:flex;align-items:center;gap:10px;
-      color:var(--muted);
-      font-size:12px;
+    .stageHdr b{font-size:14px}
+    .stageHdr span{color:var(--muted);font-size:12px}
+    .chev{opacity:.8}
+    .stageBody{padding:16px;display:none}
+    .stageBody.open{display:block}
+    .reading{
+      padding:12px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18);line-height:1.55
     }
-    .shareLabel{opacity:.95}
-    .footer{
-      margin-top:22px;
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      opacity:.9;
+    .qList{margin-top:10px}
+    .qList li{color:var(--muted)}
+    .footer{margin:18px 0 0;text-align:center;color:var(--muted);font-size:12px}
+    .teacher{
+      margin-top:14px;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.18)
     }
+    details summary{cursor:pointer;font-weight:900}
+    details p, details li{color:var(--muted)}
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="title">
-        <h1>Spanish Level 1</h1>
-        <div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
+      <div class="brand">
+        <small>SEÑO BLUEMEL QUE CHÉVERE • LEVEL 1</small>
+        <h1>Unit 8 — La Vida Escolar (School & Perspectives)</h1>
       </div>
-      <div class="actions">
-        <a class="btn btn-home" href="../index.html">← Home</a>
-        <span class="pill" id="overallPill">Overall: 0% complete</span>
-        <button class="btn btn-danger" id="resetAllBtn">Reset ALL Level 1 Progress</button>
+      <div class="nav">
+        <a class="btn" href="../../index.html">← Home</a>
+        <a class="btn primary" href="../index.html">Level 1 Dashboard</a>
+        <a class="btn" href="#stages">Stages</a>
       </div>
     </div>
 
-    <div class="card">
-      <div class="row">
-        <div>
-          <div style="font-weight:900;letter-spacing:.06em;font-size:12px">OVERALL PROGRESS</div>
-          <div class="muted">Tip: Progress is saved in your browser (localStorage).</div>
+    <div class="grid2">
+      <!-- Left main content -->
+      <div class="card">
+        <h2 class="title">Unit 8: La Vida Escolar</h2>
+        <p class="lead">
+          Talk about your classes, your schedule, what you need for school, and how your school day shapes your identity —
+          then compare it to students in the Spanish-speaking world.
+        </p>
+
+        <div class="chips">
+          <span class="chip accent">Proficiency Target: Novice-Mid</span>
+          <span class="chip good">IPA: Interpretive + Interpersonal + Presentational</span>
+          <span class="chip warn">School Products & Practices (Comparisons)</span>
+          <span class="chip">Porque + Sequencing Words</span>
         </div>
-        <div class="pill" id="unitsPill">Units: 7 • Stages: 5 each</div>
+
+        <h3>Standards</h3>
+        <div class="box">
+          <div><b>MO / National WL:</b> Communication, Cultures, Comparisons</div>
+          <div class="muted" style="margin-top:6px">
+            <b>Interpersonal (IL.1.1):</b> exchange info about schedule & preferences •
+            <b>Interpretive (IL.1.2):</b> understand an authentic schedule •
+            <b>Presentational (IL.1.3):</b> basic comparison of school day •
+            <b>Cultural Comparisons (IL.4.2):</b> products/practices (uniforms, recreo, grading)
+          </div>
+        </div>
+
+        <h3>Proficiency Goal</h3>
+        <p class="muted" style="margin:0">
+          Students communicate about classes, time, and school routines using practiced phrases and simple sentences,
+          and they make a basic cultural comparison using familiar vocabulary.
+        </p>
+
+        <h3>Essential Question</h3>
+        <div class="eq">¿Cómo influye mi escuela en quién soy y cómo me comparo con otros estudiantes del mundo?</div>
+
+        <h3>Learning Targets (Can-Do)</h3>
+        <ul>
+          <li>I can list my classes and the times they meet using numbers 0–100.</li>
+          <li>I can describe my teachers and classes using at least 3 distinct adjectives.</li>
+          <li>I can express what I need for specific classes and what I do in them.</li>
+          <li>I can justify likes/dislikes using <b>porque</b>.</li>
+          <li>I can identify 2–3 major differences between U.S. schools and schools in the Spanish-speaking world.</li>
+        </ul>
+
+        <h3>Functional Toolbox (Vocab & Grammar)</h3>
+        <div class="box">
+          <b>Subjects:</b> matemáticas, ciencias (naturales/sociales), español, inglés, arte, tecnología, educación física, almuerzo/recreo<br/>
+          <b>Gear:</b> mochila, mapa, calculadora, sitio web, pantalla, ratón, tijeras, regla<br/>
+          <b>People:</b> estudiante, profesor(a), director(a)<br/><br/>
+          <b>Engine:</b> <i>tener</i> (Tengo la clase de…), <i>estar</i> (El libro está en…), -AR verbs (estudiar, hablar, escuchar, dibujar, usar, sacar una buena nota)<br/>
+          <b>Sequencing:</b> primero, luego, después, al final • <b>Connectors:</b> y, pero, también, porque
+        </div>
+
+        <details class="teacher">
+          <summary>Teacher Alignment (click to show/hide)</summary>
+          <p><b>Rigor moves (Novice-Mid):</b> prioritize message success; do not over-penalize “Yo tener” vs “Yo tengo” if communication works.</p>
+          <ul>
+            <li><b>90% TL:</b> use visuals/icons for gear (mochila, lápiz, calculadora) to reduce English.</li>
+            <li><b>Avoid word searches:</b> use “shopping list” tasks (What do you buy for Arte vs Matemáticas?).</li>
+            <li><b>Comparison done safely:</b> keep culture talk anchored to concrete products/practices (uniforms, recreo, grading).</li>
+          </ul>
+        </details>
       </div>
-      <div class="progressWrap">
-        <div class="bar"><div id="overallBar"></div></div>
+
+      <!-- Right progress -->
+      <div class="card" id="stages">
+        <div class="progressHead">
+          <div>
+            <h3 style="margin:0 0 4px">Progress</h3>
+            <div class="muted" style="font-size:12px">Track the 5 stages for Unit 8.</div>
+          </div>
+          <div class="pct" id="pctText">0% complete</div>
+        </div>
+
+        <div class="bar"><div id="barFill"></div></div>
+
+        <div class="stageList" id="stageList"></div>
+
+        <button class="reset" id="resetBtn">Reset Unit 8 Progress</button>
+        <div class="tip">Tip: Progress saves in your browser (localStorage).</div>
       </div>
     </div>
 
-    <div class="grid" id="unitGrid"></div>
+    <!-- Stage 1 -->
+    <div class="stageCard" data-stage="s1">
+      <div class="stageHdr">
+        <div>
+          <b>Stage 1: Understand</b>
+          <div><span>Interpretive • Comprehension first</span></div>
+        </div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="stageBody">
+        <h3>Interpretive Reading (10+ sentences)</h3>
+        <div class="reading">
+          <b>Horario escolar (Puebla, México):</b><br/><br/>
+          Me llamo Sofía y soy estudiante en Puebla. Primero, tengo matemáticas a las 7:10. Luego tengo ciencias a las 8:00.
+          Después, tengo español a las 8:50 y me gusta porque la profesora es simpática. A las 9:40 tengo recreo y estoy con mis amigos.
+          Después del recreo, tengo historia a las 10:00 y usamos un mapa en clase. Luego tengo inglés a las 10:50.
+          A las 11:40 tengo tecnología y uso la computadora y la pantalla. Al final, tengo educación física a las 12:30
+          y necesito zapatos deportivos. En mi escuela, muchos estudiantes usan uniforme y la calificación es de 1 a 10.
+        </div>
 
-    <div class="footer">© Seño Bluemel Que Chévere</div>
+        <h3>Comprehension (answer in English)</h3>
+        <ol class="qList">
+          <li>What time does Sofía have a break (recreo)?</li>
+          <li>Which class does she have first?</li>
+          <li>Why does she like Spanish class?</li>
+          <li>What two pieces of technology does she use in tecnología?</li>
+          <li>What does she need for physical education?</li>
+          <li>Name one “product” and one “practice” mentioned about school culture.</li>
+          <li>How is the grading scale described?</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="stageCard" data-stage="s2">
+      <div class="stageHdr">
+        <div>
+          <b>Stage 2: Interact</b>
+          <div><span>Interpersonal • Ask & answer with support</span></div>
+        </div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="stageBody">
+        <h3>Schedule Swap (Interpersonal)</h3>
+        <div class="box">
+          <b>Scenario:</b> Student A is new. Student B is the “Ambassador.” Talk for 3 minutes.<br/><br/>
+          <b>Use these question frames:</b>
+          <ul>
+            <li>¿Qué clase tienes primero?</li>
+            <li>¿A qué hora tienes (matemáticas / ciencias / español)?</li>
+            <li>¿Te gusta…? ¿Por qué?</li>
+            <li>¿Qué necesitas para (arte / matemáticas / tecnología)?</li>
+            <li>¿Qué haces en esa clase?</li>
+          </ul>
+        </div>
+
+        <h3>Sentence Builders (guided → more spontaneous)</h3>
+        <div class="box">
+          <b>Build 5 sentences:</b><br/>
+          Tengo ___ a las ___. Me gusta ___ porque ___.<br/>
+          En ___, yo ___ (estudio / hablo / escucho / dibujo / uso…).<br/>
+          Necesito ___ y ___. Primero ___. Luego ___. Al final ___.
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="stageCard" data-stage="s3">
+      <div class="stageHdr">
+        <div>
+          <b>Stage 3: Create</b>
+          <div><span>Presentational • Write with building blocks</span></div>
+        </div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="stageBody">
+        <h3>Presentational Writing</h3>
+        <div class="box">
+          Write <b>6–8 sentences</b> about your school day. Include:
+          <ul>
+            <li>3 classes + times (numbers 0–100)</li>
+            <li>3 adjectives (teacher/class)</li>
+            <li>At least 1 sentence with <b>porque</b></li>
+            <li>At least 2 school items you need (mochila, calculadora, etc.)</li>
+            <li>At least 2 sequencing words (primero, luego, después, al final)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 4 -->
+    <div class="stageCard" data-stage="s4">
+      <div class="stageHdr">
+        <div>
+          <b>Stage 4: Reflect</b>
+          <div><span>Culture + Metacognition • Comparisons</span></div>
+        </div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="stageBody">
+        <h3>Cultural Comparisons (IL.4.2)</h3>
+        <div class="box">
+          Create a quick comparison (Venn diagram or bullets):
+          <ul>
+            <li><b>Products:</b> uniforms, supplies, school ID, notebooks, etc.</li>
+            <li><b>Practices:</b> recreo, lunch schedule, grading scale (1–10), routines</li>
+          </ul>
+          <b>Goal:</b> Identify <b>2–3 major differences</b> using simple Spanish phrases you know.
+        </div>
+
+        <div class="box">
+          <b>Helpful frames:</b><br/>
+          En mi escuela, ___. En Puebla, ___.<br/>
+          En los EE. UU., ___. Pero en México, ___.<br/>
+          Prefiero ___ porque ___.
+        </div>
+      </div>
+    </div>
+
+    <!-- Stage 5 -->
+    <div class="stageCard" data-stage="s5">
+      <div class="stageHdr">
+        <div>
+          <b>Stage 5: Perform</b>
+          <div><span>Assessment • IPA (Gold Standard)</span></div>
+        </div>
+        <div class="chev">▾</div>
+      </div>
+      <div class="stageBody">
+        <h3>Integrated Performance Assessment (IPA)</h3>
+        <div class="box">
+          <b>Theme:</b> The Exchange Student Arrival
+        </div>
+
+        <div class="box">
+          <b>Part 1 — Interpretive (Reading):</b><br/>
+          Read an authentic schedule from a Spanish-speaking country (like Puebla). Answer questions <b>in English</b>:
+          <ul>
+            <li>At what time does the student have a break?</li>
+            <li>Which class meets every day?</li>
+            <li>How does the grading scale differ from yours?</li>
+          </ul>
+        </div>
+
+        <div class="box">
+          <b>Part 2 — Interpersonal (Speaking):</b><br/>
+          “Schedule Swap” (3 minutes). Ask about favorite classes and what you do in them.
+          Find out what you both need to buy at the store today.
+        </div>
+
+        <div class="box">
+          <b>Part 3 — Presentational (Video or Digital Brochure):</b><br/>
+          “Vlog de Bienvenida” (about 1 minute or a simple digital brochure):
+          <ul>
+            <li>Describe a typical Monday (mention 3 classes + times)</li>
+            <li>Describe 3 teachers/classes using adjectives</li>
+            <li>Say what you carry in your backpack</li>
+            <li>Say 1 thing unique about your school compared to theirs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© Seño Bluemel Que Chévere • Level 1</div>
   </div>
 
   <script>
     // -----------------------------
-    // Dashboard config
+    // Unit 8 progress (localStorage)
     // -----------------------------
-    const STAGE_COUNT = 5;
-
-    const UNITS = [
-      { n: 1, title: "Unit 1 — Identity & First Encounters", desc: "Greetings, introductions, basic personal information.", href: "unit-1/" },
-      { n: 2, title: "Unit 2 — Numbers & Classroom Language", desc: "Numbers, classroom objects, essential communication phrases.", href: "unit-2/" },
-      { n: 3, title: "Unit 3 — Descriptions & Adjectives", desc: "Physical descriptions, adjectives, agreement, basic traits.", href: "unit-3/" },
-      { n: 4, title: "Unit 4 — Daily Life & Schedules", desc: "Daily routines, time telling, sequencing, simple preferences.", href: "unit-4/" },
-      { n: 5, title: "Unit 5 — Food & Preferences", desc: "Likes/dislikes, simple requests, ordering politely.", href: "unit-5/" },
-      { n: 6, title: "Unit 6 — Free Time & Hobbies", desc: "Activities you do, what you like to do, and when.", href: "unit-6/" },
-      { n: 7, title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and describing people in your world.", href: "unit-7/" }
+    const UNIT_NUM = 8;
+    const STAGES = [
+      { id: "s1", name: "Stage 1: Understand", sub: "Interpretive • Comprehension first" },
+      { id: "s2", name: "Stage 2: Interact",   sub: "Interpersonal • Ask & answer" },
+      { id: "s3", name: "Stage 3: Create",     sub: "Presentational • Writing" },
+      { id: "s4", name: "Stage 4: Reflect",    sub: "Culture • Comparisons" },
+      { id: "s5", name: "Stage 5: Perform",    sub: "Assessment • IPA" },
     ];
 
-    // -----------------------------
-    // Helpers
-    // -----------------------------
-    function truthy(v){
-      if (v === null || v === undefined) return false;
-      const s = String(v).trim().toLowerCase();
-      return s === "1" || s === "true" || s === "yes" || s === "done" || s === "y" || s === "on";
-    }
+    const keyFor = (stageId) => `sbqc:l1:u${UNIT_NUM}:${stageId}:done`;
 
-    // Base URL builder for Classroom share
-    function shareUrlForUnit(unitHref){
-      const base = location.origin + location.pathname.replace(/\/level-1\/index\.html.*$/,"/level-1/");
-      return base + unitHref;
-    }
+    const getDone = (stageId) => localStorage.getItem(keyFor(stageId)) === "1";
+    const setDone = (stageId, done) => localStorage.setItem(keyFor(stageId), done ? "1" : "0");
 
-    // -----------------------------
-    // SMART SCAN: Detect any progress keys
-    // This is the part that fixes "units save, but dashboard shows 0"
-    // -----------------------------
-    function buildDetectedDoneMap(){
-      // doneMap[unit][stage] = true/false
-      const doneMap = {};
-      for (const u of UNITS){
-        doneMap[u.n] = {};
-        for (let s=1; s<=STAGE_COUNT; s++) doneMap[u.n][s] = false;
-      }
-
-      const keys = Object.keys(localStorage);
-
-      // Regex patterns to catch MANY formats:
-      // unit-6 stage-3, unit6_stage3, u6s3, sbqc:l1:u6:s3, etc.
-      const patterns = [
-        /unit[\s\-_]*([0-9]+)[\s\-_]*(?:stage|s)[\s\-_]*([0-9]+)/i,
-        /u([0-9]+)[\s\-_]*s([0-9]+)/i,
-        /sbqc.*?u([0-9]+).*?s([0-9]+)/i,
-        /level[\s\-_]*1.*?unit[\s\-_]*([0-9]+).*?(?:stage|s)[\s\-_]*([0-9]+)/i
-      ];
-
-      for (const k of keys){
-        const v = localStorage.getItem(k);
-
-        // 1) boolean-ish values
-        if (truthy(v)){
-          for (const re of patterns){
-            const m = k.match(re);
-            if (m){
-              const unit = parseInt(m[1], 10);
-              const stage = parseInt(m[2], 10);
-              if (doneMap[unit] && doneMap[unit][stage] !== undefined){
-                doneMap[unit][stage] = true;
-              }
-            }
-          }
-        }
-
-        // 2) JSON blobs that store stages
-        if (v && (v.startsWith("{") || v.startsWith("["))){
-          try{
-            const obj = JSON.parse(v);
-            // If key includes unit number, try to extract it:
-            let unitGuess = null;
-            const mUnit = k.match(/unit[\s\-_]*([0-9]+)/i) || k.match(/u([0-9]+)/i);
-            if (mUnit) unitGuess = parseInt(mUnit[1], 10);
-
-            if (!unitGuess || !doneMap[unitGuess]) continue;
-
-            if (Array.isArray(obj)){
-              for (let i=0; i<obj.length && i<STAGE_COUNT; i++){
-                if (obj[i]) doneMap[unitGuess][i+1] = true;
-              }
-            } else if (obj && typeof obj === "object"){
-              for (let s=1; s<=STAGE_COUNT; s++){
-                if (obj[String(s)] !== undefined && !!obj[String(s)]) doneMap[unitGuess][s] = true;
-                if (obj[`stage${s}`] !== undefined && !!obj[`stage${s}`]) doneMap[unitGuess][s] = true;
-                if (obj.stages && obj.stages[String(s)] !== undefined && !!obj.stages[String(s)]) doneMap[unitGuess][s] = true;
-                if (obj.stages && obj.stages[`stage${s}`] !== undefined && !!obj.stages[`stage${s}`]) doneMap[unitGuess][s] = true;
-              }
-            }
-          }catch(e){}
-        }
-      }
-
-      return doneMap;
-    }
-
-    function unitPctFromMap(doneMap, unitNum){
-      let done = 0;
-      for (let s=1; s<=STAGE_COUNT; s++){
-        if (doneMap[unitNum] && doneMap[unitNum][s]) done++;
-      }
-      return Math.round((done / STAGE_COUNT) * 100);
-    }
-
-    function overallPctFromMap(doneMap){
-      const totalStages = UNITS.length * STAGE_COUNT;
-      let doneStages = 0;
-      for (const u of UNITS){
-        for (let s=1; s<=STAGE_COUNT; s++){
-          if (doneMap[u.n] && doneMap[u.n][s]) doneStages++;
-        }
-      }
-      return Math.round((doneStages / totalStages) * 100);
-    }
-
-    // Reset ALL progress (aggressive)
-    function clearAllProgress(){
-      const keys = Object.keys(localStorage);
-      for (const k of keys){
-        const lk = k.toLowerCase();
-        const looksLikeProgress =
-          lk.includes("unit") || lk.includes("stage") || lk.includes("level1") || lk.includes("level-1") || lk.includes("sbqc") || /u\d+/.test(lk);
-        if (looksLikeProgress){
-          localStorage.removeItem(k);
-        }
-      }
-      render();
+    function calcPct(){
+      const doneCount = STAGES.filter(s => getDone(s.id)).length;
+      return Math.round((doneCount / STAGES.length) * 100);
     }
 
     function render(){
-      document.getElementById("unitsPill").textContent = `Units: ${UNITS.length} • Stages: ${STAGE_COUNT} each`;
+      const pct = calcPct();
+      document.getElementById("pctText").textContent = `${pct}% complete`;
+      document.getElementById("barFill").style.width = pct + "%";
 
-      const doneMap = buildDetectedDoneMap();
+      const stageList = document.getElementById("stageList");
+      stageList.innerHTML = "";
 
-      const op = overallPctFromMap(doneMap);
-      document.getElementById("overallPill").textContent = `Overall: ${op}% complete`;
-      document.getElementById("overallBar").style.width = op + "%";
+      STAGES.forEach(s => {
+        const row = document.createElement("div");
+        row.className = "stageRow";
 
-      const grid = document.getElementById("unitGrid");
-      grid.innerHTML = "";
+        const left = document.createElement("div");
+        left.className = "left";
 
-      UNITS.forEach(u => {
-        const pct = unitPctFromMap(doneMap, u.n);
+        const dot = document.createElement("div");
+        dot.className = "dot" + (getDone(s.id) ? " done" : "");
 
-        const card = document.createElement("div");
-        card.className = "unit";
+        const textWrap = document.createElement("div");
+        const name = document.createElement("div");
+        name.className = "stageName";
+        name.textContent = s.name;
 
-        const link = document.createElement("a");
-        link.href = u.href;
-        link.innerHTML = `
-          <h3>${u.title}</h3>
-          <p>${u.desc}</p>
-        `;
+        const sub = document.createElement("div");
+        sub.className = "small";
+        sub.textContent = s.sub;
 
-        const unitBar = document.createElement("div");
-        unitBar.className = "unitBar";
-        unitBar.innerHTML = `<div class="bar"><div style="width:${pct}%"></div></div>`;
+        textWrap.appendChild(name);
+        textWrap.appendChild(sub);
 
-        const meta = document.createElement("div");
-        meta.className = "unitMeta";
-        meta.innerHTML = `<div class="muted" style="font-weight:800;">Progress</div><div class="pct">${pct}%</div>`;
+        left.appendChild(dot);
+        left.appendChild(textWrap);
 
-        const shareRow = document.createElement("div");
-        shareRow.className = "shareRow";
-        const shareUrl = shareUrlForUnit(u.href);
-        shareRow.innerHTML = `
-          <g:sharetoclassroom url="${shareUrl}" size="32"></g:sharetoclassroom>
-          <span class="shareLabel">Post this unit to Google Classroom</span>
-        `;
+        const btn = document.createElement("button");
+        const isDone = getDone(s.id);
+        btn.className = "toggleBtn" + (isDone ? " off" : "");
+        btn.textContent = isDone ? "Mark not done" : "Mark done";
+        btn.addEventListener("click", () => {
+          setDone(s.id, !isDone);
+          render();
+        });
 
-        card.appendChild(link);
-        card.appendChild(meta);
-        card.appendChild(unitBar);
-        card.appendChild(shareRow);
-
-        grid.appendChild(card);
+        row.appendChild(left);
+        row.appendChild(btn);
+        stageList.appendChild(row);
       });
-
-      // Re-render Google Classroom widgets after dynamic insertion
-      if (window.gapi && window.gapi.sharetoclassroom && window.gapi.sharetoclassroom.go){
-        window.gapi.sharetoclassroom.go();
-      }
     }
 
-    document.getElementById("resetAllBtn").addEventListener("click", () => {
-      if (confirm("Reset ALL Level 1 progress for all units on THIS device/browser?")){
-        clearAllProgress();
-      }
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      STAGES.forEach(s => localStorage.removeItem(keyFor(s.id)));
+      render();
+    });
+
+    // Stage accordion toggles
+    document.querySelectorAll(".stageCard").forEach(card => {
+      const hdr = card.querySelector(".stageHdr");
+      const body = card.querySelector(".stageBody");
+      hdr.addEventListener("click", () => {
+        body.classList.toggle("open");
+      });
     });
 
     render();
