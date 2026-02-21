@@ -36,7 +36,6 @@
     a{color:inherit; text-decoration:none}
     .wrap{width:min(1240px, 94vw); margin:24px auto 60px;}
 
-    /* Top bar */
     .topbar{
       display:flex;
       align-items:flex-start;
@@ -82,7 +81,6 @@
       background: linear-gradient(180deg, rgba(255,90,106,.16), rgba(255,90,106,.06));
     }
 
-    /* Chips */
     .metaRow{
       display:flex;
       align-items:center;
@@ -103,7 +101,6 @@
       white-space:nowrap;
     }
 
-    /* Cards */
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
       border:1px solid var(--border);
@@ -112,7 +109,6 @@
       padding:18px;
     }
 
-    /* Overall progress */
     .tip{margin:8px 0 0; color:var(--muted2); font-size:12px;}
     .progressWrap{
       margin-top:12px;
@@ -146,7 +142,6 @@
       transition: width .25s ease;
     }
 
-    /* Unit grid — larger, easier to scan */
     .grid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -182,7 +177,6 @@
       gap:12px;
       margin-top:10px;
     }
-
     .unitProgressLabel{
       font-weight:900;
       font-size:13px;
@@ -203,14 +197,12 @@
       flex-wrap:wrap;
     }
 
-    /* Make the whole card clickable (like your older feel), but keep buttons clickable */
     .cardLink{
       display:block;
       border-radius: var(--radius);
     }
     .cardLink:focus{outline:none; box-shadow: var(--focus);}
 
-    /* Google Classroom share button (visible icon style) */
     .gcBtn{
       display:inline-flex;
       align-items:center;
@@ -293,10 +285,7 @@
   <script>
     // ----------------------------------------------------
     // Level 1 Dashboard — Units 1–9
-    // IMPORTANT FIX:
-    // Your older units may have used a different localStorage prefix.
-    // This dashboard now reads progress robustly by matching ANY key that
-    // contains: unitId + stage number, and has a "done/true/1" style value.
+    // FIX: Read progress from MANY possible key formats.
     // ----------------------------------------------------
     const BASE = "/quechevere-spanish/";
     const LEVEL1 = BASE + "level-1/";
@@ -318,58 +307,93 @@
       return Math.round((done / total) * 100);
     }
 
+    // Treat lots of possible storage values as "done"
     function valueMeansDone(v){
       if(v == null) return false;
       const s = String(v).trim().toLowerCase();
-      return (s === "done" || s === "true" || s === "1" || s === "yes" || s === "complete" || s === "completed");
+
+      // direct string flags
+      if (["done","true","1","yes","complete","completed"].includes(s)) return true;
+
+      // JSON-ish values (common)
+      // e.g. {"done":true} or {"completed":1} or {"status":"done"}
+      if (s.includes("done") && (s.includes("true") || s.includes("1") || s.includes("\"done\"") || s.includes(":\"done\""))) return true;
+      if (s.includes("completed") && (s.includes("true") || s.includes("1"))) return true;
+
+      return false;
     }
 
-    // Known pattern (your newer units)
-    function stageKeyKnown(unitId, stageNum){
+    // Pull the unit number from "unit-7" => 7
+    function unitNumber(unitId){
+      const m = String(unitId).match(/(\d+)/);
+      return m ? Number(m[1]) : null;
+    }
+
+    // Generate lots of common alias tokens used in key names
+    function unitAliases(unitId){
+      const n = unitNumber(unitId);
+      const aliases = new Set();
+
+      // Always include the literal id and no-dash variant
+      aliases.add(unitId);                // unit-1
+      aliases.add(unitId.replace("-", "")); // unit1
+
+      if (n != null){
+        aliases.add(`unit${n}`);
+        aliases.add(`unit-${n}`);
+        aliases.add(`u${n}`);
+        aliases.add(`l1u${n}`);
+        aliases.add(`level1u${n}`);
+        aliases.add(`level1unit${n}`);
+        aliases.add(`l1unit${n}`);
+        aliases.add(String(n)); // sometimes people store like "1_stage_3"
+      }
+      return Array.from(aliases);
+    }
+
+    // Known pattern (newer units)
+    function knownKey(unitId, stageNum){
       return `qc_l1_${unitId}_stage_${stageNum}`;
     }
 
-    // Robust finder: if older keys exist, match by content
-    function findAnyStageKey(unitId, stageNum){
-      const candidates = [
-        stageKeyKnown(unitId, stageNum),
-        `${unitId}_stage_${stageNum}`,
-        `${unitId}_stage${stageNum}`,
-        `${unitId}-stage-${stageNum}`,
-        `l1_${unitId}_stage_${stageNum}`,
-        `level1_${unitId}_stage_${stageNum}`,
+    // Find any key that looks like it represents this unit + stage
+    function findAnyStageDone(unitId, stageNum){
+      // 1) Fast path: check the known key first
+      const k0 = knownKey(unitId, stageNum);
+      if (valueMeansDone(localStorage.getItem(k0))) return true;
+
+      // 2) Build regex patterns that match MANY styles
+      const aliases = unitAliases(unitId).map(a => a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+      const stagePatterns = [
+        `stage[_-]?${stageNum}\\b`,
+        `stage${stageNum}\\b`,
+        `s${stageNum}\\b`,
+        `etapa[_-]?${stageNum}\\b`,
+        `etapa${stageNum}\\b`
       ];
 
-      // 1) Fast path: known / common candidates
-      for(const k of candidates){
-        const v = localStorage.getItem(k);
-        if(valueMeansDone(v)) return { key: k, value: v };
-      }
+      // Match "unitX ... stageY" OR "stageY ... unitX"
+      const re = new RegExp(
+        `(${aliases.join("|")}).*(${stagePatterns.join("|")})|(${stagePatterns.join("|")}).*(${aliases.join("|")})`,
+        "i"
+      );
 
-      // 2) Scan path: find anything in localStorage that contains unitId and stage number
-      // and looks like "stage_3" / "stage3" / "stage-3"
-      const re = new RegExp(`${unitId}.*stage[_-]?${stageNum}\\b|stage[_-]?${stageNum}.*${unitId}\\b`, "i");
-
-      for(let i = 0; i < localStorage.length; i++){
+      for(let i=0;i<localStorage.length;i++){
         const key = localStorage.key(i);
         if(!key) continue;
         if(!re.test(key)) continue;
 
         const v = localStorage.getItem(key);
-        if(valueMeansDone(v)) return { key, value: v };
+        if(valueMeansDone(v)) return true;
       }
 
-      return null;
-    }
-
-    function isStageDone(unitId, stageNum){
-      return Boolean(findAnyStageKey(unitId, stageNum));
+      return false;
     }
 
     function getUnitDoneCount(unitId){
       let done = 0;
-      for(let i=1;i<=STAGES_PER_UNIT;i++){
-        if(isStageDone(unitId, i)) done++;
+      for(let s=1;s<=STAGES_PER_UNIT;s++){
+        if(findAnyStageDone(unitId, s)) done++;
       }
       return done;
     }
@@ -380,7 +404,6 @@
     }
 
     function googleClassroomIconSVG(){
-      // Simple “Google Classroom-like” icon (green board + people)
       return `
         <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="5" width="18" height="14" rx="2.5" fill="#1e8e3e"></rect>
@@ -401,7 +424,6 @@
       const card = document.createElement("div");
       card.className = "card";
 
-      // Make the title area clickable like your older dashboard feel
       card.innerHTML = `
         <a class="cardLink" href="${unitUrl}">
           <div class="unitHeader">
@@ -432,12 +454,10 @@
     }
 
     function renderAll(){
-      // Units
       const grid = document.getElementById("unitGrid");
       grid.innerHTML = "";
       units.forEach(u => grid.appendChild(renderUnitCard(u)));
 
-      // Overall
       const totalStages = units.length * STAGES_PER_UNIT;
       let totalDone = 0;
       units.forEach(u => totalDone += getUnitDoneCount(u.id));
@@ -454,19 +474,29 @@
       const confirmed = confirm("Reset ALL Level 1 progress? This will clear stages for Units 1–9 in this browser.");
       if(!confirmed) return;
 
-      // Remove any keys we can identify for each unit/stage (known + scanned)
-      for(const u of units){
+      // Remove known keys + any keys that match unit aliases + stage patterns
+      for (const u of units){
+        const aliases = unitAliases(u.id);
         for(let stage=1; stage<=STAGES_PER_UNIT; stage++){
-          // Remove known key
-          localStorage.removeItem(stageKeyKnown(u.id, stage));
+          localStorage.removeItem(knownKey(u.id, stage));
 
-          // Remove any matching “old” keys too
-          const re = new RegExp(`${u.id}.*stage[_-]?${stage}\\b|stage[_-]?${stage}.*${u.id}\\b`, "i");
+          const stageTokens = [
+            `stage_${stage}`, `stage-${stage}`, `stage${stage}`,
+            `s${stage}`, `etapa_${stage}`, `etapa-${stage}`, `etapa${stage}`
+          ];
+
           const keysToRemove = [];
-          for(let i = 0; i < localStorage.length; i++){
+          for(let i=0;i<localStorage.length;i++){
             const k = localStorage.key(i);
-            if(k && re.test(k)) keysToRemove.push(k);
+            if(!k) continue;
+
+            const kLower = k.toLowerCase();
+            const aliasHit = aliases.some(a => kLower.includes(String(a).toLowerCase()));
+            const stageHit = stageTokens.some(t => kLower.includes(t));
+
+            if (aliasHit && stageHit) keysToRemove.push(k);
           }
+
           keysToRemove.forEach(k => localStorage.removeItem(k));
         }
       }
