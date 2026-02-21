@@ -20,8 +20,6 @@
       --btn:#141f30;
       --focus: 0 0 0 3px rgba(122,230,200,.22);
       --radius:18px;
-      --warn:#ffd45a;
-      --panel: rgba(16,24,38,.55);
     }
     *{box-sizing:border-box}
     body{
@@ -214,67 +212,6 @@
     }
     .gcIconWrap svg{display:block}
 
-    /* Diagnostics */
-    details.diag{
-      margin-top:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background: var(--panel);
-      border-radius:16px;
-      padding:12px;
-    }
-    details.diag summary{
-      cursor:pointer;
-      font-weight:900;
-      color:var(--text);
-      list-style:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    details.diag summary::-webkit-details-marker{display:none}
-    .diagSmall{color:var(--muted); font-size:12px; margin-top:6px}
-    .diagGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width: 980px){ .diagGrid{grid-template-columns:1fr} }
-
-    .diagBox{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      border-radius:14px;
-      padding:10px;
-    }
-    .diagBox h4{margin:0 0 8px; font-size:13px}
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      font-size:12px;
-      color: var(--text);
-      white-space:pre-wrap;
-      word-break:break-word;
-      background: rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:12px;
-      padding:10px;
-      max-height:260px;
-      overflow:auto;
-    }
-    .warn{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,212,90,.35);
-      background: rgba(255,212,90,.10);
-      color: var(--text);
-      font-size:12px;
-      font-weight:850;
-    }
-
     footer{margin-top:18px; color:var(--muted2); font-size:12px; text-align:center;}
   </style>
 </head>
@@ -314,34 +251,6 @@
         </div>
         <div class="bar"><div id="overallBar"></div></div>
       </div>
-
-      <details class="diag" id="diagPanel">
-        <summary>
-          <span>Diagnostics (to fix missing unit progress)</span>
-          <span class="warn" id="diagSummaryTag">Not collected</span>
-        </summary>
-        <div class="diagSmall">
-          This panel shows your saved localStorage keys so the dashboard can match every unit’s progress format.
-        </div>
-
-        <div class="diagGrid">
-          <div class="diagBox">
-            <h4>All localStorage keys (for this browser)</h4>
-            <div class="mono" id="allKeys">Click “Collect diagnostics” below.</div>
-          </div>
-
-          <div class="diagBox">
-            <h4>Per-unit matches (what the dashboard can see)</h4>
-            <div class="mono" id="unitMatches">Click “Collect diagnostics” below.</div>
-          </div>
-        </div>
-
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
-          <button class="btn" id="collectDiagBtn" type="button">Collect diagnostics</button>
-          <button class="btn" id="copyDiagBtn" type="button">Copy diagnostics</button>
-        </div>
-        <div class="diagSmall">Tip: You only need this if something looks wrong.</div>
-      </details>
     </div>
 
     <div class="grid" id="unitGrid"></div>
@@ -373,7 +282,6 @@
       const s = String(v).trim().toLowerCase();
       if (["done","true","1","yes","complete","completed"].includes(s)) return true;
 
-      // JSON-ish values
       if ((s.includes("{") && s.includes("}")) || s.includes(":") || s.startsWith("[") ){
         if (s.includes("done") && (s.includes("true") || s.includes("1") || s.includes(":\"done\"") || s.includes("\"done\""))) return true;
         if (s.includes("completed") && (s.includes("true") || s.includes("1"))) return true;
@@ -390,8 +298,8 @@
     function unitAliases(unitId){
       const n = unitNumber(unitId);
       const aliases = new Set();
-      aliases.add(unitId);                  // unit-1
-      aliases.add(unitId.replace("-", "")); // unit1
+      aliases.add(unitId);
+      aliases.add(unitId.replace("-", ""));
       if(n != null){
         aliases.add(`unit${n}`);
         aliases.add(`unit-${n}`);
@@ -406,13 +314,11 @@
       return Array.from(aliases);
     }
 
-    // Newer units pattern
     function knownKey(unitId, stageNum){
       return `qc_l1_${unitId}_stage_${stageNum}`;
     }
 
-    // ✅ IMPORTANT: Some units (Unit 6) store all 5 stages in ONE array key like:
-    // l1_u6_stages = [true,true,false,false,false]
+    // Units like Unit 6 store stages as ONE array key: l1_u6_stages = [true,true,false,false,false]
     function matchStagesArrayKey(unitId, stageNum){
       const n = unitNumber(unitId);
       if(n == null) return null;
@@ -440,11 +346,8 @@
             if(v === true) return { key: k, value: raw };
           }
         }catch(e){
-          // Sometimes raw is like: [true,true,false,false,false] (valid JSON)
-          // If it still fails, attempt a very safe fallback:
           const s = String(raw).trim();
           if(s.startsWith("[") && s.endsWith("]")){
-            // naive parse for true/false list
             const inner = s.slice(1, -1).split(",").map(x => x.trim().toLowerCase());
             const v = inner[stageNum - 1];
             if(v === "true") return { key: k, value: raw };
@@ -456,16 +359,13 @@
     }
 
     function findStageMatch(unitId, stageNum){
-      // 0) Array-style key (fixes Unit 6)
       const arrMatch = matchStagesArrayKey(unitId, stageNum);
       if(arrMatch) return arrMatch;
 
-      // 1) Direct known key
       const direct = knownKey(unitId, stageNum);
       const dv = localStorage.getItem(direct);
       if (valueMeansDone(dv)) return { key: direct, value: dv };
 
-      // 2) Alias + stage tokens scan
       const aliases = unitAliases(unitId);
       const stageTokens = [
         `stage_${stageNum}`, `stage-${stageNum}`, `stage${stageNum}`,
@@ -584,7 +484,6 @@
         for(let s=1;s<=STAGES_PER_UNIT;s++){
           localStorage.removeItem(knownKey(u.id, s));
         }
-        // Also clear array-style keys (like Unit 6)
         if(n != null){
           const arrKeys = [
             `l1_u${n}_stages`, `l1u${n}_stages`, `level1_u${n}_stages`, `level1u${n}_stages`,
@@ -608,64 +507,6 @@
       const unitUrl = btn.getAttribute("data-share");
       classroomShare(location.origin + unitUrl);
     });
-
-    // Diagnostics
-    function collectDiagnostics(){
-      const lines = [];
-      lines.push(`origin: ${location.origin}`);
-      lines.push(`path: ${location.pathname}`);
-      lines.push(`localStorage.length: ${localStorage.length}`);
-      lines.push(`--- keys ---`);
-
-      const keys = [];
-      for(let i=0;i<localStorage.length;i++){
-        const k = localStorage.key(i);
-        if(k) keys.push(k);
-      }
-      keys.sort((a,b)=>a.localeCompare(b));
-      keys.forEach(k=>{
-        const v = localStorage.getItem(k);
-        const sv = (v == null) ? "null" : String(v);
-        const short = sv.length > 140 ? sv.slice(0,140) + "…" : sv;
-        lines.push(`${k} = ${short}`);
-      });
-
-      const matchLines = [];
-      matchLines.push(`--- per-unit stage matches ---`);
-      units.forEach(u=>{
-        matchLines.push(`${u.id}:`);
-        for(let s=1;s<=STAGES_PER_UNIT;s++){
-          const m = findStageMatch(u.id, s);
-          if(m){
-            matchLines.push(`  stage ${s}: DONE via key "${m.key}"`);
-          }else{
-            matchLines.push(`  stage ${s}: not found`);
-          }
-        }
-      });
-
-      document.getElementById("allKeys").textContent = lines.join("\n");
-      document.getElementById("unitMatches").textContent = matchLines.join("\n");
-      document.getElementById("diagSummaryTag").textContent = "Collected";
-    }
-
-    function copyDiagnostics(){
-      const a = document.getElementById("allKeys").textContent || "";
-      const b = document.getElementById("unitMatches").textContent || "";
-      const blob = a + "\n\n" + b;
-
-      if(!blob.trim()){
-        alert("Click “Collect diagnostics” first.");
-        return;
-      }
-
-      navigator.clipboard.writeText(blob)
-        .then(()=> alert("Diagnostics copied!"))
-        .catch(()=> alert("Copy failed. You can manually select/copy the text in the Diagnostics boxes."));
-    }
-
-    document.getElementById("collectDiagBtn").addEventListener("click", collectDiagnostics);
-    document.getElementById("copyDiagBtn").addEventListener("click", copyDiagnostics);
 
     renderAll();
   </script>
