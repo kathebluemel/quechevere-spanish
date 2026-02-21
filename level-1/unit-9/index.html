@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unit 9 — Capstone (Units 1–8) | Spanish Level 1</title>
+  <meta name="description" content="Unit 9 — Capstone for Spanish Level 1. Stage-based unit with progress tracking (localStorage)." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#101826;
+      --panel2:#0e1623;
+      --text:#eaf2ff;
+      --muted:#a9b7cc;
+      --muted2:#7f90aa;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --brand:#7ae6c8;
+      --brand2:#56c7ff;
+      --danger:#ff5a6a;
+      --warn:#ffd45a;
+      --ok:#48e3a3;
+      --btn:#141f30;
+      --btnHover:#18273d;
+      --focus: 0 0 0 3px rgba(122,230,200,.22);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(86,199,255,.18), transparent 55%),
+        radial-gradient(1000px 500px at 80% 0%, rgba(122,230,200,.14), transparent 60%),
+        radial-gradient(900px 700px at 50% 120%, rgba(255,90,106,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.35;
+    }
+    a{color:inherit}
+    .wrap{width:min(1100px, 92vw); margin:24px auto 56px;}
+
+    .topbar{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    .brandblock h1{margin:0 0 6px; font-size:26px; letter-spacing:.2px;}
+    .brandblock .sub{margin:0; color:var(--muted); font-size:13.5px;}
+    .btnrow{
+      display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px; margin-top:2px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 14px; border-radius:999px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      text-decoration:none; font-weight:650; font-size:13px;
+      color:var(--text); cursor:pointer; user-select:none;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14)}
+    .btn:active{transform: translateY(1px)}
+    .btn:focus{outline:none; box-shadow: var(--focus)}
+    .btn.secondary{background: rgba(20,31,48,.65);}
+    .btn.danger{
+      border-color: rgba(255,90,106,.35);
+      background: linear-gradient(180deg, rgba(255,90,106,.16), rgba(255,90,106,.06));
+    }
+
+    .grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:16px; margin-top:16px;}
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+      .btnrow{justify-content:flex-start}
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .card h2{margin:0 0 10px; font-size:16.5px; letter-spacing:.2px;}
+
+    .pill{
+      display:inline-flex; gap:8px; flex-wrap:wrap; align-items:center;
+      margin:8px 0 0; color:var(--muted); font-size:12.5px;
+    }
+    .pill span{
+      display:inline-flex; align-items:center;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(16,24,38,.55);
+    }
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .small{font-size:13px}
+
+    .callout{
+      border:1px solid rgba(122,230,200,.20);
+      background: rgba(122,230,200,.08);
+      padding:12px; border-radius:14px; color:var(--text);
+    }
+    .eq{font-size:14px; margin:8px 0 0; color:var(--text); font-weight:750;}
+
+    .progressWrap{
+      margin-top:12px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(16,24,38,.55);
+    }
+    .progressTop{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom:10px;
+    }
+    .progressTop .label{font-weight:700; font-size:13px; color:var(--text);}
+    .progressTop .pct{font-weight:800; font-size:13px; color:var(--text);}
+    .bar{
+      width:100%; height:12px; border-radius:999px;
+      background: rgba(255,255,255,.08);
+      overflow:hidden; border:1px solid rgba(255,255,255,.08);
+    }
+    .bar > div{
+      height:100%; width:0%;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+      border-radius:999px;
+      transition: width .25s ease;
+    }
+
+    .section{margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.08);}
+    .section h3{margin:0 0 8px; font-size:14.5px; letter-spacing:.2px;}
+    ul{margin:8px 0 0 20px; padding:0}
+    li{margin:6px 0; color:var(--text)}
+
+    .stage{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.55);
+      border-radius:16px;
+      padding:14px;
+      margin-top:12px;
+    }
+    .stageTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      margin-bottom:10px;
+    }
+    .stageTop h4{margin:0; font-size:14.5px; letter-spacing:.2px;}
+    .stageTop .tag{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(20,31,48,.6);
+      color:var(--muted);
+      white-space:nowrap;
+    }
+    .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    @media (max-width: 820px){ .twoCol{grid-template-columns:1fr} }
+
+    .box{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(14,22,35,.55);
+      border-radius:16px;
+      padding:12px;
+    }
+    .box h4{margin:0 0 8px; font-size:13.5px; color:var(--text);}
+    .box p{margin:6px 0 0; color:var(--muted); font-size:13px;}
+
+    .reading{
+      margin-top:10px; padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(8,12,18,.45);
+    }
+    .reading p{margin:10px 0 0; color:var(--text); font-size:14px;}
+
+    .qblock{
+      margin-top:12px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.45);
+    }
+    .qblock h5{margin:0 0 8px; font-size:13.5px}
+    .qblock ol{margin:8px 0 0 18px; color:var(--text)}
+    .qblock li{margin:8px 0; color:var(--text)}
+    .line{
+      display:inline-block;
+      min-width: 260px;
+      border-bottom:1px solid rgba(255,255,255,.25);
+      transform: translateY(-2px);
+    }
+
+    .stageBtns{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .btnTiny{padding:9px 12px; font-size:12.5px;}
+    .btnTiny.ok{
+      border-color: rgba(72,227,163,.32);
+      background: linear-gradient(180deg, rgba(72,227,163,.14), rgba(72,227,163,.06));
+    }
+    .btnTiny.not{
+      border-color: rgba(255,212,90,.30);
+      background: linear-gradient(180deg, rgba(255,212,90,.14), rgba(255,212,90,.06));
+    }
+    .statusLine{
+      margin-top:8px; font-size:12.5px; color:var(--muted);
+      display:flex; align-items:center; gap:8px;
+    }
+    .dot{width:10px;height:10px;border-radius:50%; background: rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.12);}
+    .dot.done{background: rgba(72,227,163,.9); border-color: rgba(72,227,163,.45);}
+
+    footer{margin-top:18px; color:var(--muted2); font-size:12px; text-align:center;}
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+      padding:2px 6px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      white-space:nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brandblock">
+        <h1>Unit 9 — Capstone <span class="muted2">(Units 1–8)</span></h1>
+        <p class="sub">Spanish Level 1 • Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+        <div class="pill">
+          <span><strong>Target:</strong>&nbsp;Novice-Mid</span>
+          <span><strong>Standards:</strong>&nbsp;ACTFL – Interpersonal, Interpretive, Presentational | MO WL.1 &amp; WL.3 | Comparisons (Culture)</span>
+        </div>
+        <p class="eq">Capstone Focus: <span class="muted">Show what you can do across Units 1–8: identity, numbers/classroom language, descriptions, daily life, food, hobbies, family, and school life.</span></p>
+      </div>
+
+      <div class="btnrow">
+        <a class="btn" href="/quechevere-spanish/">← Home</a>
+        <a class="btn secondary" href="/quechevere-spanish/level-1/">Level 1 Dashboard</a>
+        <a class="btn secondary" href="/quechevere-spanish/level-1/stages/">Stages</a>
+        <button class="btn danger" id="resetUnitBtn" type="button">Reset Unit Progress</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <div class="card">
+        <h2>Capstone Overview</h2>
+        <div class="callout small">
+          <div><strong>Proficiency Goal</strong></div>
+          <div class="muted" style="margin-top:6px;">
+            I can understand and communicate basic information about myself and my life (school, family, routine, preferences, and activities)
+            using simple connected sentences, and I can make basic comparisons (more/less/same) to show perspective.
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>What You’ll Reuse (Units 1–8 Skills)</h3>
+          <div class="twoCol">
+            <div class="box">
+              <h4>Language Functions</h4>
+              <ul>
+                <li>Introduce myself and others (Unit 1)</li>
+                <li>Ask/answer classroom questions (Unit 2)</li>
+                <li>Describe people &amp; things (Unit 3)</li>
+                <li>Tell about routines + time (Unit 4)</li>
+                <li>Express likes/dislikes + requests (Unit 5)</li>
+                <li>Talk about free time activities (Unit 6)</li>
+                <li>Describe family &amp; relationships (Unit 7)</li>
+                <li>Describe school life + comparisons (Unit 8)</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h4>Required Features (Capstone)</h4>
+              <ul>
+                <li>At least <strong>10</strong> connected sentences</li>
+                <li>At least <strong>2</strong> opinions with <strong>porque</strong></li>
+                <li>At least <strong>2</strong> comparisons (<em>más/menos/tan… como</em>)</li>
+                <li>Include time words (e.g., <em>por la mañana</em>, <em>a las…</em>)</li>
+                <li>Include vocabulary from <strong>at least 5</strong> units</li>
+              </ul>
+              <p class="muted2">Tip: Use the Stage 5 checklist as your “done” criteria.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Progress</h3>
+          <p class="muted small">Tip: Progress saves in your browser (localStorage) and should appear on the Level 1 dashboard.</p>
+          <div class="progressWrap">
+            <div class="progressTop">
+              <div class="label">Unit 9 Progress</div>
+              <div class="pct" id="unitPct">0%</div>
+            </div>
+            <div class="bar"><div id="unitBar"></div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Stages (Complete all 5)</h3>
+
+          <!-- Stage 1 -->
+          <div class="stage" id="stage-1">
+            <div class="stageTop">
+              <div>
+                <h4>Stage 1 — Interpretive Reading (Capstone Review)</h4>
+                <div class="muted small">Read the Spanish text. Then answer the questions in English.</div>
+              </div>
+              <div class="tag">Interpretive</div>
+            </div>
+
+            <div class="reading">
+              <div class="muted2 small"><strong>Lectura:</strong> “Mi vida: quién soy”</div>
+              <p>
+                Hola, me llamo Daniel y tengo catorce años. En mi familia hay cuatro personas: mi mamá, mi papá, mi hermana y yo.
+                De lunes a viernes voy a la escuela y tengo muchas clases. Mi clase favorita es ciencias porque es interesante.
+                A las ocho tengo matemáticas y necesito un cuaderno y un lápiz. Después, tengo español y hablamos mucho.
+                En la cafetería me gusta pizza, pero no me gusta la leche. Después de la escuela, juego al fútbol y a veces escucho música.
+                En mi casa hago la tarea y estudio para los exámenes. Mi escuela es grande, pero la escuela de mi prima en México es más pequeña.
+                En su escuela, los estudiantes llevan uniforme, pero en mi escuela no hay uniforme.
+              </p>
+            </div>
+
+            <div class="qblock">
+              <h5>Comprehension Questions (Answer in English)</h5>
+              <ol>
+                <li>Who is the narrator, and how old is he? <span class="line"></span></li>
+                <li>How many people are in his family? Name them. <span class="line"></span></li>
+                <li>What is his favorite class, and why? <span class="line"></span></li>
+                <li>What time does he have math, and what does he need? <span class="line"></span></li>
+                <li>What does he do after school? (Name two activities.) <span class="line"></span></li>
+                <li>What food does he like, and what does he not like? <span class="line"></span></li>
+                <li>What comparison does he make about schools? <span class="line"></span></li>
+                <li>What cultural difference does he mention about uniforms? <span class="line"></span></li>
+              </ol>
+            </div>
+
+            <div class="stageBtns">
+              <button class="btn btnTiny ok" type="button" data-stage="1" data-action="done">Mark done</button>
+              <button class="btn btnTiny not" type="button" data-stage="1" data-action="notdone">Mark not done</button>
+            </div>
+            <div class="statusLine">
+              <span class="dot" id="dot-1"></span>
+              <span id="status-1">Not done</span>
+            </div>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="stage" id="stage-2">
+            <div class="stageTop">
+              <div>
+                <h4>Stage 2 — Interpersonal (Capstone Interview)</h4>
+                <div class="muted small">Interview a partner and keep the conversation going.</div>
+              </div>
+              <div class="tag">Interpersonal</div>
+            </div>
+
+            <div class="twoCol">
+              <div class="box">
+                <h4>A. Ask (minimum 7 questions)</h4>
+                <ul>
+                  <li>¿Cómo te llamas? ¿Cuántos años tienes?</li>
+                  <li>¿Cómo es tu familia?</li>
+                  <li>¿Cuál es tu comida favorita? ¿Por qué?</li>
+                  <li>¿Qué te gusta hacer en tu tiempo libre?</li>
+                  <li>¿Cuál es tu clase favorita? ¿Por qué?</li>
+                  <li>¿A qué hora tienes ________?</li>
+                  <li>¿Qué tienes que hacer después de la escuela?</li>
+                </ul>
+                <p class="muted2">Add follow-ups: <strong>¿y tú?</strong>, <strong>¿cuándo?</strong>, <strong>¿cómo?</strong></p>
+              </div>
+              <div class="box">
+                <h4>B. Compare (use 2–3)</h4>
+                <ul>
+                  <li>Mi escuela es más ________ que tu escuela.</li>
+                  <li>Tu rutina es menos ________ que mi rutina.</li>
+                  <li>Mi familia es tan ________ como tu familia.</li>
+                  <li>Me gusta ________ más que ________.</li>
+                </ul>
+                <p class="muted2">Goal: Use <strong>at least 2</strong> comparisons during the conversation.</p>
+              </div>
+            </div>
+
+            <div class="stageBtns">
+              <button class="btn btnTiny ok" type="button" data-stage="2" data-action="done">Mark done</button>
+              <button class="btn btnTiny not" type="button" data-stage="2" data-action="notdone">Mark not done</button>
+            </div>
+            <div class="statusLine">
+              <span class="dot" id="dot-2"></span>
+              <span id="status-2">Not done</span>
+            </div>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="stage" id="stage-3">
+            <div class="stageTop">
+              <div>
+                <h4>Stage 3 — Presentational (My Life Snapshot)</h4>
+                <div class="muted small">Create a polished product that shows what you can do.</div>
+              </div>
+              <div class="tag">Presentational</div>
+            </div>
+
+            <div class="twoCol">
+              <div class="box">
+                <h4>Option A: “About Me” Paragraph (10–12 sentences)</h4>
+                <ul>
+                  <li>Include: identity + family + school + routine + preferences + free time</li>
+                  <li>Use time words: <em>por la mañana, a las…, después</em></li>
+                  <li>Include 2 opinions with <em>porque</em></li>
+                  <li>Include 2 comparisons</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Option B: Slides or Poster</h4>
+                <ul>
+                  <li>6–8 slides/sections with short sentences</li>
+                  <li>Must include: schedule, family, favorite food, hobby, and school opinion</li>
+                  <li>Include 2 comparisons (ex: my school vs another)</li>
+                  <li>Prepare to present for 60–90 seconds</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="stageBtns">
+              <button class="btn btnTiny ok" type="button" data-stage="3" data-action="done">Mark done</button>
+              <button class="btn btnTiny not" type="button" data-stage="3" data-action="notdone">Mark not done</button>
+            </div>
+            <div class="statusLine">
+              <span class="dot" id="dot-3"></span>
+              <span id="status-3">Not done</span>
+            </div>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="stage" id="stage-4">
+            <div class="stageTop">
+              <div>
+                <h4>Stage 4 — Culture/Comparisons (Perspective)</h4>
+                <div class="muted small">Make a comparison that shows a cultural perspective (what matters).</div>
+              </div>
+              <div class="tag">Comparisons (Culture)</div>
+            </div>
+
+            <div class="twoCol">
+              <div class="box">
+                <h4>A. Compare (write 6–8 sentences)</h4>
+                <ul>
+                  <li>My school vs. another school (real or researched)</li>
+                  <li>Choose 2–3 categories: uniforms, schedule, rules, food, homework</li>
+                  <li>Use: <em>más que</em>, <em>menos que</em>, <em>tan… como</em></li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>B. Add perspective (2–3 sentences)</h4>
+                <ul>
+                  <li>What does the comparison suggest students value?</li>
+                  <li>How can school shape identity?</li>
+                  <li>Answer with simple language: <em>Pienso que… porque…</em></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="stageBtns">
+              <button class="btn btnTiny ok" type="button" data-stage="4" data-action="done">Mark done</button>
+              <button class="btn btnTiny not" type="button" data-stage="4" data-action="notdone">Mark not done</button>
+            </div>
+            <div class="statusLine">
+              <span class="dot" id="dot-4"></span>
+              <span id="status-4">Not done</span>
+            </div>
+          </div>
+
+          <!-- Stage 5 -->
+          <div class="stage" id="stage-5">
+            <div class="stageTop">
+              <div>
+                <h4>Stage 5 — Performance (IPA Checklist)</h4>
+                <div class="muted small">Use this as your final “ready to score” checklist.</div>
+              </div>
+              <div class="tag">IPA</div>
+            </div>
+
+            <div class="twoCol">
+              <div class="box">
+                <h4>Interpretive</h4>
+                <ul>
+                  <li>I can identify the main idea and key details in the reading.</li>
+                  <li>I can answer questions in English using evidence from the text.</li>
+                  <li>I can recognize comparisons (more/less/same).</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Interpersonal</h4>
+                <ul>
+                  <li>I asked at least 7 questions and 2 follow-ups.</li>
+                  <li>I answered with complete sentences.</li>
+                  <li>I used at least 2 comparisons and 2 opinions with <em>porque</em>.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Presentational</h4>
+                <ul>
+                  <li>My product has 10–12 connected sentences.</li>
+                  <li>I included time words, likes/dislikes, and daily routine.</li>
+                  <li>I included 2 comparisons and a culture/perspective statement.</li>
+                </ul>
+              </div>
+              <div class="box">
+                <h4>Course Capstone Requirements</h4>
+                <ul>
+                  <li>Vocabulary from at least 5 units</li>
+                  <li>Clear organization (beginning → middle → end)</li>
+                  <li>Mostly accurate spelling and basic agreement</li>
+                  <li>Understood by an outside listener/reader</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="stageBtns">
+              <button class="btn btnTiny ok" type="button" data-stage="5" data-action="done">Mark done</button>
+              <button class="btn btnTiny not" type="button" data-stage="5" data-action="notdone">Mark not done</button>
+            </div>
+            <div class="statusLine">
+              <span class="dot" id="dot-5"></span>
+              <span id="status-5">Not done</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="card">
+        <h2>Unit 9 Checklist</h2>
+        <p class="muted small">Mark each stage done/not done. Progress saves automatically.</p>
+
+        <div class="progressWrap">
+          <div class="progressTop">
+            <div class="label">Stages Completed</div>
+            <div class="pct"><span id="doneCount">0</span>/5</div>
+          </div>
+          <div class="bar"><div id="miniBar"></div></div>
+        </div>
+
+        <div class="section">
+          <h3>Quick Sentence Starters</h3>
+          <ul class="small">
+            <li><span class="kbd">Me llamo…</span> / <span class="kbd">Soy…</span></li>
+            <li><span class="kbd">En mi familia hay…</span></li>
+            <li><span class="kbd">Mi clase favorita es… porque…</span></li>
+            <li><span class="kbd">A las… tengo…</span></li>
+            <li><span class="kbd">Me gusta… / No me gusta…</span></li>
+            <li><span class="kbd">Después de la escuela, yo…</span></li>
+            <li><span class="kbd">Mi escuela es más… que…</span></li>
+            <li><span class="kbd">Pienso que… porque…</span></li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3>Reset</h3>
+          <p class="muted small">Reset only Unit 9 here.</p>
+          <button class="btn danger" id="resetUnitBtn2" type="button" style="width:100%; justify-content:center;">
+            Reset Unit 9 Progress
+          </button>
+        </div>
+
+        <footer>© Seño Bluemel Que Chévere</footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // -------------------------------
+    // Unit Progress (localStorage)
+    // -------------------------------
+    // This uses the SAME key pattern as Unit 8 code you already have:
+    // qc_l1_unit-9_stage_1 ... qc_l1_unit-9_stage_5
+    const UNIT_ID = "unit-9";
+    const STAGE_COUNT = 5;
+
+    function stageKey(n){
+      return `qc_l1_${UNIT_ID}_stage_${n}`;
+    }
+
+    function getStageDone(n){
+      return localStorage.getItem(stageKey(n)) === "done";
+    }
+
+    function setStageDone(n, done){
+      localStorage.setItem(stageKey(n), done ? "done" : "notdone");
+      renderAll();
+    }
+
+    function resetUnit(){
+      for(let i=1;i<=STAGE_COUNT;i++){
+        localStorage.removeItem(stageKey(i));
+      }
+      renderAll();
+      alert("Unit 9 progress reset.");
+    }
+
+    function computeProgress(){
+      let done = 0;
+      for(let i=1;i<=STAGE_COUNT;i++){
+        if(getStageDone(i)) done++;
+      }
+      const pct = Math.round((done / STAGE_COUNT) * 100);
+      return { done, pct };
+    }
+
+    function renderStage(n){
+      const done = getStageDone(n);
+      const dot = document.getElementById(`dot-${n}`);
+      const status = document.getElementById(`status-${n}`);
+      if(done){
+        dot.classList.add("done");
+        status.textContent = "Done";
+      }else{
+        dot.classList.remove("done");
+        status.textContent = "Not done";
+      }
+    }
+
+    function renderAll(){
+      for(let i=1;i<=STAGE_COUNT;i++) renderStage(i);
+      const { done, pct } = computeProgress();
+
+      document.getElementById("unitPct").textContent = `${pct}%`;
+      document.getElementById("unitBar").style.width = `${pct}%`;
+
+      document.getElementById("doneCount").textContent = `${done}`;
+      document.getElementById("miniBar").style.width = `${pct}%`;
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-stage][data-action]");
+      if(!btn) return;
+      const stage = Number(btn.getAttribute("data-stage"));
+      const action = btn.getAttribute("data-action");
+      if(!Number.isFinite(stage) || stage < 1 || stage > STAGE_COUNT) return;
+
+      if(action === "done") setStageDone(stage, true);
+      if(action === "notdone") setStageDone(stage, false);
+    });
+
+    document.getElementById("resetUnitBtn").addEventListener("click", resetUnit);
+    document.getElementById("resetUnitBtn2").addEventListener("click", resetUnit);
+
+    renderAll();
+  </script>
+</body>
+</html>
