@@ -155,7 +155,6 @@
     // -----------------------------
     const STAGE_COUNT = 5;
 
-    // IMPORTANT: href points to folders like /level-1/unit-6/
     const UNITS = [
       { n: 1, title: "Unit 1 — Identity & First Encounters", desc: "Greetings, introductions, basic personal information.", href: "unit-1/" },
       { n: 2, title: "Unit 2 — Numbers & Classroom Language", desc: "Numbers, classroom objects, essential communication phrases.", href: "unit-2/" },
@@ -167,141 +166,129 @@
     ];
 
     // -----------------------------
-    // PROGRESS KEY READING (robust)
-    //
-    // Your units may have used different localStorage key formats over time.
-    // This dashboard checks MANY likely formats and uses the first match.
-    // This is what fixes cases like "Unit 6 saves inside the unit but portal shows 0%".
+    // Helpers
     // -----------------------------
-
     function truthy(v){
       if (v === null || v === undefined) return false;
       const s = String(v).trim().toLowerCase();
       return s === "1" || s === "true" || s === "yes" || s === "done" || s === "y" || s === "on";
     }
 
-    function candidateKeys(unitNum, stageNum){
-      // stageNum is 1..STAGE_COUNT
-      const u = unitNum;
-      const s = stageNum;
-
-      return [
-        // Newer, "structured" patterns
-        `sbqc:l1:u${u}:s${s}`,
-        `sbqc-l1-u${u}-s${s}`,
-        `l1-u${u}-s${s}`,
-        `level1-u${u}-s${s}`,
-        `level-1-u${u}-s${s}`,
-
-        // Common explicit names
-        `level1_unit${u}_stage${s}`,
-        `level1_unit_${u}_stage_${s}`,
-        `level-1_unit${u}_stage${s}`,
-        `unit${u}_stage${s}`,
-        `unit-${u}_stage-${s}`,
-        `unit-${u}-stage-${s}`,
-        `unit${u}-stage${s}`,
-        `unit-${u}-stage${s}`,
-        `u${u}_s${s}`,
-        `u${u}-s${s}`,
-
-        // Legacy: sometimes stage ids are stored like "unit6_stage1_done"
-        `unit${u}_stage${s}_done`,
-        `unit-${u}_stage-${s}_done`,
-        `unit${u}-stage${s}-done`,
-        `unit-${u}-stage-${s}-done`,
-
-        // Legacy guess: per-unit JSON blob patterns (we'll handle separately too)
-        `unit${u}_progress`,
-        `unit-${u}-progress`,
-        `unit_${u}_progress`,
-
-        // Another common one: "stageDone_unit6_stage1"
-        `stageDone_unit${u}_stage${s}`,
-        `stageDone_u${u}_s${s}`,
-        `done_unit${u}_stage${s}`,
-        `done_u${u}_s${s}`,
-
-        // Some implementations use path-like keys
-        `level-1/unit-${u}/stage-${s}`,
-        `level-1/unit-${u}/s-${s}`,
-        `level-1/unit-${u}/stage${s}`
-      ];
+    // Base URL builder for Classroom share
+    function shareUrlForUnit(unitHref){
+      const base = location.origin + location.pathname.replace(/\/level-1\/index\.html.*$/,"/level-1/");
+      return base + unitHref;
     }
 
-    function readStageDone(unitNum, stageNum){
-      // 1) Direct key patterns (boolean values)
-      const keys = candidateKeys(unitNum, stageNum);
+    // -----------------------------
+    // SMART SCAN: Detect any progress keys
+    // This is the part that fixes "units save, but dashboard shows 0"
+    // -----------------------------
+    function buildDetectedDoneMap(){
+      // doneMap[unit][stage] = true/false
+      const doneMap = {};
+      for (const u of UNITS){
+        doneMap[u.n] = {};
+        for (let s=1; s<=STAGE_COUNT; s++) doneMap[u.n][s] = false;
+      }
+
+      const keys = Object.keys(localStorage);
+
+      // Regex patterns to catch MANY formats:
+      // unit-6 stage-3, unit6_stage3, u6s3, sbqc:l1:u6:s3, etc.
+      const patterns = [
+        /unit[\s\-_]*([0-9]+)[\s\-_]*(?:stage|s)[\s\-_]*([0-9]+)/i,
+        /u([0-9]+)[\s\-_]*s([0-9]+)/i,
+        /sbqc.*?u([0-9]+).*?s([0-9]+)/i,
+        /level[\s\-_]*1.*?unit[\s\-_]*([0-9]+).*?(?:stage|s)[\s\-_]*([0-9]+)/i
+      ];
+
       for (const k of keys){
         const v = localStorage.getItem(k);
-        if (v !== null && v !== undefined){
-          // If it's a blob key, skip here (handled below)
-          if (k.includes("progress") && (v.startsWith("{") || v.startsWith("["))) continue;
-          if (truthy(v)) return true;
+
+        // 1) boolean-ish values
+        if (truthy(v)){
+          for (const re of patterns){
+            const m = k.match(re);
+            if (m){
+              const unit = parseInt(m[1], 10);
+              const stage = parseInt(m[2], 10);
+              if (doneMap[unit] && doneMap[unit][stage] !== undefined){
+                doneMap[unit][stage] = true;
+              }
+            }
+          }
+        }
+
+        // 2) JSON blobs that store stages
+        if (v && (v.startsWith("{") || v.startsWith("["))){
+          try{
+            const obj = JSON.parse(v);
+            // If key includes unit number, try to extract it:
+            let unitGuess = null;
+            const mUnit = k.match(/unit[\s\-_]*([0-9]+)/i) || k.match(/u([0-9]+)/i);
+            if (mUnit) unitGuess = parseInt(mUnit[1], 10);
+
+            if (!unitGuess || !doneMap[unitGuess]) continue;
+
+            if (Array.isArray(obj)){
+              for (let i=0; i<obj.length && i<STAGE_COUNT; i++){
+                if (obj[i]) doneMap[unitGuess][i+1] = true;
+              }
+            } else if (obj && typeof obj === "object"){
+              for (let s=1; s<=STAGE_COUNT; s++){
+                if (obj[String(s)] !== undefined && !!obj[String(s)]) doneMap[unitGuess][s] = true;
+                if (obj[`stage${s}`] !== undefined && !!obj[`stage${s}`]) doneMap[unitGuess][s] = true;
+                if (obj.stages && obj.stages[String(s)] !== undefined && !!obj.stages[String(s)]) doneMap[unitGuess][s] = true;
+                if (obj.stages && obj.stages[`stage${s}`] !== undefined && !!obj.stages[`stage${s}`]) doneMap[unitGuess][s] = true;
+              }
+            }
+          }catch(e){}
         }
       }
 
-      // 2) JSON blob patterns (unitX_progress storing stage states)
-      const blobKeys = [
-        `unit${unitNum}_progress`,
-        `unit-${unitNum}-progress`,
-        `unit_${unitNum}_progress`,
-        `sbqc:l1:unit${unitNum}:progress`,
-        `sbqc-l1-unit${unitNum}-progress`
-      ];
-      for (const bk of blobKeys){
-        const raw = localStorage.getItem(bk);
-        if (!raw) continue;
-        try{
-          const obj = JSON.parse(raw);
-          // Possible shapes:
-          // { "1": true, "2": false }  OR { "stage1": true } OR { stages: {1:true}} OR [true,false,...]
-          if (Array.isArray(obj)){
-            const idx = stageNum - 1;
-            if (idx >= 0 && idx < obj.length) return !!obj[idx];
-          } else if (obj && typeof obj === "object"){
-            if (obj[String(stageNum)] !== undefined) return !!obj[String(stageNum)];
-            if (obj[`stage${stageNum}`] !== undefined) return !!obj[`stage${stageNum}`];
-            if (obj.stages && obj.stages[String(stageNum)] !== undefined) return !!obj.stages[String(stageNum)];
-            if (obj.stages && obj.stages[`stage${stageNum}`] !== undefined) return !!obj.stages[`stage${stageNum}`];
-          }
-        }catch(e){}
-      }
-
-      return false;
+      return doneMap;
     }
 
-    function unitPct(unitNum){
+    function unitPctFromMap(doneMap, unitNum){
       let done = 0;
       for (let s=1; s<=STAGE_COUNT; s++){
-        if (readStageDone(unitNum, s)) done++;
+        if (doneMap[unitNum] && doneMap[unitNum][s]) done++;
       }
       return Math.round((done / STAGE_COUNT) * 100);
     }
 
-    function overallPct(){
+    function overallPctFromMap(doneMap){
       const totalStages = UNITS.length * STAGE_COUNT;
       let doneStages = 0;
       for (const u of UNITS){
         for (let s=1; s<=STAGE_COUNT; s++){
-          if (readStageDone(u.n, s)) doneStages++;
+          if (doneMap[u.n] && doneMap[u.n][s]) doneStages++;
         }
       }
       return Math.round((doneStages / totalStages) * 100);
     }
 
-    function shareUrlForUnit(unitHref){
-      // GitHub Pages URL: https://kathebluemel.github.io/quechevere-spanish/level-1/unit-1/
-      // Use the current origin + repo path from location.
-      // This works even if you change domain later.
-      const base = location.origin + location.pathname.replace(/\/level-1\/index\.html.*$/,"/level-1/");
-      return base + unitHref;
+    // Reset ALL progress (aggressive)
+    function clearAllProgress(){
+      const keys = Object.keys(localStorage);
+      for (const k of keys){
+        const lk = k.toLowerCase();
+        const looksLikeProgress =
+          lk.includes("unit") || lk.includes("stage") || lk.includes("level1") || lk.includes("level-1") || lk.includes("sbqc") || /u\d+/.test(lk);
+        if (looksLikeProgress){
+          localStorage.removeItem(k);
+        }
+      }
+      render();
     }
 
     function render(){
       document.getElementById("unitsPill").textContent = `Units: ${UNITS.length} • Stages: ${STAGE_COUNT} each`;
 
-      const op = overallPct();
+      const doneMap = buildDetectedDoneMap();
+
+      const op = overallPctFromMap(doneMap);
       document.getElementById("overallPill").textContent = `Overall: ${op}% complete`;
       document.getElementById("overallBar").style.width = op + "%";
 
@@ -309,7 +296,7 @@
       grid.innerHTML = "";
 
       UNITS.forEach(u => {
-        const pct = unitPct(u.n);
+        const pct = unitPctFromMap(doneMap, u.n);
 
         const card = document.createElement("div");
         card.className = "unit";
@@ -332,8 +319,6 @@
         const shareRow = document.createElement("div");
         shareRow.className = "shareRow";
         const shareUrl = shareUrlForUnit(u.href);
-
-        // Google Classroom share widget
         shareRow.innerHTML = `
           <g:sharetoclassroom url="${shareUrl}" size="32"></g:sharetoclassroom>
           <span class="shareLabel">Post this unit to Google Classroom</span>
@@ -347,42 +332,10 @@
         grid.appendChild(card);
       });
 
-      // Re-render Classroom widgets after dynamic HTML insertion
+      // Re-render Google Classroom widgets after dynamic insertion
       if (window.gapi && window.gapi.sharetoclassroom && window.gapi.sharetoclassroom.go){
         window.gapi.sharetoclassroom.go();
       }
-    }
-
-    // Clear ALL likely keys for all units/stages (new + legacy)
-    function clearAllProgress(){
-      const toDelete = [];
-
-      // 1) stage keys
-      for (const u of UNITS){
-        for (let s=1; s<=STAGE_COUNT; s++){
-          candidateKeys(u.n, s).forEach(k => toDelete.push(k));
-        }
-        // 2) blob keys
-        [
-          `unit${u.n}_progress`,
-          `unit-${u.n}-progress`,
-          `unit_${u.n}_progress`,
-          `sbqc:l1:unit${u.n}:progress`,
-          `sbqc-l1-unit${u.n}-progress`
-        ].forEach(k => toDelete.push(k));
-      }
-
-      // Also remove any keys that LOOK like they belong to level 1 units/stages
-      // (covers weird historical formats)
-      Object.keys(localStorage).forEach(k => {
-        const lk = k.toLowerCase();
-        const looksLikeUnit = /unit[-_ ]?\d+/.test(lk) || /u\d+[-_ ]?s\d+/.test(lk);
-        const looksLikeLevel1 = lk.includes("level1") || lk.includes("level-1") || lk.includes("l1") || lk.includes("sbqc");
-        if (looksLikeUnit && looksLikeLevel1) toDelete.push(k);
-      });
-
-      [...new Set(toDelete)].forEach(k => localStorage.removeItem(k));
-      render();
     }
 
     document.getElementById("resetAllBtn").addEventListener("click", () => {
