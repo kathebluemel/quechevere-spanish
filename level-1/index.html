@@ -1,118 +1,232 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spanish Level 1 | Seño Bluemel Que Chévere</title>
-
-  <!-- Google Classroom Share button -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Spanish Level 1 Dashboard | Que Chévere</title>
+  <meta name="description" content="Spanish Level 1 dashboard with unit progress saved to localStorage." />
 
   <style>
     :root{
       --bg:#0b0f14;
-      --panel:#121923;
-      --panel2:#0f1620;
-      --text:#e8eef6;
-      --muted:#b7c4d6;
-      --line:rgba(255,255,255,.10);
-      --accent:#4aa3ff;
-      --good:#34d399;
-      --warn:#fbbf24;
-      --bad:#fb7185;
-      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --text:#eaf2ff;
+      --muted:#a9b7cc;
+      --muted2:#7f90aa;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --brand:#7ae6c8;
+      --brand2:#56c7ff;
+      --danger:#ff5a6a;
+      --btn:#141f30;
+      --focus: 0 0 0 3px rgba(122,230,200,.22);
       --radius:18px;
-      --radius2:12px;
-      --max:1100px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    a{color:inherit;text-decoration:none}
-
-    .wrap{max-width:var(--max);margin:0 auto;padding:22px}
-    .topbar{
-      display:flex;gap:12px;align-items:center;justify-content:space-between;
-      padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(86,199,255,.18), transparent 55%),
+        radial-gradient(1000px 500px at 80% 0%, rgba(122,230,200,.14), transparent 60%),
+        radial-gradient(900px 700px at 50% 120%, rgba(255,90,106,.10), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.35;
     }
-    .title h1{margin:0;font-size:28px;letter-spacing:.2px}
-    .title .sub{margin-top:4px;color:var(--muted);font-size:12px}
-    .actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .pill{
-      padding:8px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.04);font-weight:700;font-size:12px
+    a{color:inherit}
+    .wrap{width:min(1200px, 92vw); margin:24px auto 60px;}
+
+    .topbar{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:18px 18px;
+      box-shadow: var(--shadow);
+    }
+    .brandblock h1{margin:0 0 6px; font-size:28px; letter-spacing:.2px;}
+    .brandblock .sub{margin:0; color:var(--muted); font-size:13.5px;}
+
+    .btnrow{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:10px;
+      margin-top:2px;
     }
     .btn{
-      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
-      background:rgba(255,255,255,.06);color:var(--text);
-      font-weight:800;font-size:12px;cursor:pointer
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      text-decoration:none;
+      font-weight:650;
+      font-size:13px;
+      color:var(--text);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
     }
-    .btn:hover{border-color:rgba(255,255,255,.22)}
-    .btn-danger{border-color:rgba(251,113,133,.55);background:rgba(251,113,133,.08)}
-    .btn-danger:hover{border-color:rgba(251,113,133,.85)}
-    .btn-home{display:inline-flex;gap:8px;align-items:center}
+    .btn:hover{background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14)}
+    .btn:active{transform: translateY(1px)}
+    .btn:focus{outline:none; box-shadow: var(--focus)}
+    .btn.danger{
+      border-color: rgba(255,90,106,.35);
+      background: linear-gradient(180deg, rgba(255,90,106,.16), rgba(255,90,106,.06));
+    }
 
     .card{
-      margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      padding:16px 18px
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:16px;
+    }
+    .metaRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:14px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(16,24,38,.55);
+      color:var(--muted);
+      font-size:12.5px;
+      white-space:nowrap;
     }
 
-    .row{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .muted{color:var(--muted);font-size:12px}
-    .progressWrap{margin-top:10px}
-    .bar{
-      height:10px;border-radius:999px;background:rgba(255,255,255,.08);
-      border:1px solid var(--line);overflow:hidden
+    .progressWrap{
+      margin-top:12px;
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding:12px;
+      background: rgba(16,24,38,.55);
     }
-    .bar>div{
+    .progressTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .progressTop .label{font-weight:800; font-size:13px; color:var(--text);}
+    .progressTop .pct{font-weight:900; font-size:13px; color:var(--text);}
+    .bar{
+      width:100%;
+      height:12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .bar > div{
       height:100%;
       width:0%;
-      background:linear-gradient(90deg, var(--accent), var(--good));
-      transition:width .25s ease;
+      background: linear-gradient(90deg, var(--brand), var(--brand2));
+      border-radius:999px;
+      transition: width .25s ease;
     }
 
     .grid{
-      margin-top:16px;
       display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      margin-top:16px;
     }
-    @media (max-width: 900px){
+    @media (max-width: 980px){
       .grid{grid-template-columns:1fr}
+      .btnrow{justify-content:flex-start}
     }
 
-    .unit{
-      border:1px solid var(--line);border-radius:var(--radius);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      padding:16px 16px 14px 16px;
-      position:relative;
-      overflow:hidden;
+    .unitTitle{
+      margin:0;
+      font-size:18px;
+      letter-spacing:.2px;
     }
-    .unit h3{margin:0 0 6px 0;font-size:18px}
-    .unit p{margin:0;color:var(--muted);font-size:12px;line-height:1.35}
-    .unit .unitBar{margin-top:12px}
-    .unit .unitMeta{
-      margin-top:8px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px
-    }
-    .unit .pct{font-weight:900;font-size:12px}
-    .unit .shareRow{
-      margin-top:10px;
-      display:flex;align-items:center;gap:10px;
+    .unitDesc{
+      margin:6px 0 0;
       color:var(--muted);
+      font-size:13.5px;
+    }
+    .unitFooter{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .unitFooter .left{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .gcBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(16,24,38,.55);
+      cursor:pointer;
+      user-select:none;
+      font-weight:750;
+      font-size:12.5px;
+    }
+    .gcIcon{
+      width:26px;height:26px;
+      border-radius:6px;
+      border:2px solid rgba(255, 212, 90, .95);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background: rgba(255, 212, 90, .10);
+      font-weight:900;
+      color: rgba(255, 212, 90, .95);
+      line-height:1;
+    }
+    .gcBtn:hover{border-color: rgba(255,255,255,.16); background: rgba(16,24,38,.70);}
+    .tip{
+      margin:8px 0 0;
+      color:var(--muted2);
       font-size:12px;
     }
-    .shareLabel{opacity:.95}
-    .footer{
-      margin-top:22px;
+
+    .unitLink{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      font-weight:800;
+      font-size:13px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(20,31,48,.55);
+    }
+    .unitLink:hover{border-color: rgba(255,255,255,.16); background: rgba(20,31,48,.70);}
+
+    footer{
+      margin-top:18px;
+      color:var(--muted2);
+      font-size:12px;
       text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      opacity:.9;
     }
   </style>
 </head>
@@ -120,232 +234,201 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="title">
+      <div class="brandblock">
         <h1>Spanish Level 1</h1>
-        <div class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</div>
+        <p class="sub">Stage-Based ACTFL Curriculum — Seño Bluemel Que Chévere</p>
+
+        <div class="metaRow">
+          <span class="chip" id="overallChip">Overall: 0% complete</span>
+          <span class="chip" id="countChip">Units: 9 • Stages: 5 each</span>
+        </div>
       </div>
-      <div class="actions">
-        <a class="btn btn-home" href="../index.html">← Home</a>
-        <span class="pill" id="overallPill">Overall: 0% complete</span>
-        <button class="btn btn-danger" id="resetAllBtn">Reset ALL Level 1 Progress</button>
+
+      <div class="btnrow">
+        <a class="btn" href="/quechevere-spanish/">← Home</a>
+        <button class="btn danger" id="resetAllBtn" type="button">Reset ALL Level 1 Progress</button>
       </div>
     </div>
 
-    <div class="card">
-      <div class="row">
+    <div class="card" style="margin-top:16px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
         <div>
-          <div style="font-weight:900;letter-spacing:.06em;font-size:12px">OVERALL PROGRESS</div>
-          <div class="muted">Tip: Progress is saved in your browser (localStorage).</div>
+          <div style="font-weight:900; font-size:13px;">OVERALL PROGRESS</div>
+          <div class="tip">Tip: Progress is saved in your browser (localStorage).</div>
         </div>
-        <div class="pill" id="unitsPill">Units: 8 • Stages: 5 each</div>
+        <span class="chip" id="overallCount">0/45 stages</span>
       </div>
+
       <div class="progressWrap">
+        <div class="progressTop">
+          <div class="label">Overall</div>
+          <div class="pct" id="overallPct">0%</div>
+        </div>
         <div class="bar"><div id="overallBar"></div></div>
       </div>
     </div>
 
     <div class="grid" id="unitGrid"></div>
 
-    <div class="footer">© Seño Bluemel Que Chévere</div>
+    <footer>© Seño Bluemel Que Chévere</footer>
   </div>
 
   <script>
-    // -----------------------------
-    // Dashboard config
-    // -----------------------------
-    const STAGE_COUNT = 5;
+    // ----------------------------------------------------
+    // Level 1 Dashboard — Units 1–9
+    // Progress key pattern (matches your working units):
+    // qc_l1_unit-N_stage_1 ... qc_l1_unit-N_stage_5
+    // ----------------------------------------------------
+    const BASE = "/quechevere-spanish/";
+    const LEVEL1 = BASE + "level-1/";
+    const STAGES_PER_UNIT = 5;
 
-    const UNITS = [
-      { n: 1, title: "Unit 1 — Identity & First Encounters", desc: "Greetings, introductions, basic personal information.", href: "unit-1/" },
-      { n: 2, title: "Unit 2 — Numbers & Classroom Language", desc: "Numbers, classroom objects, essential communication phrases.", href: "unit-2/" },
-      { n: 3, title: "Unit 3 — Descriptions & Adjectives", desc: "Physical descriptions, adjectives, agreement, basic traits.", href: "unit-3/" },
-      { n: 4, title: "Unit 4 — Daily Life & Schedules", desc: "Daily routines, time telling, sequencing, simple preferences.", href: "unit-4/" },
-      { n: 5, title: "Unit 5 — Food & Preferences", desc: "Likes/dislikes, simple requests, ordering politely.", href: "unit-5/" },
-      { n: 6, title: "Unit 6 — Free Time & Hobbies", desc: "Activities you do, what you like to do, and when.", href: "unit-6/" },
-      { n: 7, title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and describing people in your world.", href: "unit-7/" },
-      { n: 8, title: "Unit 8 — La Vida Escolar", desc: "Your classes, your schedule, what you need for school, and how your school day shapes your identity.", href: "unit-8/" }
+    const units = [
+      {
+        id: "unit-1",
+        title: "Unit 1 — Identity & First Encounters",
+        desc: "Greetings, introductions, basic personal information.",
+      },
+      {
+        id: "unit-2",
+        title: "Unit 2 — Numbers & Classroom Language",
+        desc: "Numbers, classroom objects, essential communication phrases.",
+      },
+      {
+        id: "unit-3",
+        title: "Unit 3 — Descriptions & Adjectives",
+        desc: "Physical descriptions, adjectives, agreement, basic traits.",
+      },
+      {
+        id: "unit-4",
+        title: "Unit 4 — Daily Life & Schedules",
+        desc: "Daily routines, time telling, sequencing, simple preferences.",
+      },
+      {
+        id: "unit-5",
+        title: "Unit 5 — Food & Preferences",
+        desc: "Likes/dislikes, simple requests, ordering politely.",
+      },
+      {
+        id: "unit-6",
+        title: "Unit 6 — Free Time & Hobbies",
+        desc: "Activities you do, what you like to do, and when.",
+      },
+      {
+        id: "unit-7",
+        title: "Unit 7 — Family & Relationships",
+        desc: "Family members, relationships, and describing people in your world.",
+      },
+      {
+        id: "unit-8",
+        title: "Unit 8 — La Vida Escolar",
+        desc: "Your classes, your schedule, what you need for school, and how your school day shapes your identity.",
+      },
+      {
+        id: "unit-9",
+        title: "Unit 9 — Capstone (Units 1–8)",
+        desc: "Show what you can do across the course: understand, interact, present, and compare with perspective.",
+      },
     ];
 
-    // -----------------------------
-    // Helpers
-    // -----------------------------
-    function truthy(v){
-      if (v === null || v === undefined) return false;
-      const s = String(v).trim().toLowerCase();
-      return s === "1" || s === "true" || s === "yes" || s === "done" || s === "y" || s === "on";
+    function stageKey(unitId, n){
+      return `qc_l1_${unitId}_stage_${n}`;
     }
 
-    // Base URL builder for Classroom share
-    function shareUrlForUnit(unitHref){
-      const base = location.origin + location.pathname.replace(/\/level-1\/index\.html.*$/,"/level-1/");
-      return base + unitHref;
-    }
-
-    // -----------------------------
-    // SMART SCAN: Detect any progress keys
-    // This is the part that fixes "units save, but dashboard shows 0"
-    // -----------------------------
-    function buildDetectedDoneMap(){
-      // doneMap[unit][stage] = true/false
-      const doneMap = {};
-      for (const u of UNITS){
-        doneMap[u.n] = {};
-        for (let s=1; s<=STAGE_COUNT; s++) doneMap[u.n][s] = false;
-      }
-
-      const keys = Object.keys(localStorage);
-
-      // Regex patterns to catch MANY formats:
-      // unit-6 stage-3, unit6_stage3, u6s3, sbqc:l1:u6:s3, etc.
-      const patterns = [
-        /unit[\s\-_]*([0-9]+)[\s\-_]*(?:stage|s)[\s\-_]*([0-9]+)/i,
-        /u([0-9]+)[\s\-_]*s([0-9]+)/i,
-        /sbqc.*?u([0-9]+).*?s([0-9]+)/i,
-        /level[\s\-_]*1.*?unit[\s\-_]*([0-9]+).*?(?:stage|s)[\s\-_]*([0-9]+)/i
-      ];
-
-      for (const k of keys){
-        const v = localStorage.getItem(k);
-
-        // 1) boolean-ish values
-        if (truthy(v)){
-          for (const re of patterns){
-            const m = k.match(re);
-            if (m){
-              const unit = parseInt(m[1], 10);
-              const stage = parseInt(m[2], 10);
-              if (doneMap[unit] && doneMap[unit][stage] !== undefined){
-                doneMap[unit][stage] = true;
-              }
-            }
-          }
-        }
-
-        // 2) JSON blobs that store stages
-        if (v && (v.startsWith("{") || v.startsWith("["))){
-          try{
-            const obj = JSON.parse(v);
-            // If key includes unit number, try to extract it:
-            let unitGuess = null;
-            const mUnit = k.match(/unit[\s\-_]*([0-9]+)/i) || k.match(/u([0-9]+)/i);
-            if (mUnit) unitGuess = parseInt(mUnit[1], 10);
-
-            if (!unitGuess || !doneMap[unitGuess]) continue;
-
-            if (Array.isArray(obj)){
-              for (let i=0; i<obj.length && i<STAGE_COUNT; i++){
-                if (obj[i]) doneMap[unitGuess][i+1] = true;
-              }
-            } else if (obj && typeof obj === "object"){
-              for (let s=1; s<=STAGE_COUNT; s++){
-                if (obj[String(s)] !== undefined && !!obj[String(s)]) doneMap[unitGuess][s] = true;
-                if (obj[`stage${s}`] !== undefined && !!obj[`stage${s}`]) doneMap[unitGuess][s] = true;
-                if (obj.stages && obj.stages[String(s)] !== undefined && !!obj.stages[String(s)]) doneMap[unitGuess][s] = true;
-                if (obj.stages && obj.stages[`stage${s}`] !== undefined && !!obj.stages[`stage${s}`]) doneMap[unitGuess][s] = true;
-              }
-            }
-          }catch(e){}
-        }
-      }
-
-      return doneMap;
-    }
-
-    function unitPctFromMap(doneMap, unitNum){
+    function getUnitDoneCount(unitId){
       let done = 0;
-      for (let s=1; s<=STAGE_COUNT; s++){
-        if (doneMap[unitNum] && doneMap[unitNum][s]) done++;
+      for(let i=1;i<=STAGES_PER_UNIT;i++){
+        if(localStorage.getItem(stageKey(unitId, i)) === "done") done++;
       }
-      return Math.round((done / STAGE_COUNT) * 100);
+      return done;
     }
 
-    function overallPctFromMap(doneMap){
-      const totalStages = UNITS.length * STAGE_COUNT;
-      let doneStages = 0;
-      for (const u of UNITS){
-        for (let s=1; s<=STAGE_COUNT; s++){
-          if (doneMap[u.n] && doneMap[u.n][s]) doneStages++;
-        }
-      }
-      return Math.round((doneStages / totalStages) * 100);
+    function pct(done, total){
+      return Math.round((done / total) * 100);
     }
 
-    // Reset ALL progress (aggressive)
-    function clearAllProgress(){
-      const keys = Object.keys(localStorage);
-      for (const k of keys){
-        const lk = k.toLowerCase();
-        const looksLikeProgress =
-          lk.includes("unit") || lk.includes("stage") || lk.includes("level1") || lk.includes("level-1") || lk.includes("sbqc") || /u\d+/.test(lk);
-        if (looksLikeProgress){
-          localStorage.removeItem(k);
-        }
-      }
-      render();
+    function classroomShare(url){
+      const shareUrl = "https://classroom.google.com/share?url=" + encodeURIComponent(url);
+      window.open(shareUrl, "_blank", "noopener,noreferrer");
     }
 
-    function render(){
-      document.getElementById("unitsPill").textContent = `Units: ${UNITS.length} • Stages: ${STAGE_COUNT} each`;
+    function renderUnitCard(unit){
+      const done = getUnitDoneCount(unit.id);
+      const percent = pct(done, STAGES_PER_UNIT);
+      const unitUrl = LEVEL1 + unit.id + "/";
 
-      const doneMap = buildDetectedDoneMap();
+      const card = document.createElement("div");
+      card.className = "card";
 
-      const op = overallPctFromMap(doneMap);
-      document.getElementById("overallPill").textContent = `Overall: ${op}% complete`;
-      document.getElementById("overallBar").style.width = op + "%";
+      card.innerHTML = `
+        <h3 class="unitTitle">${unit.title}</h3>
+        <p class="unitDesc">${unit.desc}</p>
 
+        <div class="progressWrap" style="margin-top:12px;">
+          <div class="progressTop">
+            <div class="label">Progress</div>
+            <div class="pct">${percent}%</div>
+          </div>
+          <div class="bar"><div style="width:${percent}%;"></div></div>
+        </div>
+
+        <div class="unitFooter">
+          <div class="left">
+            <a class="unitLink" href="${unitUrl}">Open unit →</a>
+          </div>
+
+          <button class="gcBtn" type="button" data-share="${unitUrl}">
+            <span class="gcIcon">👤</span>
+            Post this unit to Google Classroom
+          </button>
+        </div>
+      `;
+      return card;
+    }
+
+    function renderAll(){
+      // Units
       const grid = document.getElementById("unitGrid");
       grid.innerHTML = "";
+      units.forEach(u => grid.appendChild(renderUnitCard(u)));
 
-      UNITS.forEach(u => {
-        const pct = unitPctFromMap(doneMap, u.n);
+      // Overall
+      const totalStages = units.length * STAGES_PER_UNIT;
+      let totalDone = 0;
+      units.forEach(u => totalDone += getUnitDoneCount(u.id));
+      const overallPercent = pct(totalDone, totalStages);
 
-        const card = document.createElement("div");
-        card.className = "unit";
-
-        const link = document.createElement("a");
-        link.href = u.href;
-        link.innerHTML = `
-          <h3>${u.title}</h3>
-          <p>${u.desc}</p>
-        `;
-
-        const unitBar = document.createElement("div");
-        unitBar.className = "unitBar";
-        unitBar.innerHTML = `<div class="bar"><div style="width:${pct}%"></div></div>`;
-
-        const meta = document.createElement("div");
-        meta.className = "unitMeta";
-        meta.innerHTML = `<div class="muted" style="font-weight:800;">Progress</div><div class="pct">${pct}%</div>`;
-
-        const shareRow = document.createElement("div");
-        shareRow.className = "shareRow";
-        const shareUrl = shareUrlForUnit(u.href);
-        shareRow.innerHTML = `
-          <g:sharetoclassroom url="${shareUrl}" size="32"></g:sharetoclassroom>
-          <span class="shareLabel">Post this unit to Google Classroom</span>
-        `;
-
-        card.appendChild(link);
-        card.appendChild(meta);
-        card.appendChild(unitBar);
-        card.appendChild(shareRow);
-
-        grid.appendChild(card);
-      });
-
-      // Re-render Google Classroom widgets after dynamic insertion
-      if (window.gapi && window.gapi.sharetoclassroom && window.gapi.sharetoclassroom.go){
-        window.gapi.sharetoclassroom.go();
-      }
+      document.getElementById("overallPct").textContent = `${overallPercent}%`;
+      document.getElementById("overallBar").style.width = `${overallPercent}%`;
+      document.getElementById("overallChip").textContent = `Overall: ${overallPercent}% complete`;
+      document.getElementById("overallCount").textContent = `${totalDone}/${totalStages} stages`;
+      document.getElementById("countChip").textContent = `Units: ${units.length} • Stages: ${STAGES_PER_UNIT} each`;
     }
 
-    document.getElementById("resetAllBtn").addEventListener("click", () => {
-      if (confirm("Reset ALL Level 1 progress for all units on THIS device/browser?")){
-        clearAllProgress();
-      }
+    function resetAll(){
+      const confirmed = confirm("Reset ALL Level 1 progress? This will clear stages for Units 1–9 in this browser.");
+      if(!confirmed) return;
+
+      units.forEach(u => {
+        for(let i=1;i<=STAGES_PER_UNIT;i++){
+          localStorage.removeItem(stageKey(u.id, i));
+        }
+      });
+
+      renderAll();
+      alert("All Level 1 progress reset.");
+    }
+
+    document.getElementById("resetAllBtn").addEventListener("click", resetAll);
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-share]");
+      if(!btn) return;
+      const unitUrl = btn.getAttribute("data-share");
+      classroomShare(location.origin + unitUrl);
     });
 
-    render();
+    renderAll();
   </script>
 </body>
 </html>
