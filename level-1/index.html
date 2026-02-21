@@ -33,9 +33,10 @@
       color:var(--text);
       line-height:1.35;
     }
-    a{color:inherit}
-    .wrap{width:min(1200px, 92vw); margin:24px auto 60px;}
+    a{color:inherit; text-decoration:none}
+    .wrap{width:min(1240px, 94vw); margin:24px auto 60px;}
 
+    /* Top bar */
     .topbar{
       display:flex;
       align-items:flex-start;
@@ -47,9 +48,8 @@
       padding:18px 18px;
       box-shadow: var(--shadow);
     }
-    .brandblock h1{margin:0 0 6px; font-size:28px; letter-spacing:.2px;}
+    .brandblock h1{margin:0 0 6px; font-size:30px; letter-spacing:.2px;}
     .brandblock .sub{margin:0; color:var(--muted); font-size:13.5px;}
-
     .btnrow{
       display:flex;
       flex-wrap:wrap;
@@ -66,8 +66,7 @@
       border-radius:999px;
       border:1px solid var(--border);
       background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      text-decoration:none;
-      font-weight:650;
+      font-weight:700;
       font-size:13px;
       color:var(--text);
       cursor:pointer;
@@ -83,19 +82,14 @@
       background: linear-gradient(180deg, rgba(255,90,106,.16), rgba(255,90,106,.06));
     }
 
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      border:1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding:16px;
-    }
+    /* Chips */
     .metaRow{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       margin-top:14px;
+      flex-wrap:wrap;
     }
     .chip{
       display:inline-flex;
@@ -109,6 +103,17 @@
       white-space:nowrap;
     }
 
+    /* Cards */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+
+    /* Overall progress */
+    .tip{margin:8px 0 0; color:var(--muted2); font-size:12px;}
     .progressWrap{
       margin-top:12px;
       border:1px solid var(--border);
@@ -123,7 +128,7 @@
       gap:12px;
       margin-bottom:10px;
     }
-    .progressTop .label{font-weight:800; font-size:13px; color:var(--text);}
+    .progressTop .label{font-weight:900; font-size:13px; color:var(--text);}
     .progressTop .pct{font-weight:900; font-size:13px; color:var(--text);}
     .bar{
       width:100%;
@@ -141,6 +146,7 @@
       transition: width .25s ease;
     }
 
+    /* Unit grid — larger, easier to scan */
     .grid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -152,9 +158,15 @@
       .btnrow{justify-content:flex-start}
     }
 
+    .unitHeader{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
     .unitTitle{
       margin:0;
-      font-size:18px;
+      font-size:20px;
       letter-spacing:.2px;
     }
     .unitDesc{
@@ -162,6 +174,26 @@
       color:var(--muted);
       font-size:13.5px;
     }
+
+    .unitRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:10px;
+    }
+
+    .unitProgressLabel{
+      font-weight:900;
+      font-size:13px;
+      color:var(--text);
+    }
+    .unitPct{
+      font-weight:900;
+      font-size:13px;
+      color:var(--text);
+    }
+
     .unitFooter{
       display:flex;
       align-items:center;
@@ -170,57 +202,42 @@
       margin-top:12px;
       flex-wrap:wrap;
     }
-    .unitFooter .left{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
+
+    /* Make the whole card clickable (like your older feel), but keep buttons clickable */
+    .cardLink{
+      display:block;
+      border-radius: var(--radius);
     }
+    .cardLink:focus{outline:none; box-shadow: var(--focus);}
+
+    /* Google Classroom share button (visible icon style) */
     .gcBtn{
       display:inline-flex;
       align-items:center;
       gap:10px;
       padding:10px 12px;
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(16,24,38,.55);
+      border:2px solid rgba(255, 212, 90, .95);
+      background: rgba(255, 212, 90, .08);
       cursor:pointer;
       user-select:none;
-      font-weight:750;
+      font-weight:850;
       font-size:12.5px;
+      color:var(--text);
     }
-    .gcIcon{
-      width:26px;height:26px;
+    .gcBtn:hover{
+      background: rgba(255, 212, 90, .12);
+      border-color: rgba(255, 212, 90, 1);
+    }
+    .gcIconWrap{
+      width:28px;height:28px;
       border-radius:6px;
-      border:2px solid rgba(255, 212, 90, .95);
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      background: rgba(255, 212, 90, .10);
-      font-weight:900;
-      color: rgba(255, 212, 90, .95);
-      line-height:1;
+      background: rgba(0,0,0,.20);
     }
-    .gcBtn:hover{border-color: rgba(255,255,255,.16); background: rgba(16,24,38,.70);}
-    .tip{
-      margin:8px 0 0;
-      color:var(--muted2);
-      font-size:12px;
-    }
-
-    .unitLink{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      text-decoration:none;
-      font-weight:800;
-      font-size:13px;
-      padding:9px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(20,31,48,.55);
-    }
-    .unitLink:hover{border-color: rgba(255,255,255,.16); background: rgba(20,31,48,.70);}
+    .gcIconWrap svg{display:block}
 
     footer{
       margin-top:18px;
@@ -276,80 +293,104 @@
   <script>
     // ----------------------------------------------------
     // Level 1 Dashboard — Units 1–9
-    // Progress key pattern (matches your working units):
-    // qc_l1_unit-N_stage_1 ... qc_l1_unit-N_stage_5
+    // IMPORTANT FIX:
+    // Your older units may have used a different localStorage prefix.
+    // This dashboard now reads progress robustly by matching ANY key that
+    // contains: unitId + stage number, and has a "done/true/1" style value.
     // ----------------------------------------------------
     const BASE = "/quechevere-spanish/";
     const LEVEL1 = BASE + "level-1/";
     const STAGES_PER_UNIT = 5;
 
     const units = [
-      {
-        id: "unit-1",
-        title: "Unit 1 — Identity & First Encounters",
-        desc: "Greetings, introductions, basic personal information.",
-      },
-      {
-        id: "unit-2",
-        title: "Unit 2 — Numbers & Classroom Language",
-        desc: "Numbers, classroom objects, essential communication phrases.",
-      },
-      {
-        id: "unit-3",
-        title: "Unit 3 — Descriptions & Adjectives",
-        desc: "Physical descriptions, adjectives, agreement, basic traits.",
-      },
-      {
-        id: "unit-4",
-        title: "Unit 4 — Daily Life & Schedules",
-        desc: "Daily routines, time telling, sequencing, simple preferences.",
-      },
-      {
-        id: "unit-5",
-        title: "Unit 5 — Food & Preferences",
-        desc: "Likes/dislikes, simple requests, ordering politely.",
-      },
-      {
-        id: "unit-6",
-        title: "Unit 6 — Free Time & Hobbies",
-        desc: "Activities you do, what you like to do, and when.",
-      },
-      {
-        id: "unit-7",
-        title: "Unit 7 — Family & Relationships",
-        desc: "Family members, relationships, and describing people in your world.",
-      },
-      {
-        id: "unit-8",
-        title: "Unit 8 — La Vida Escolar",
-        desc: "Your classes, your schedule, what you need for school, and how your school day shapes your identity.",
-      },
-      {
-        id: "unit-9",
-        title: "Unit 9 — Capstone (Units 1–8)",
-        desc: "Show what you can do across the course: understand, interact, present, and compare with perspective.",
-      },
+      { id: "unit-1", title: "Unit 1 — Identity & First Encounters", desc: "Greetings, introductions, basic personal information." },
+      { id: "unit-2", title: "Unit 2 — Numbers & Classroom Language", desc: "Numbers, classroom objects, essential communication phrases." },
+      { id: "unit-3", title: "Unit 3 — Descriptions & Adjectives", desc: "Physical descriptions, adjectives, agreement, basic traits." },
+      { id: "unit-4", title: "Unit 4 — Daily Life & Schedules", desc: "Daily routines, time telling, sequencing, simple preferences." },
+      { id: "unit-5", title: "Unit 5 — Food & Preferences", desc: "Likes/dislikes, simple requests, ordering politely." },
+      { id: "unit-6", title: "Unit 6 — Free Time & Hobbies", desc: "Activities you do, what you like to do, and when." },
+      { id: "unit-7", title: "Unit 7 — Family & Relationships", desc: "Family members, relationships, and describing people in your world." },
+      { id: "unit-8", title: "Unit 8 — La Vida Escolar", desc: "Your classes, your schedule, what you need for school, and how your school day shapes your identity." },
+      { id: "unit-9", title: "Unit 9 — Capstone (Units 1–8)", desc: "Show what you can do across the course: understand, interact, present, and compare with perspective." },
     ];
-
-    function stageKey(unitId, n){
-      return `qc_l1_${unitId}_stage_${n}`;
-    }
-
-    function getUnitDoneCount(unitId){
-      let done = 0;
-      for(let i=1;i<=STAGES_PER_UNIT;i++){
-        if(localStorage.getItem(stageKey(unitId, i)) === "done") done++;
-      }
-      return done;
-    }
 
     function pct(done, total){
       return Math.round((done / total) * 100);
     }
 
+    function valueMeansDone(v){
+      if(v == null) return false;
+      const s = String(v).trim().toLowerCase();
+      return (s === "done" || s === "true" || s === "1" || s === "yes" || s === "complete" || s === "completed");
+    }
+
+    // Known pattern (your newer units)
+    function stageKeyKnown(unitId, stageNum){
+      return `qc_l1_${unitId}_stage_${stageNum}`;
+    }
+
+    // Robust finder: if older keys exist, match by content
+    function findAnyStageKey(unitId, stageNum){
+      const candidates = [
+        stageKeyKnown(unitId, stageNum),
+        `${unitId}_stage_${stageNum}`,
+        `${unitId}_stage${stageNum}`,
+        `${unitId}-stage-${stageNum}`,
+        `l1_${unitId}_stage_${stageNum}`,
+        `level1_${unitId}_stage_${stageNum}`,
+      ];
+
+      // 1) Fast path: known / common candidates
+      for(const k of candidates){
+        const v = localStorage.getItem(k);
+        if(valueMeansDone(v)) return { key: k, value: v };
+      }
+
+      // 2) Scan path: find anything in localStorage that contains unitId and stage number
+      // and looks like "stage_3" / "stage3" / "stage-3"
+      const re = new RegExp(`${unitId}.*stage[_-]?${stageNum}\\b|stage[_-]?${stageNum}.*${unitId}\\b`, "i");
+
+      for(let i = 0; i < localStorage.length; i++){
+        const key = localStorage.key(i);
+        if(!key) continue;
+        if(!re.test(key)) continue;
+
+        const v = localStorage.getItem(key);
+        if(valueMeansDone(v)) return { key, value: v };
+      }
+
+      return null;
+    }
+
+    function isStageDone(unitId, stageNum){
+      return Boolean(findAnyStageKey(unitId, stageNum));
+    }
+
+    function getUnitDoneCount(unitId){
+      let done = 0;
+      for(let i=1;i<=STAGES_PER_UNIT;i++){
+        if(isStageDone(unitId, i)) done++;
+      }
+      return done;
+    }
+
     function classroomShare(url){
       const shareUrl = "https://classroom.google.com/share?url=" + encodeURIComponent(url);
       window.open(shareUrl, "_blank", "noopener,noreferrer");
+    }
+
+    function googleClassroomIconSVG(){
+      // Simple “Google Classroom-like” icon (green board + people)
+      return `
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2.5" fill="#1e8e3e"></rect>
+          <rect x="5.2" y="7" width="13.6" height="1.8" rx="0.9" fill="#b7f7c6"></rect>
+          <circle cx="10" cy="12.2" r="2" fill="#ffffff"></circle>
+          <circle cx="15.6" cy="12.6" r="1.7" fill="#dff7e6"></circle>
+          <path d="M7.2 18c.6-2.4 4.9-2.6 5.6 0" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M13.8 18c.4-1.8 3.8-2 4.4 0" fill="none" stroke="#dff7e6" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      `;
     }
 
     function renderUnitCard(unit){
@@ -360,29 +401,33 @@
       const card = document.createElement("div");
       card.className = "card";
 
+      // Make the title area clickable like your older dashboard feel
       card.innerHTML = `
-        <h3 class="unitTitle">${unit.title}</h3>
-        <p class="unitDesc">${unit.desc}</p>
-
-        <div class="progressWrap" style="margin-top:12px;">
-          <div class="progressTop">
-            <div class="label">Progress</div>
-            <div class="pct">${percent}%</div>
+        <a class="cardLink" href="${unitUrl}">
+          <div class="unitHeader">
+            <div>
+              <h3 class="unitTitle">${unit.title}</h3>
+              <p class="unitDesc">${unit.desc}</p>
+            </div>
           </div>
-          <div class="bar"><div style="width:${percent}%;"></div></div>
-        </div>
+
+          <div class="progressWrap" style="margin-top:12px;">
+            <div class="unitRow">
+              <div class="unitProgressLabel">Progress</div>
+              <div class="unitPct">${percent}%</div>
+            </div>
+            <div class="bar"><div style="width:${percent}%;"></div></div>
+          </div>
+        </a>
 
         <div class="unitFooter">
-          <div class="left">
-            <a class="unitLink" href="${unitUrl}">Open unit →</a>
-          </div>
-
           <button class="gcBtn" type="button" data-share="${unitUrl}">
-            <span class="gcIcon">👤</span>
+            <span class="gcIconWrap">${googleClassroomIconSVG()}</span>
             Post this unit to Google Classroom
           </button>
         </div>
       `;
+
       return card;
     }
 
@@ -409,11 +454,22 @@
       const confirmed = confirm("Reset ALL Level 1 progress? This will clear stages for Units 1–9 in this browser.");
       if(!confirmed) return;
 
-      units.forEach(u => {
-        for(let i=1;i<=STAGES_PER_UNIT;i++){
-          localStorage.removeItem(stageKey(u.id, i));
+      // Remove any keys we can identify for each unit/stage (known + scanned)
+      for(const u of units){
+        for(let stage=1; stage<=STAGES_PER_UNIT; stage++){
+          // Remove known key
+          localStorage.removeItem(stageKeyKnown(u.id, stage));
+
+          // Remove any matching “old” keys too
+          const re = new RegExp(`${u.id}.*stage[_-]?${stage}\\b|stage[_-]?${stage}.*${u.id}\\b`, "i");
+          const keysToRemove = [];
+          for(let i = 0; i < localStorage.length; i++){
+            const k = localStorage.key(i);
+            if(k && re.test(k)) keysToRemove.push(k);
+          }
+          keysToRemove.forEach(k => localStorage.removeItem(k));
         }
-      });
+      }
 
       renderAll();
       alert("All Level 1 progress reset.");
@@ -424,6 +480,8 @@
     document.addEventListener("click", (e) => {
       const btn = e.target.closest("button[data-share]");
       if(!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
       const unitUrl = btn.getAttribute("data-share");
       classroomShare(location.origin + unitUrl);
     });
