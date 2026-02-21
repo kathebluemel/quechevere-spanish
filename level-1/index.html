@@ -20,6 +20,8 @@
       --btn:#141f30;
       --focus: 0 0 0 3px rgba(122,230,200,.22);
       --radius:18px;
+      --warn:#ffd45a;
+      --panel: rgba(16,24,38,.55);
     }
     *{box-sizing:border-box}
     body{
@@ -159,16 +161,8 @@
       justify-content:space-between;
       gap:12px;
     }
-    .unitTitle{
-      margin:0;
-      font-size:20px;
-      letter-spacing:.2px;
-    }
-    .unitDesc{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:13.5px;
-    }
+    .unitTitle{margin:0; font-size:20px; letter-spacing:.2px;}
+    .unitDesc{margin:6px 0 0; color:var(--muted); font-size:13.5px;}
 
     .unitRow{
       display:flex;
@@ -177,16 +171,8 @@
       gap:12px;
       margin-top:10px;
     }
-    .unitProgressLabel{
-      font-weight:900;
-      font-size:13px;
-      color:var(--text);
-    }
-    .unitPct{
-      font-weight:900;
-      font-size:13px;
-      color:var(--text);
-    }
+    .unitProgressLabel{font-weight:900; font-size:13px; color:var(--text);}
+    .unitPct{font-weight:900; font-size:13px; color:var(--text);}
 
     .unitFooter{
       display:flex;
@@ -217,10 +203,7 @@
       font-size:12.5px;
       color:var(--text);
     }
-    .gcBtn:hover{
-      background: rgba(255, 212, 90, .12);
-      border-color: rgba(255, 212, 90, 1);
-    }
+    .gcBtn:hover{background: rgba(255, 212, 90, .12); border-color: rgba(255, 212, 90, 1);}
     .gcIconWrap{
       width:28px;height:28px;
       border-radius:6px;
@@ -231,12 +214,68 @@
     }
     .gcIconWrap svg{display:block}
 
-    footer{
-      margin-top:18px;
-      color:var(--muted2);
-      font-size:12px;
-      text-align:center;
+    /* Diagnostics */
+    details.diag{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: var(--panel);
+      border-radius:16px;
+      padding:12px;
     }
+    details.diag summary{
+      cursor:pointer;
+      font-weight:900;
+      color:var(--text);
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    details.diag summary::-webkit-details-marker{display:none}
+    .diagSmall{color:var(--muted); font-size:12px; margin-top:6px}
+    .diagGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 980px){ .diagGrid{grid-template-columns:1fr} }
+
+    .diagBox{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius:14px;
+      padding:10px;
+    }
+    .diagBox h4{margin:0 0 8px; font-size:13px}
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size:12px;
+      color: var(--text);
+      white-space:pre-wrap;
+      word-break:break-word;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:12px;
+      padding:10px;
+      max-height:260px;
+      overflow:auto;
+    }
+    .warn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,212,90,.35);
+      background: rgba(255,212,90,.10);
+      color: var(--text);
+      font-size:12px;
+      font-weight:850;
+    }
+
+    footer{margin-top:18px; color:var(--muted2); font-size:12px; text-align:center;}
   </style>
 </head>
 
@@ -275,6 +314,35 @@
         </div>
         <div class="bar"><div id="overallBar"></div></div>
       </div>
+
+      <details class="diag" id="diagPanel">
+        <summary>
+          <span>Diagnostics (to fix missing unit progress)</span>
+          <span class="warn" id="diagSummaryTag">Not collected</span>
+        </summary>
+        <div class="diagSmall">
+          If some units show 0% even though you clicked “Mark done,” it means those unit pages saved progress under different localStorage key names.
+          This panel shows the keys so we can match them precisely.
+        </div>
+
+        <div class="diagGrid">
+          <div class="diagBox">
+            <h4>All localStorage keys (for this browser)</h4>
+            <div class="mono" id="allKeys">Click “Collect diagnostics” below.</div>
+          </div>
+
+          <div class="diagBox">
+            <h4>Per-unit matches (what the dashboard can see)</h4>
+            <div class="mono" id="unitMatches">Click “Collect diagnostics” below.</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+          <button class="btn" id="collectDiagBtn" type="button">Collect diagnostics</button>
+          <button class="btn" id="copyDiagBtn" type="button">Copy diagnostics</button>
+        </div>
+        <div class="diagSmall">After you click “Collect diagnostics”, copy/paste the diagnostics here (or screenshot the panel) and I’ll update the dashboard reader so Units 2–7 show correctly.</div>
+      </details>
     </div>
 
     <div class="grid" id="unitGrid"></div>
@@ -283,10 +351,6 @@
   </div>
 
   <script>
-    // ----------------------------------------------------
-    // Level 1 Dashboard — Units 1–9
-    // FIX: Read progress from MANY possible key formats.
-    // ----------------------------------------------------
     const BASE = "/quechevere-spanish/";
     const LEVEL1 = BASE + "level-1/";
     const STAGES_PER_UNIT = 5;
@@ -303,42 +367,33 @@
       { id: "unit-9", title: "Unit 9 — Capstone (Units 1–8)", desc: "Show what you can do across the course: understand, interact, present, and compare with perspective." },
     ];
 
-    function pct(done, total){
-      return Math.round((done / total) * 100);
-    }
+    function pct(done, total){ return Math.round((done / total) * 100); }
 
-    // Treat lots of possible storage values as "done"
     function valueMeansDone(v){
       if(v == null) return false;
       const s = String(v).trim().toLowerCase();
-
-      // direct string flags
       if (["done","true","1","yes","complete","completed"].includes(s)) return true;
 
-      // JSON-ish values (common)
-      // e.g. {"done":true} or {"completed":1} or {"status":"done"}
-      if (s.includes("done") && (s.includes("true") || s.includes("1") || s.includes("\"done\"") || s.includes(":\"done\""))) return true;
-      if (s.includes("completed") && (s.includes("true") || s.includes("1"))) return true;
-
+      // JSON-ish values
+      if ((s.includes("{") && s.includes("}")) || s.includes(":")){
+        if (s.includes("done") && (s.includes("true") || s.includes("1") || s.includes(":\"done\"") || s.includes("\"done\""))) return true;
+        if (s.includes("completed") && (s.includes("true") || s.includes("1"))) return true;
+        if (s.includes("status") && s.includes("done")) return true;
+      }
       return false;
     }
 
-    // Pull the unit number from "unit-7" => 7
     function unitNumber(unitId){
       const m = String(unitId).match(/(\d+)/);
       return m ? Number(m[1]) : null;
     }
 
-    // Generate lots of common alias tokens used in key names
     function unitAliases(unitId){
       const n = unitNumber(unitId);
       const aliases = new Set();
-
-      // Always include the literal id and no-dash variant
-      aliases.add(unitId);                // unit-1
+      aliases.add(unitId);                  // unit-1
       aliases.add(unitId.replace("-", "")); // unit1
-
-      if (n != null){
+      if(n != null){
         aliases.add(`unit${n}`);
         aliases.add(`unit-${n}`);
         aliases.add(`u${n}`);
@@ -346,54 +401,69 @@
         aliases.add(`level1u${n}`);
         aliases.add(`level1unit${n}`);
         aliases.add(`l1unit${n}`);
-        aliases.add(String(n)); // sometimes people store like "1_stage_3"
+        aliases.add(`unidad${n}`);
+        aliases.add(`unidad-${n}`);
       }
       return Array.from(aliases);
     }
 
-    // Known pattern (newer units)
     function knownKey(unitId, stageNum){
       return `qc_l1_${unitId}_stage_${stageNum}`;
     }
 
-    // Find any key that looks like it represents this unit + stage
-    function findAnyStageDone(unitId, stageNum){
-      // 1) Fast path: check the known key first
-      const k0 = knownKey(unitId, stageNum);
-      if (valueMeansDone(localStorage.getItem(k0))) return true;
+    function findStageMatch(unitId, stageNum){
+      const direct = knownKey(unitId, stageNum);
+      const dv = localStorage.getItem(direct);
+      if (valueMeansDone(dv)) return { key: direct, value: dv };
 
-      // 2) Build regex patterns that match MANY styles
-      const aliases = unitAliases(unitId).map(a => a.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-      const stagePatterns = [
-        `stage[_-]?${stageNum}\\b`,
-        `stage${stageNum}\\b`,
-        `s${stageNum}\\b`,
-        `etapa[_-]?${stageNum}\\b`,
-        `etapa${stageNum}\\b`
+      const aliases = unitAliases(unitId);
+      const stageTokens = [
+        `stage_${stageNum}`, `stage-${stageNum}`, `stage${stageNum}`,
+        `etapa_${stageNum}`, `etapa-${stageNum}`, `etapa${stageNum}`,
+        `step_${stageNum}`, `step-${stageNum}`, `step${stageNum}`,
+        `s${stageNum}`
       ];
 
-      // Match "unitX ... stageY" OR "stageY ... unitX"
-      const re = new RegExp(
-        `(${aliases.join("|")}).*(${stagePatterns.join("|")})|(${stagePatterns.join("|")}).*(${aliases.join("|")})`,
-        "i"
-      );
-
+      // scan for any key that includes an alias AND a stage token
       for(let i=0;i<localStorage.length;i++){
-        const key = localStorage.key(i);
-        if(!key) continue;
-        if(!re.test(key)) continue;
+        const k = localStorage.key(i);
+        if(!k) continue;
+        const kl = k.toLowerCase();
 
-        const v = localStorage.getItem(key);
-        if(valueMeansDone(v)) return true;
+        const aliasHit = aliases.some(a => kl.includes(String(a).toLowerCase()));
+        const stageHit = stageTokens.some(t => kl.includes(t));
+
+        if(!aliasHit || !stageHit) continue;
+
+        const v = localStorage.getItem(k);
+        if(valueMeansDone(v)) return { key: k, value: v };
       }
 
-      return false;
+      // fallback: regex unit & stage in either order
+      const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const a = aliases.map(x => esc(String(x))).join("|");
+      const st = stageTokens.map(x => esc(String(x))).join("|");
+      const re = new RegExp(`(${a}).*(${st})|(${st}).*(${a})`, "i");
+
+      for(let i=0;i<localStorage.length;i++){
+        const k = localStorage.key(i);
+        if(!k) continue;
+        if(!re.test(k)) continue;
+        const v = localStorage.getItem(k);
+        if(valueMeansDone(v)) return { key: k, value: v };
+      }
+
+      return null;
+    }
+
+    function isStageDone(unitId, stageNum){
+      return Boolean(findStageMatch(unitId, stageNum));
     }
 
     function getUnitDoneCount(unitId){
       let done = 0;
       for(let s=1;s<=STAGES_PER_UNIT;s++){
-        if(findAnyStageDone(unitId, s)) done++;
+        if(isStageDone(unitId, s)) done++;
       }
       return done;
     }
@@ -474,30 +544,28 @@
       const confirmed = confirm("Reset ALL Level 1 progress? This will clear stages for Units 1–9 in this browser.");
       if(!confirmed) return;
 
-      // Remove known keys + any keys that match unit aliases + stage patterns
-      for (const u of units){
-        const aliases = unitAliases(u.id);
-        for(let stage=1; stage<=STAGES_PER_UNIT; stage++){
-          localStorage.removeItem(knownKey(u.id, stage));
-
+      for(const u of units){
+        for(let s=1;s<=STAGES_PER_UNIT;s++){
+          localStorage.removeItem(knownKey(u.id, s));
+          // also remove any keys we can match by alias+stage token
+          const aliases = unitAliases(u.id).map(x => String(x).toLowerCase());
           const stageTokens = [
-            `stage_${stage}`, `stage-${stage}`, `stage${stage}`,
-            `s${stage}`, `etapa_${stage}`, `etapa-${stage}`, `etapa${stage}`
+            `stage_${s}`, `stage-${s}`, `stage${s}`,
+            `etapa_${s}`, `etapa-${s}`, `etapa${s}`,
+            `step_${s}`, `step-${s}`, `step${s}`,
+            `s${s}`
           ];
 
-          const keysToRemove = [];
+          const toRemove = [];
           for(let i=0;i<localStorage.length;i++){
             const k = localStorage.key(i);
             if(!k) continue;
-
-            const kLower = k.toLowerCase();
-            const aliasHit = aliases.some(a => kLower.includes(String(a).toLowerCase()));
-            const stageHit = stageTokens.some(t => kLower.includes(t));
-
-            if (aliasHit && stageHit) keysToRemove.push(k);
+            const kl = k.toLowerCase();
+            const aliasHit = aliases.some(a => kl.includes(a));
+            const stageHit = stageTokens.some(t => kl.includes(t));
+            if(aliasHit && stageHit) toRemove.push(k);
           }
-
-          keysToRemove.forEach(k => localStorage.removeItem(k));
+          toRemove.forEach(k => localStorage.removeItem(k));
         }
       }
 
@@ -515,6 +583,64 @@
       const unitUrl = btn.getAttribute("data-share");
       classroomShare(location.origin + unitUrl);
     });
+
+    // Diagnostics
+    function collectDiagnostics(){
+      const lines = [];
+      lines.push(`origin: ${location.origin}`);
+      lines.push(`path: ${location.pathname}`);
+      lines.push(`localStorage.length: ${localStorage.length}`);
+      lines.push(`--- keys ---`);
+
+      const keys = [];
+      for(let i=0;i<localStorage.length;i++){
+        const k = localStorage.key(i);
+        if(k) keys.push(k);
+      }
+      keys.sort((a,b)=>a.localeCompare(b));
+      keys.forEach(k=>{
+        const v = localStorage.getItem(k);
+        const sv = (v == null) ? "null" : String(v);
+        const short = sv.length > 140 ? sv.slice(0,140) + "…" : sv;
+        lines.push(`${k} = ${short}`);
+      });
+
+      const matchLines = [];
+      matchLines.push(`--- per-unit stage matches ---`);
+      units.forEach(u=>{
+        matchLines.push(`${u.id}:`);
+        for(let s=1;s<=STAGES_PER_UNIT;s++){
+          const m = findStageMatch(u.id, s);
+          if(m){
+            matchLines.push(`  stage ${s}: DONE via key "${m.key}"`);
+          }else{
+            matchLines.push(`  stage ${s}: not found`);
+          }
+        }
+      });
+
+      document.getElementById("allKeys").textContent = lines.join("\n");
+      document.getElementById("unitMatches").textContent = matchLines.join("\n");
+      document.getElementById("diagSummaryTag").textContent = "Collected";
+    }
+
+    function copyDiagnostics(){
+      const a = document.getElementById("allKeys").textContent || "";
+      const b = document.getElementById("unitMatches").textContent || "";
+      const blob = a + "\n\n" + b;
+
+      if(!blob.trim()){
+        alert("Click “Collect diagnostics” first.");
+        return;
+      }
+
+      navigator.clipboard.writeText(blob)
+        .then(()=> alert("Diagnostics copied! Paste it into our chat."))
+        .catch(()=> alert("Copy failed. You can manually select/copy the text in the Diagnostics boxes."));
+    }
+
+    document.getElementById("collectDiagBtn").addEventListener("click", collectDiagnostics);
+    document.getElementById("copyDiagBtn").addEventListener("click", copyDiagnostics);
 
     renderAll();
   </script>
