@@ -12,10 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #fdfaf6; }
         .error-card { border-left-width: 6px; }
-        @media print { 
-            .no-print { display: none !important; } 
-            #printable-area { visibility: visible !important; position: absolute; left: 0; top: 0; width: 100%; } 
-        }
+        @media print { .no-print { display: none !important; } #printable-area { visibility: visible !important; position: absolute; left: 0; top: 0; width: 100%; } }
     </style>
 </head>
 <body>
@@ -27,74 +24,28 @@
         const SPECIAL_CHARS = ['á', 'é', 'í', 'ó', 'ú', 'ü', 'ñ', '¿', '¡'];
 
         const PROMPTS = [
-            { 
-                id: 1, cat: 'Basics', title: '¡Hola!', 
-                task: 'Introduce yourself! Tell me your name, where you are from, and your age in a complete sentence.', 
+            { id: 1, cat: 'Basics', title: '¡Hola!', task: 'Introduce yourself! Tell me your name, where you are from, and your age in a complete sentence.', 
                 vocab: [
                     {s:'Me llamo', e:'My name is'}, {s:'Soy de', e:'I am from'}, {s:'Tengo... años', e:'I am... years old'},
-                    {s:'Estudiante', e:'Student'}, {s:'Mucho gusto', e:'Nice to meet you'}, {s:'Encantado/a', e:'Delighted'},
-                    {s:'¿Y tú?', e:'And you?'}, {s:'Vivo en', e:'I live in'}, {s:'Chico/Chica', e:'Boy/Girl'},
+                    {s:'Mucho gusto', e:'Nice to meet you'}, {s:'Estudiante', e:'Student'}, {s:'Vivo en', e:'I live in'},
+                    {s:'¿Cómo te llamas?', e:'What is your name?'}, {s:'Encantado/a', e:'Delighted'}, {s:'Chico/a', e:'Boy/Girl'},
                     {s:'Nuevo/a', e:'New'}, {s:'Nacionalidad', e:'Nationality'}, {s:'Cumpleaños', e:'Birthday'}
                 ] 
             },
-            { 
-                id: 2, cat: 'School', title: 'En el Salón', 
-                task: 'What do you see in your classroom? List at least 5 items and use "Hay" (There is/are).', 
+            { id: 2, cat: 'Family', title: 'Mi Familia', task: 'Tell me about your family. Who do you live with? Describe a family member or a pet.', 
                 vocab: [
-                    {s:'El pupitre', e:'Student desk'}, {s:'La pizarra', e:'Whiteboard'}, {s:'El lápiz', e:'Pencil'},
-                    {s:'La mochila', e:'Backpack'}, {s:'La carpeta', e:'Folder'}, {s:'El cuaderno', e:'Notebook'},
-                    {s:'Hay', e:'There is/are'}, {s:'La maestra', e:'Teacher'}, {s:'El papel', e:'Paper'},
+                    {s:'Vivo con', e:'I live with'}, {s:'Mi madre/padre', e:'My mom/dad'}, {s:'Mi hermano/a', e:'My brother/sister'},
+                    {s:'Mi perro/gato', e:'My dog/cat'}, {s:'Se llama', e:'His/Her name is'}, {s:'Es grande', e:'It is big'},
+                    {s:'Es pequeño/a', e:'It is small'}, {s:'Cariñoso/a', e:'Loving'}, {s:'Abuelo/a', e:'Grandpa/ma'},
+                    {s:'Tío/a', e:'Uncle/Aunt'}, {s:'Primo/a', e:'Cousin'}, {s:'Mayor/Menor', e:'Older/Younger'}
+                ] 
+            },
+            { id: 3, cat: 'School', title: 'En el Salón', task: 'What do you see in your classroom? List items and use "Hay" (There is/are).', 
+                vocab: [
+                    {s:'Hay', e:'There is/are'}, {s:'El pupitre', e:'Student desk'}, {s:'La pizarra', e:'Whiteboard'},
+                    {s:'La mochila', e:'Backpack'}, {s:'El lápiz', e:'Pencil'}, {s:'La carpeta', e:'Folder'},
+                    {s:'El cuaderno', e:'Notebook'}, {s:'La maestra', e:'Teacher'}, {s:'El papel', e:'Paper'},
                     {s:'La ventana', e:'Window'}, {s:'La puerta', e:'Door'}, {s:'El bolígrafo', e:'Pen'}
-                ] 
-            },
-            { 
-                id: 3, cat: 'School', title: 'Mi Horario', 
-                task: 'Describe your school schedule. What classes do you have and at what time?', 
-                vocab: [
-                    {s:'La clase de...', e:'The class of...'}, {s:'A las...', e:'At... o\'clock'}, {s:'Matemáticas', e:'Math'},
-                    {s:'Ciencias', e:'Science'}, {s:'Inglés', e:'English'}, {s:'Historia', e:'History'},
-                    {s:'Almuerzo', e:'Lunch'}, {s:'Primero', e:'First'}, {s:'Después', e:'Afterwards'},
-                    {s:'Por fin', e:'Finally'}, {s:'Fácil', e:'Easy'}, {s:'Difícil', e:'Difficult'}
-                ] 
-            },
-            { 
-                id: 4, cat: 'Personal', title: 'Pasatiempos', 
-                task: 'What do you like to do for fun? Mention at least 3 activities.', 
-                vocab: [
-                    {s:'Me gusta', e:'I like'}, {s:'Dibujar', e:'To draw'}, {s:'Bailar', e:'To dance'},
-                    {s:'Cantar', e:'To sing'}, {s:'Escuchar música', e:'To listen to music'}, {s:'Ver la tele', e:'To watch TV'},
-                    {s:'Pasar tiempo con amigos', e:'Hang out with friends'}, {s:'Tocar un instrumento', e:'Play an instrument'}, 
-                    {s:'Leer', e:'To read'}, {s:'Correr', e:'To run'}, {s:'Nadar', e:'To swim'}, {s:'Porque', e:'Because'}
-                ] 
-            },
-            { 
-                id: 5, cat: 'Personal', title: 'Mi Familia', 
-                task: 'Tell me about your family. Who do you live with?', 
-                vocab: [
-                    {s:'Mi madre', e:'My mother'}, {s:'Mi padre', e:'My father'}, {s:'Hermano/a', e:'Brother/Sister'},
-                    {s:'Abuelo/a', e:'Grandpa/ma'}, {s:'Tío/a', e:'Uncle/Aunt'}, {s:'Primo/a', e:'Cousin'},
-                    {s:'Perro/Gato', e:'Dog/Cat'}, {s:'Mayor', e:'Older'}, {s:'Menor', e:'Younger'},
-                    {s:'Cariñoso/a', e:'Affectionate'}, {s:'Grande', e:'Big'}, {s:'Pequeño/a', e:'Small'}
-                ] 
-            },
-            { 
-                id: 6, cat: 'Daily', title: 'Rutina Diaria', 
-                task: 'What is your morning routine before school?', 
-                vocab: [
-                    {s:'Me levanto', e:'I get up'}, {s:'Me cepillo los dientes', e:'I brush my teeth'}, {s:'Me ducho', e:'I shower'},
-                    {s:'Desayuno', e:'I eat breakfast'}, {s:'Me visto', e:'I get dressed'}, {s:'Voy a la escuela', e:'I go to school'},
-                    {s:'Temprano', e:'Early'}, {s:'Tarde', e:'Late'}, {s:'Primero', e:'First'},
-                    {s:'Luego', e:'Then'}, {s:'Siempre', e:'Always'}, {s:'A veces', e:'Sometimes'}
-                ] 
-            },
-            { 
-                id: 7, cat: 'Sports', title: 'Los Deportes', 
-                task: 'What is your favorite sport? Do you play it or watch it?', 
-                vocab: [
-                    {s:'El fútbol', e:'Soccer'}, {s:'El básquetbol', e:'Basketball'}, {s:'El béisbol', e:'Baseball'},
-                    {s:'El fútbol americano', e:'Football'}, {s:'El tenis', e:'Tennis'}, {s:'El voleibol', e:'Volleyball'},
-                    {s:'Juego', e:'I play'}, {s:'Practico', e:'I practice'}, {s:'El equipo', e:'The team'},
-                    {s:'El partido', e:'The game/match'}, {s:'Ganar', e:'To win'}, {s:'Perder', e:'To lose'}
                 ] 
             }
         ];
@@ -110,25 +61,39 @@
                 let issues = [];
                 const lowText = text.toLowerCase().trim();
 
+                // 1. AGE ERROR (Soy vs Tengo)
+                if (text.match(/(soy|estoy)\s+(\d+|diez|once|doce|trece|catorce|quince)/i)) {
+                    issues.push({ title: 'Age Rule', msg: 'In Spanish, you HAVE years, you aren\'t years.', fix: 'Tengo... años', wrong: 'Soy/Estoy [número]' });
+                }
+
+                // 2. PERO vs PERRO (Common middle school typo)
+                if (lowText.includes(' mi pero ') || lowText.includes(' es pero ')) {
+                    issues.push({ title: 'Pero vs Perro', msg: '"Pero" means "but." "Perro" (double R) means "dog."', fix: 'perro', wrong: 'pero' });
+                }
+
+                // 3. ME LLAMAS vs ME LLAMO
                 if (lowText.includes('me llamas')) {
-                    issues.push({ title: 'Naming Yourself', msg: 'You wrote "Me llamas," which means "You call me." To say "I call myself," use "Me llamo."', fix: 'Me llamo...', wrong: 'me llamas' });
+                    issues.push({ title: 'My Name', msg: '"Me llamas" means "You call me." To say "My name is," use "Me llamo."', fix: 'Me llamo', wrong: 'me llamas' });
                 }
 
-                const ageMatch = text.match(/(soy|estoy)\s+(\d+|diez|once|doce|trece|catorce|quince)/i);
-                if (ageMatch) {
-                    issues.push({ title: 'The Age Rule', msg: 'In Spanish, we "have" years, we don\'t "be" an age.', fix: 'Use "Tengo" instead of "Soy" or "Estoy".', wrong: ageMatch[0] });
+                // 4. TIENES vs TENGO (Conjugation)
+                if (lowText.includes('tienes') && prompt.id === 2) {
+                    issues.push({ title: 'I have vs You have', msg: '"Tienes" means "You have." If you are talking about YOUR family, use "Tengo."', fix: 'Tengo', wrong: 'tienes' });
                 }
 
-                if (lowText.includes('anos') && !lowText.includes('años')) {
-                    issues.push({ title: 'Missing the Tilde (ñ)', msg: '"Anos" is an anatomical term. "Años" means "years."', fix: 'Always use the ñ: "años".', wrong: 'anos' });
+                // 5. GRAND vs GRANDE
+                if (lowText.includes(' grand ') || lowText.endsWith(' grand')) {
+                    issues.push({ title: 'Adjective Completion', msg: 'In Spanish, "big" is "grande." Don\'t forget the "e" at the end!', fix: 'grande', wrong: 'grand' });
                 }
 
-                if (lowText.includes('me gusta los') || lowText.includes('me gusta las')) {
-                    issues.push({ title: 'Gusta + Plurals', msg: 'For plural things, use "gustan".', fix: 'Me gustan los...', wrong: 'me gusta los/las' });
+                // 6. MISSING ARTICLES/POSSESSIVES (con madre -> con mi madre)
+                if (lowText.includes('con madre') || lowText.includes('con padre')) {
+                    issues.push({ title: 'Missing "My"', msg: 'You should say "with MY mother" or "with MY father."', fix: 'con mi madre/padre', wrong: 'con madre/padre' });
                 }
 
+                // 7. CAPITALIZATION
                 if (text.length > 0 && text[0] !== text[0].toUpperCase()) {
-                    issues.push({ title: 'Capital Letters', msg: 'Start your sentence with a capital letter.', fix: text[0].toUpperCase() + '...', wrong: text[0] });
+                    issues.push({ title: 'Capital Letter', msg: 'Always start your sentences with a capital letter!', fix: text[0].toUpperCase() + '...', wrong: text[0] });
                 }
 
                 setFeedback(issues);
@@ -138,28 +103,24 @@
             const insertChar = (c) => {
                 const ta = textareaRef.current;
                 const start = ta.selectionStart;
-                const newText = text.slice(0, start) + c + text.slice(ta.selectionEnd);
-                setText(newText);
+                setText(text.slice(0, start) + c + text.slice(ta.selectionEnd));
                 setTimeout(() => { ta.selectionStart = ta.selectionEnd = start + 1; ta.focus(); }, 0);
             };
 
             return (
                 <div className="min-h-screen p-4 md:p-8">
                     <header className="max-w-6xl mx-auto mb-8 flex justify-between items-center no-print">
-                        <div className="flex items-center gap-2">
-                            <span className="text-3xl">📝</span>
-                            <h1 className="text-2xl font-bold text-orange-700">Seño Bluemel: Taller de Escritura</h1>
-                        </div>
-                        {view !== 'prompts' && <button onClick={() => setView('prompts')} className="bg-white border-2 border-orange-200 px-4 py-2 rounded-lg font-bold text-orange-600 hover:bg-orange-50 transition shadow-sm">Volver al Inicio</button>}
+                        <h1 className="text-2xl font-bold text-orange-700">Seño Bluemel: Taller de Escritura</h1>
+                        {view !== 'prompts' && <button onClick={() => setView('prompts')} className="bg-white border-2 border-orange-200 px-4 py-2 rounded-lg font-bold text-orange-600 hover:bg-orange-50 shadow-sm">Volver al Inicio</button>}
                     </header>
 
                     <main className="max-w-6xl mx-auto">
                         {view === 'prompts' && (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {PROMPTS.map(p => (
-                                    <button key={p.id} onClick={() => { setPrompt(p); setView('write'); setText(''); }} className="bg-white p-6 rounded-2xl border-b-4 border-gray-200 hover:border-orange-400 hover:-translate-y-1 shadow-sm text-left transition-all group">
+                                    <button key={p.id} onClick={() => { setPrompt(p); setView('write'); setText(''); }} className="bg-white p-6 rounded-2xl border-b-4 border-gray-200 hover:border-orange-400 hover:-translate-y-1 shadow-sm text-left transition-all">
                                         <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-md uppercase tracking-wide">{p.cat}</span>
-                                        <h3 className="text-xl font-bold text-gray-800 mt-2 group-hover:text-orange-600">{p.title}</h3>
+                                        <h3 className="text-xl font-bold text-gray-800 mt-2">{p.title}</h3>
                                         <p className="text-gray-500 mt-2 text-sm leading-relaxed">{p.task}</p>
                                     </button>
                                 ))}
@@ -168,71 +129,64 @@
 
                         {view === 'write' && (
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 no-print">
-                                <div className="lg:col-span-1 space-y-4">
-                                    <div className="bg-orange-600 text-white p-5 rounded-2xl shadow-lg">
-                                        <h4 className="font-bold mb-4 flex items-center gap-2 border-b border-orange-500 pb-2">💡 Vocabulario:</h4>
-                                        <div className="space-y-3">
-                                            {prompt.vocab.map((v, i) => (
-                                                <div key={i} className="flex flex-col">
-                                                    <span className="font-bold text-sm leading-tight">{v.s}</span>
-                                                    <span className="text-[11px] text-orange-100 italic opacity-90 leading-tight">({v.e})</span>
-                                                </div>
-                                            ))}
-                                        </div>
+                                <div className="lg:col-span-1 bg-orange-600 text-white p-5 rounded-2xl shadow-lg h-fit">
+                                    <h4 className="font-bold mb-4 border-b border-orange-500 pb-2">💡 Vocabulario:</h4>
+                                    <div className="space-y-3">
+                                        {prompt.vocab.map((v, i) => (
+                                            <div key={i} className="flex flex-col">
+                                                <span className="font-bold text-sm leading-tight">{v.s}</span>
+                                                <span className="text-[11px] text-orange-100 italic opacity-90 leading-tight">({v.e})</span>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                                 <div className="lg:col-span-3 space-y-4">
-                                    <div className="bg-white p-5 rounded-2xl border-2 border-orange-100 shadow-sm mb-4">
-                                        <h4 className="text-xs font-bold text-orange-500 uppercase tracking-widest mb-1">Instrucciones:</h4>
+                                    <div className="bg-white p-5 rounded-2xl border-2 border-orange-100 shadow-sm">
+                                        <h4 className="text-xs font-bold text-orange-500 uppercase mb-1">Tu Tarea:</h4>
                                         <p className="text-gray-700 text-lg font-semibold">{prompt.task}</p>
                                     </div>
                                     <div className="flex gap-2 flex-wrap">
-                                        {SPECIAL_CHARS.map(c => <button key={c} onClick={() => insertChar(c)} className="w-12 h-12 bg-white border-2 border-gray-100 rounded-xl font-bold text-lg hover:border-orange-400 hover:text-orange-600 shadow-sm transition-all">{c}</button>)}
+                                        {SPECIAL_CHARS.map(c => <button key={c} onClick={() => insertChar(c)} className="w-12 h-12 bg-white border-2 border-gray-100 rounded-xl font-bold text-lg hover:border-orange-400 transition-all">{c}</button>)}
                                     </div>
-                                    <textarea ref={textareaRef} value={text} onChange={(e) => setText(e.target.value)} className="w-full h-80 p-8 rounded-3xl border-2 border-gray-200 focus:border-orange-500 outline-none text-xl leading-relaxed shadow-inner" placeholder="Escribe tu respuesta aquí..."></textarea>
-                                    <button onClick={analyzeWriting} className="w-full py-5 bg-orange-600 text-white font-bold rounded-2xl text-xl shadow-lg hover:bg-orange-700 active:scale-[0.98] transition-all">¡Listo! Revisar mi trabajo →</button>
+                                    <textarea ref={textareaRef} value={text} onChange={(e) => setText(e.target.value)} className="w-full h-80 p-8 rounded-3xl border-2 border-gray-200 focus:border-orange-500 outline-none text-xl leading-relaxed shadow-inner" placeholder="Escribe en español..."></textarea>
+                                    <button onClick={analyzeWriting} className="w-full py-5 bg-orange-600 text-white font-bold rounded-2xl text-xl shadow-lg hover:bg-orange-700 active:scale-95 transition-all">¡Listo! Revisar mi trabajo →</button>
                                 </div>
                             </div>
                         )}
 
                         {view === 'feedback' && (
-                            <div id="printable-area" className="max-w-3xl mx-auto space-y-6">
-                                <div className="bg-white p-8 rounded-3xl shadow-xl border-2 border-gray-50">
-                                    <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Reporte de Escritura: {prompt.title}</h2>
-                                    <div className="mb-8 text-sm font-bold text-orange-600 uppercase tracking-widest">Seño Bluemel - Spanish Classroom</div>
-                                    <div className="mb-8">
-                                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tú escribiste:</h3>
-                                        <div className="p-6 bg-gray-50 rounded-2xl italic text-xl text-gray-700 border border-gray-100">"{text}"</div>
-                                    </div>
-                                    <div className="space-y-6">
-                                        <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">🔍 Análisis de Errores:</h3>
-                                        {feedback.length > 0 ? feedback.map((f, i) => (
-                                            <div key={i} className="error-card p-6 rounded-2xl bg-white border-2 border-gray-100 border-l-red-500 shadow-sm">
-                                                <h4 className="font-bold text-red-600 text-lg">{f.title}</h4>
-                                                <p className="text-gray-600 mt-1">{f.msg}</p>
-                                                <div className="mt-4 grid grid-cols-2 gap-4">
-                                                    <div className="bg-red-50 p-3 rounded-lg">
-                                                        <span className="text-[10px] font-bold text-red-400 uppercase">Lo que escribiste:</span>
-                                                        <p className="text-red-700 font-bold break-words">{f.wrong}</p>
-                                                    </div>
-                                                    <div className="bg-green-50 p-3 rounded-lg">
-                                                        <span className="text-[10px] font-bold text-green-400 uppercase">Forma Correcta:</span>
-                                                        <p className="text-green-700 font-bold break-words">{f.fix}</p>
-                                                    </div>
-                                                </div>
+                            <div id="printable-area" className="max-w-3xl mx-auto bg-white p-8 rounded-3xl shadow-xl border-2 border-gray-50">
+                                <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Reporte de Escritura: {prompt.title}</h2>
+                                <p className="mb-4 text-orange-600 font-bold uppercase tracking-widest text-sm">Seño Bluemel - Spanish Classroom</p>
+                                
+                                <div className="mb-8">
+                                    <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tú escribiste:</h3>
+                                    <div className="p-6 bg-gray-50 rounded-2xl italic text-xl text-gray-700 border border-gray-100">"{text}"</div>
+                                </div>
+
+                                <div className="space-y-6">
+                                    <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">🔍 Análisis de Errores:</h3>
+                                    {feedback.length > 0 ? feedback.map((f, i) => (
+                                        <div key={i} className="error-card p-6 rounded-2xl bg-white border-2 border-red-100 border-l-red-500 shadow-sm">
+                                            <h4 className="font-bold text-red-600 text-lg">{f.title}</h4>
+                                            <p className="text-gray-600 mt-1">{f.msg}</p>
+                                            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div className="bg-red-50 p-3 rounded-lg"><span className="text-[10px] font-bold text-red-400 uppercase tracking-widest">Lo que escribiste:</span><p className="text-red-700 font-bold">{f.wrong}</p></div>
+                                                <div className="bg-green-50 p-3 rounded-lg"><span className="text-[10px] font-bold text-green-400 uppercase tracking-widest">Forma Correcta:</span><p className="text-green-700 font-bold">{f.fix}</p></div>
                                             </div>
-                                        )) : (
-                                            <div className="p-10 text-center bg-green-50 rounded-3xl border-2 border-dashed border-green-200">
-                                                <h4 className="text-2xl font-bold text-green-700 mt-4">¡Excelente trabajo!</h4>
-                                                <p className="text-green-600 mt-2">No se encontraron errores básicos. ¡Sigue así!</p>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="mt-10 flex flex-col md:flex-row gap-4 no-print">
-                                        <button onClick={() => setView('write')} className="flex-1 py-4 bg-orange-100 text-orange-700 rounded-xl font-bold hover:bg-orange-200 transition">✏️ Seguir editando</button>
-                                        <button onClick={() => window.print()} className="flex-1 py-4 bg-gray-800 text-white rounded-xl font-bold hover:bg-black transition">💾 Guardar como PDF</button>
-                                        <button onClick={() => setView('prompts')} className="flex-1 py-4 bg-white border-2 border-gray-200 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition">🔄 Otro Tema</button>
-                                    </div>
+                                        </div>
+                                    )) : (
+                                        <div className="p-10 text-center bg-green-50 rounded-3xl border-2 border-dashed border-green-200">
+                                            <h4 className="text-2xl font-bold text-green-700">¡Excelente trabajo!</h4>
+                                            <p className="text-green-600 mt-2">No se encontraron errores básicos. ¡Sigue escribiendo así!</p>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="mt-10 flex flex-col md:flex-row gap-4 no-print">
+                                    <button onClick={() => setView('write')} className="flex-1 py-4 bg-orange-100 text-orange-700 rounded-xl font-bold hover:bg-orange-200 transition">✏️ Seguir editando</button>
+                                    <button onClick={() => window.print()} className="flex-1 py-4 bg-gray-800 text-white rounded-xl font-bold hover:bg-black transition">💾 Guardar como PDF</button>
+                                    <button onClick={() => setView('prompts')} className="flex-1 py-4 bg-white border-2 border-gray-200 text-gray-400 rounded-xl font-bold">🔄 Otro Tema</button>
                                 </div>
                             </div>
                         )}
