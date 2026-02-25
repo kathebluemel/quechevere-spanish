@@ -1,0 +1,531 @@
+import { useState, useRef } from "react";
+
+const SPECIAL_CHARS = [
+  { char: 'á', label: 'á' }, { char: 'é', label: 'é' }, { char: 'í', label: 'í' },
+  { char: 'ó', label: 'ó' }, { char: 'ú', label: 'ú' }, { char: 'ü', label: 'ü' },
+  { char: 'ñ', label: 'ñ' }, { char: 'Á', label: 'Á' }, { char: 'É', label: 'É' },
+  { char: 'Í', label: 'Í' }, { char: 'Ó', label: 'Ó' }, { char: 'Ú', label: 'Ú' },
+  { char: 'Ñ', label: 'Ñ' }, { char: '¿', label: '¿' }, { char: '¡', label: '¡' },
+];
+
+const LEVELS = {
+  noviceLow: {
+    id: 'noviceLow', label: 'Novice Low', emoji: '🌱', target: '3–10 words',
+    color: 'green',
+    tagline: 'Individual words & memorized phrases',
+    guidelines: [
+      'Write single words or very short memorized phrases',
+      'Lists of vocabulary words are perfect at this level',
+      'Use words you have already learned in class',
+      'Aim for 3–10 words total — quality over quantity!',
+    ],
+    starters: ['Me llamo…', 'Soy de…', 'Me gusta…', 'Tengo…', 'Mi … es…'],
+  },
+  noviceMid: {
+    id: 'noviceMid', label: 'Novice Mid', emoji: '🌿', target: '15–40 words',
+    color: 'teal',
+    tagline: 'Simple phrases & short sentences',
+    guidelines: [
+      'Write 2–5 short, simple sentences using familiar patterns',
+      'Connect ideas with: y (and), pero (but), también (also), porque (because)',
+      'Use sentence starters from class — they are your building blocks!',
+      'Aim for 15–40 words total',
+    ],
+    starters: ['Me llamo … y soy de…', 'En mi familia hay…', 'Me gusta … porque…', 'Todos los días yo…', 'Mi favorito/a es…'],
+  },
+};
+
+const PROMPTS = [
+  {
+    id: 1, level: 'noviceLow', emoji: '👋',
+    title: '¡Hola! — Introducing Myself',
+    culturalTheme: 'The Art of Greeting in the Spanish-Speaking World',
+    culturalFact: 'In Spanish-speaking cultures, greetings are warm and personal. People say "buenos días" ☀️ (good morning), "buenas tardes" 🌤️ (good afternoon), or "buenas noches" 🌙 (good evening). In many Latin American countries, it is polite to greet every single person when entering a room — even strangers! In some countries, friends greet each other with a kiss on the cheek. 🇲🇽🇨🇴🇦🇷🇪🇸',
+    culturalRegion: 'Latin America & Spain',
+    writingTask: 'Write your name, where you are from, and how old you are.',
+    scaffolding: [
+      { phrase: 'Me llamo ___', meaning: 'My name is ___' },
+      { phrase: 'Soy de ___', meaning: 'I am from ___' },
+      { phrase: 'Tengo ___ años', meaning: 'I am ___ years old' },
+      { phrase: 'Mucho gusto', meaning: 'Nice to meet you' },
+    ],
+    example: 'Hola. Me llamo Carlos. Soy de Texas. Tengo catorce años.',
+    grammarTip: '💡 Names of languages and nationalities (español, americano) do NOT get a capital letter in Spanish. But names of people and places DO: Carlos, Texas.',
+  },
+  {
+    id: 2, level: 'noviceLow', emoji: '👨‍👩‍👧‍👦',
+    title: 'Mi Familia — My Family',
+    culturalTheme: 'La Familia — Heart of Latin American Life',
+    culturalFact: 'Family is everything in most Spanish-speaking cultures. Extended family — grandparents, aunts, uncles, cousins — often live together or very close by. In Mexico and Colombia, Sunday family meals are a sacred tradition 🍽️. In many homes, grandparents (los abuelos) play a huge role in raising children. The word for family gathering, "reunión familiar," happens far more often than in many other cultures!',
+    culturalRegion: '🇲🇽 Mexico · 🇨🇴 Colombia · 🇪🇸 Spain',
+    writingTask: 'Write the names of 3–5 family members and their relationship to you.',
+    scaffolding: [
+      { phrase: 'Mi madre se llama ___', meaning: "My mother's name is ___" },
+      { phrase: 'Mi padre se llama ___', meaning: "My father's name is ___" },
+      { phrase: 'Mi hermano/hermana', meaning: 'My brother / sister' },
+      { phrase: 'Mi abuela/abuelo', meaning: 'My grandmother / grandfather' },
+      { phrase: 'Tengo ___ hermanos', meaning: 'I have ___ siblings' },
+    ],
+    example: 'Mi madre se llama Rosa. Mi padre se llama Juan. Tengo dos hermanos.',
+    grammarTip: '💡 "Mi" = my (singular). Mi madre, mi padre. Use "mis" for plural things: mis hermanos = my siblings.',
+  },
+  {
+    id: 3, level: 'noviceLow', emoji: '🍽️',
+    title: 'La Comida — Foods I Like',
+    culturalTheme: 'A Feast of Flavors Across the Spanish-Speaking World',
+    culturalFact: 'Food is culture! 🌮 Mexico is famous for tacos, tamales, and mole (a rich sauce with chocolate). 🥘 Spain has paella — saffron rice with seafood. 🍋 Peru is known for ceviche, fresh fish "cooked" in lime juice. 🥩 Argentina loves asado (barbecue) and shares it with family on weekends. Every country in the Spanish-speaking world has its own unique, delicious traditions passed down through generations!',
+    culturalRegion: '🇲🇽 Mexico · 🇵🇪 Peru · 🇦🇷 Argentina · 🇪🇸 Spain',
+    writingTask: 'Write 3–5 foods you like and 1–2 you do not like.',
+    scaffolding: [
+      { phrase: 'Me gusta ___', meaning: 'I like ___ (one thing)' },
+      { phrase: 'Me gustan los/las ___', meaning: 'I like ___ (plural)' },
+      { phrase: 'No me gusta ___', meaning: "I don't like ___" },
+      { phrase: 'Mi comida favorita es ___', meaning: 'My favorite food is ___' },
+    ],
+    example: 'Me gusta el pollo. Me gustan los tacos. No me gusta el pescado. Mi comida favorita es la pizza.',
+    grammarTip: '💡 Use "me gusta" + singular noun: me gusta el arroz. Use "me gustan" + plural noun: me gustan los tacos. El/la = the (singular); Los/las = the (plural).',
+  },
+  {
+    id: 4, level: 'noviceMid', emoji: '📅',
+    title: 'Mi Día — My Daily Routine',
+    culturalTheme: 'A Day in the Life in the Spanish-Speaking World',
+    culturalFact: 'Daily schedules can look very different! 🇪🇸 In Spain and parts of Latin America, there is a long lunch break (2–4 PM) called "la siesta" where families go home to eat a big meal together. 🍽️ Dinner in Spain is eaten very late — often at 9 or 10 PM! In Mexico City, school often starts at 7 AM and ends at 2 PM. Afternoons are reserved for homework, family, and rest before a late dinner.',
+    culturalRegion: '🇪🇸 Spain · 🇲🇽 Mexico · 🇨🇱 Chile',
+    writingTask: 'Describe your typical school day. What do you do in the morning? At school? In the afternoon?',
+    scaffolding: [
+      { phrase: 'Por la mañana, yo ___', meaning: 'In the morning, I ___' },
+      { phrase: 'Voy a la escuela a las ___', meaning: 'I go to school at ___' },
+      { phrase: 'En la escuela, yo ___', meaning: 'At school, I ___' },
+      { phrase: 'Por la tarde, yo ___', meaning: 'In the afternoon, I ___' },
+      { phrase: 'Me gusta / No me gusta la escuela', meaning: 'I like / I do not like school' },
+    ],
+    example: 'Por la mañana, yo como el desayuno. Voy a la escuela a las ocho. En la escuela, yo estudio español y matemáticas. Por la tarde, yo hago la tarea.',
+    grammarTip: '💡 Regular -AR verbs with "yo": yo como (I eat), yo estudio (I study), yo hablo (I speak). The "yo" form almost always ends in -o!',
+  },
+  {
+    id: 5, level: 'noviceMid', emoji: '⚽',
+    title: 'El Fútbol — Sports & Activities',
+    culturalTheme: 'Fútbol: The Passion of the Spanish-Speaking World',
+    culturalFact: 'Fútbol (soccer) is more than a sport — it is a way of life! 🏆 Argentina has produced legends like Lionel Messi and Diego Maradona. Spain won the World Cup in 2010. On game days in Mexico City or Buenos Aires, streets become completely quiet as everyone gathers around a TV. 📺 When a team scores, you can hear the cheers echo through entire neighborhoods! The famous "¡GOOOL!" chant of Spanish-language commentators is recognized worldwide.',
+    culturalRegion: '🇦🇷 Argentina · 🇲🇽 Mexico · 🇨🇴 Colombia · 🇪🇸 Spain',
+    writingTask: 'Write about a sport or activity you enjoy. Do you play it? Why do you like it? When and with whom do you play?',
+    scaffolding: [
+      { phrase: 'Me gusta ___ porque ___', meaning: 'I like ___ because ___' },
+      { phrase: 'Yo juego al ___', meaning: 'I play ___' },
+      { phrase: 'Yo practico ___', meaning: 'I practice ___' },
+      { phrase: 'Juego los ___ (días)', meaning: 'I play on ___days' },
+      { phrase: 'Es divertido / difícil / emocionante', meaning: "It's fun / difficult / exciting" },
+      { phrase: 'Juego con mis amigos / mi equipo', meaning: 'I play with my friends / my team' },
+    ],
+    example: 'Me gusta el fútbol porque es muy divertido. Yo juego al fútbol los sábados con mis amigos. También me gusta el básquetbol.',
+    grammarTip: '💡 "Jugar" = to play (sports/games). Use jugar + AL + sport: juego al fútbol. For hobbies/activities: practico la natación (I practice swimming). "También" = also/too.',
+  },
+  {
+    id: 6, level: 'noviceMid', emoji: '🎉',
+    title: 'Las Fiestas — Celebrations',
+    culturalTheme: 'Vibrant Festivals of the Spanish-Speaking World',
+    culturalFact: '🪦🌼 El Día de los Muertos (Day of the Dead, Nov. 1–2) in Mexico is a joyful celebration of loved ones who have passed. Families build colorful altars (ofrendas) with food, candles, and marigold flowers. It is NOT a sad day — it is a reunion! 🕯️ Las Posadas (Dec. 16–24) in Mexico reenact Mary and Joseph\'s search for shelter with candlelit processions, songs, and piñatas. 🍅 Spain\'s La Tomatina festival has thousands of people joyfully throwing tomatoes at each other in the streets of Buñol!',
+    culturalRegion: '🇲🇽 Mexico · 🇪🇸 Spain · 🇬🇹 Guatemala',
+    writingTask: 'Describe your favorite holiday or celebration. What do you do? Who do you celebrate with? What do you eat?',
+    scaffolding: [
+      { phrase: 'Mi fiesta favorita es ___', meaning: 'My favorite holiday is ___' },
+      { phrase: 'Celebro con mi familia / mis amigos', meaning: 'I celebrate with my family / friends' },
+      { phrase: 'Nosotros comemos ___ y bebemos ___', meaning: 'We eat ___ and drink ___' },
+      { phrase: 'Nosotros decoramos ___', meaning: 'We decorate ___' },
+      { phrase: 'Es una fiesta muy ___', meaning: "It's a very ___ celebration" },
+      { phrase: 'especial · divertida · importante · bonita', meaning: 'special · fun · important · beautiful' },
+    ],
+    example: 'Mi fiesta favorita es la Navidad. Celebro con mi familia. Nosotros comemos tamales y bebemos ponche. Es una fiesta muy especial y bonita.',
+    grammarTip: '💡 Nosotros = we. Nosotros comemos (we eat), nosotros celebramos (we celebrate). For -AR verbs, "nosotros" ends in -amos. For -ER verbs: -emos.',
+  },
+];
+
+export default function App() {
+  const [selectedLevel, setSelectedLevel] = useState('noviceLow');
+  const [selectedPrompt, setSelectedPrompt] = useState(null);
+  const [writingText, setWritingText] = useState('');
+  const [feedback, setFeedback] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [view, setView] = useState('prompts'); // 'prompts' | 'write' | 'feedback'
+  const textareaRef = useRef(null);
+
+  const level = LEVELS[selectedLevel];
+  const levelPrompts = PROMPTS.filter(p => p.level === selectedLevel);
+  const wordCount = writingText.trim() ? writingText.trim().split(/\s+/).length : 0;
+
+  const insertChar = (char) => {
+    const ta = textareaRef.current;
+    if (!ta) return;
+    const s = ta.selectionStart, e = ta.selectionEnd;
+    const next = writingText.slice(0, s) + char + writingText.slice(e);
+    setWritingText(next);
+    setTimeout(() => { ta.selectionStart = ta.selectionEnd = s + 1; ta.focus(); }, 0);
+  };
+
+  const selectPrompt = (p) => {
+    setSelectedPrompt(p);
+    setWritingText('');
+    setFeedback(null);
+    setView('write');
+  };
+
+  const getFeedback = async () => {
+    if (!writingText.trim() || !selectedPrompt) return;
+    setIsLoading(true);
+    setFeedback(null);
+
+    const sys = `You are a warm, encouraging Spanish language teacher for absolute beginners at the ACTFL ${level.label} level. Give feedback in English (students are beginners).
+
+Rules:
+- Be VERY warm and celebratory — lead with praise
+- For Novice Low: comment only on vocabulary/phrases, NOT grammar complexity
+- For Novice Mid: give ONE simple grammar tip maximum
+- Keep feedback SHORT and clear (under 220 words total)
+- Show corrected Spanish with every suggestion
+- End with genuine encouragement
+
+Respond ONLY in this exact JSON format (no markdown fences):
+{
+  "strengths": ["specific praise 1", "specific praise 2"],
+  "improvements": [{"issue": "brief description", "studentText": "what they wrote", "correction": "correct Spanish", "explanation": "simple reason in English"}],
+  "correctedVersion": "full corrected Spanish text",
+  "encouragement": "warm closing sentence",
+  "culturalNote": "one sentence connecting their writing to the cultural theme (optional)"
+}`;
+
+    const msg = `Student level: ${level.label}
+Prompt: ${selectedPrompt.writingTask}
+Student's writing: "${writingText}"`;
+
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: sys,
+          messages: [{ role: "user", content: msg }]
+        })
+      });
+      const data = await res.json();
+      const raw = data.content.map(b => b.text || '').join('').trim();
+      const parsed = JSON.parse(raw);
+      setFeedback(parsed);
+      setView('feedback');
+    } catch {
+      setFeedback({ error: true });
+      setView('feedback');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const reset = () => { setView('prompts'); setSelectedPrompt(null); setWritingText(''); setFeedback(null); };
+  const revise = () => { setView('write'); setFeedback(null); };
+
+  // ── Color helpers ──
+  const lvlBg = selectedLevel === 'noviceLow' ? 'bg-green-600' : 'bg-teal-600';
+  const lvlBorder = selectedLevel === 'noviceLow' ? 'border-green-400' : 'border-teal-400';
+  const lvlText = selectedLevel === 'noviceLow' ? 'text-green-700' : 'text-teal-700';
+  const lvlBgLight = selectedLevel === 'noviceLow' ? 'bg-green-50' : 'bg-teal-50';
+  const lvlBadge = selectedLevel === 'noviceLow' ? 'bg-green-100 text-green-800' : 'bg-teal-100 text-teal-800';
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 font-sans">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-red-700 via-orange-600 to-yellow-500 text-white shadow-lg">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-3xl">✍️</span>
+            <div>
+              <h1 className="text-xl font-bold leading-tight">Spanish Writing Assistant</h1>
+              <p className="text-xs text-orange-100">ACTFL Novice Level Scaffolding</p>
+            </div>
+          </div>
+          {view !== 'prompts' && (
+            <button onClick={reset} className="text-sm bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-full transition-colors">
+              ← Choose New Prompt
+            </button>
+          )}
+        </div>
+      </header>
+
+      <div className="max-w-5xl mx-auto px-4 py-6">
+
+        {/* Level Tabs */}
+        <div className="flex gap-3 mb-6">
+          {Object.values(LEVELS).map(lv => (
+            <button
+              key={lv.id}
+              onClick={() => { setSelectedLevel(lv.id); reset(); }}
+              className={`flex-1 py-3 px-4 rounded-xl border-2 font-semibold text-sm transition-all ${
+                selectedLevel === lv.id
+                  ? (lv.color === 'green' ? 'bg-green-600 text-white border-green-600 shadow-md' : 'bg-teal-600 text-white border-teal-600 shadow-md')
+                  : 'bg-white text-gray-600 border-gray-200 hover:border-gray-300'
+              }`}
+            >
+              <span className="text-lg">{lv.emoji}</span>
+              <span className="ml-2">{lv.label}</span>
+              <div className="text-xs font-normal mt-0.5 opacity-80">{lv.tagline}</div>
+            </button>
+          ))}
+        </div>
+
+        {/* Guidelines Bar */}
+        <div className={`${lvlBgLight} border ${lvlBorder} rounded-xl p-4 mb-6`}>
+          <div className="flex items-start gap-4 flex-wrap">
+            <div className="flex-1 min-w-[220px]">
+              <p className={`text-xs font-bold uppercase tracking-wide ${lvlText} mb-2`}>
+                {level.emoji} {level.label} Writing Guidelines
+              </p>
+              <ul className="space-y-1">
+                {level.guidelines.map((g, i) => (
+                  <li key={i} className="text-xs text-gray-700 flex gap-2">
+                    <span className={`${lvlText} font-bold`}>✓</span> {g}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={`${lvlBadge} rounded-lg px-4 py-3 text-center flex-shrink-0`}>
+              <div className="text-2xl font-bold">{level.target}</div>
+              <div className="text-xs font-semibold">word target</div>
+            </div>
+          </div>
+        </div>
+
+        {/* VIEW: Prompt Selection */}
+        {view === 'prompts' && (
+          <div>
+            <h2 className="text-lg font-bold text-gray-800 mb-4">Choose a Writing Topic:</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {levelPrompts.map(p => (
+                <button
+                  key={p.id}
+                  onClick={() => selectPrompt(p)}
+                  className="text-left bg-white rounded-xl border-2 border-gray-200 hover:border-orange-400 hover:shadow-md transition-all p-4 group"
+                >
+                  <div className="text-3xl mb-2">{p.emoji}</div>
+                  <div className="font-bold text-gray-800 text-sm group-hover:text-orange-600 transition-colors">{p.title}</div>
+                  <div className="text-xs text-gray-500 mt-1">{p.culturalTheme}</div>
+                  <div className="mt-3 text-xs text-orange-600 font-semibold">Start writing →</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* VIEW: Write */}
+        {(view === 'write' || view === 'feedback') && selectedPrompt && (
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
+
+            {/* Left Column: Context & Scaffold */}
+            <div className="lg:col-span-2 space-y-4">
+
+              {/* Cultural Context */}
+              <div className="bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-xl p-4 shadow">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-2xl">{selectedPrompt.emoji}</span>
+                  <div>
+                    <p className="font-bold text-sm">{selectedPrompt.title}</p>
+                    <p className="text-xs text-orange-200">{selectedPrompt.culturalRegion}</p>
+                  </div>
+                </div>
+                <p className="text-xs font-bold uppercase tracking-wide text-orange-200 mb-1">🌍 Cultural Context</p>
+                <p className="text-xs leading-relaxed text-orange-50">{selectedPrompt.culturalFact}</p>
+              </div>
+
+              {/* Writing Task */}
+              <div className="bg-white rounded-xl border-2 border-orange-200 p-4">
+                <p className="text-xs font-bold text-orange-600 uppercase tracking-wide mb-2">📝 Your Writing Task</p>
+                <p className="text-sm font-semibold text-gray-800">{selectedPrompt.writingTask}</p>
+              </div>
+
+              {/* Scaffold Phrases */}
+              <div className="bg-white rounded-xl border border-gray-200 p-4">
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">🔑 Helpful Phrases</p>
+                <div className="space-y-2">
+                  {selectedPrompt.scaffolding.map((s, i) => (
+                    <div key={i} className="flex justify-between items-start gap-2 py-1 border-b border-gray-100 last:border-0">
+                      <code className={`text-xs font-bold ${lvlText} bg-gray-50 rounded px-2 py-0.5 flex-shrink-0`}>{s.phrase}</code>
+                      <span className="text-xs text-gray-500 text-right">{s.meaning}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Grammar Tip */}
+              <div className="bg-amber-50 border border-amber-300 rounded-xl p-4">
+                <p className="text-xs text-gray-700 leading-relaxed">{selectedPrompt.grammarTip}</p>
+              </div>
+
+              {/* Example */}
+              <div className="bg-white rounded-xl border border-gray-200 p-4">
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">💬 Example Response</p>
+                <p className="text-sm italic text-gray-700 leading-relaxed">"{selectedPrompt.example}"</p>
+              </div>
+            </div>
+
+            {/* Right Column: Writing Area & Feedback */}
+            <div className="lg:col-span-3 space-y-4">
+
+              {/* Special Characters Bar */}
+              <div className="bg-white rounded-xl border border-gray-200 p-3">
+                <p className="text-xs text-gray-500 font-semibold mb-2">⌨️ Spanish Characters — Click to Insert:</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {SPECIAL_CHARS.map(c => (
+                    <button
+                      key={c.char}
+                      onClick={() => insertChar(c.char)}
+                      className={`w-9 h-9 rounded-lg border-2 font-bold text-sm hover:scale-110 transition-transform ${
+                        selectedLevel === 'noviceLow'
+                          ? 'border-green-300 bg-green-50 text-green-800 hover:bg-green-100'
+                          : 'border-teal-300 bg-teal-50 text-teal-800 hover:bg-teal-100'
+                      }`}
+                    >
+                      {c.char}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Textarea */}
+              {view === 'write' && (
+                <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
+                  <div className={`${lvlBg} text-white px-4 py-2 flex justify-between items-center`}>
+                    <span className="text-sm font-semibold">Write in Spanish ✍️</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full bg-white/20 ${wordCount > 0 ? 'text-white' : 'text-white/60'}`}>
+                      {wordCount} {wordCount === 1 ? 'word' : 'words'} · Target: {level.target}
+                    </span>
+                  </div>
+                  <textarea
+                    ref={textareaRef}
+                    value={writingText}
+                    onChange={e => setWritingText(e.target.value)}
+                    placeholder={`Escribe aquí en español…\n\nTip: Use the character buttons above for á, é, í, ó, ú, ñ, ¿, ¡ and more!`}
+                    className="w-full p-4 text-gray-800 text-base resize-none focus:outline-none min-h-[180px]"
+                    spellCheck={false}
+                  />
+                  <div className="px-4 pb-4 flex justify-between items-center gap-3">
+                    <div className="text-xs text-gray-400">
+                      {level.starters.slice(0,2).map((s, i) => (
+                        <span key={i} className="mr-3 italic">Try: "{s}"</span>
+                      ))}
+                    </div>
+                    <button
+                      onClick={getFeedback}
+                      disabled={!writingText.trim() || isLoading}
+                      className={`px-5 py-2.5 rounded-xl text-white font-bold text-sm transition-all ${
+                        !writingText.trim() || isLoading
+                          ? 'bg-gray-300 cursor-not-allowed'
+                          : `${lvlBg} hover:opacity-90 shadow-md hover:shadow-lg`
+                      }`}
+                    >
+                      {isLoading ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                          </svg>
+                          Getting feedback…
+                        </span>
+                      ) : '✨ Get Feedback'}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Feedback View */}
+              {view === 'feedback' && (
+                <div className="space-y-4">
+                  {/* Student's writing */}
+                  <div className="bg-white rounded-xl border-2 border-gray-200 p-4">
+                    <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Your Writing</p>
+                    <p className="text-sm text-gray-800 leading-relaxed italic">"{writingText}"</p>
+                  </div>
+
+                  {feedback?.error ? (
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
+                      Oops — couldn't connect. Please check your connection and try again.
+                    </div>
+                  ) : feedback ? (
+                    <>
+                      {/* Strengths */}
+                      <div className="bg-green-50 border-2 border-green-300 rounded-xl p-4">
+                        <p className="text-sm font-bold text-green-700 mb-3">🌟 What You Did Well</p>
+                        <ul className="space-y-2">
+                          {feedback.strengths?.map((s, i) => (
+                            <li key={i} className="flex gap-2 text-sm text-green-800">
+                              <span className="font-bold">✓</span> {s}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Improvements */}
+                      {feedback.improvements?.length > 0 && (
+                        <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
+                          <p className="text-sm font-bold text-blue-700 mb-3">📚 One Thing to Improve</p>
+                          {feedback.improvements.map((imp, i) => (
+                            <div key={i} className="space-y-2">
+                              <p className="text-sm text-blue-800 font-semibold">{imp.issue}</p>
+                              {imp.studentText && (
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="text-xs bg-red-100 text-red-700 line-through px-2 py-1 rounded font-mono">{imp.studentText}</span>
+                                  <span className="text-gray-400">→</span>
+                                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-bold font-mono">{imp.correction}</span>
+                                </div>
+                              )}
+                              <p className="text-xs text-gray-600">{imp.explanation}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Corrected Version */}
+                      {feedback.correctedVersion && (
+                        <div className={`${lvlBgLight} border-2 ${lvlBorder} rounded-xl p-4`}>
+                          <p className={`text-xs font-bold ${lvlText} uppercase tracking-wide mb-2`}>✅ Polished Version</p>
+                          <p className="text-sm font-semibold text-gray-800 italic leading-relaxed">"{feedback.correctedVersion}"</p>
+                        </div>
+                      )}
+
+                      {/* Cultural note */}
+                      {feedback.culturalNote && (
+                        <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
+                          <p className="text-xs text-orange-700">🌍 <strong>Cultural Connection:</strong> {feedback.culturalNote}</p>
+                        </div>
+                      )}
+
+                      {/* Encouragement */}
+                      {feedback.encouragement && (
+                        <div className="bg-yellow-50 border border-yellow-300 rounded-xl p-4 text-center">
+                          <p className="text-sm font-semibold text-yellow-800">🎉 {feedback.encouragement}</p>
+                        </div>
+                      )}
+
+                      {/* Action buttons */}
+                      <div className="flex gap-3">
+                        <button onClick={revise} className={`flex-1 py-2.5 rounded-xl text-white font-bold text-sm ${lvlBg} hover:opacity-90 transition-opacity`}>
+                          ✏️ Revise My Writing
+                        </button>
+                        <button onClick={reset} className="flex-1 py-2.5 rounded-xl text-gray-700 font-bold text-sm bg-white border-2 border-gray-300 hover:bg-gray-50 transition-colors">
+                          📝 New Prompt
+                        </button>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <footer className="text-center py-6 text-xs text-gray-400 mt-8">
+        Aligned to ACTFL Novice Low & Novice Mid proficiency guidelines
+      </footer>
+    </div>
+  );
+}
