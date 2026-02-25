@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spanish Writing Assistant</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <title>Qué Chévere - Taller de Escritura</title>
+    
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body { background-color: #fffaf0; }
+        /* Fix for textarea focus in some browsers */
+        textarea:focus { outline: 2px solid #f97316; }
+    </style>
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // Your Claude Code starts here
         const { useState, useRef } = React;
 
         const SPECIAL_CHARS = [
@@ -24,12 +30,236 @@
             { char: 'Ñ', label: 'Ñ' }, { char: '¿', label: '¿' }, { char: '¡', label: '¡' },
         ];
 
-        // ... (Paste the LEVELS and PROMPTS objects from your code here) ...
+        const LEVELS = {
+            noviceLow: {
+                id: 'noviceLow', label: 'Novice Low', emoji: '🌱', target: '3–10 words',
+                color: 'green',
+                tagline: 'Individual words & memorized phrases',
+                guidelines: [
+                    'Write single words or very short memorized phrases',
+                    'Lists of vocabulary words are perfect at this level',
+                    'Use words you have already learned in class',
+                    'Aim for 3–10 words total — quality over quantity!',
+                ],
+                starters: ['Me llamo…', 'Soy de…', 'Me gusta…', 'Tengo…', 'Mi … es…'],
+            },
+            noviceMid: {
+                id: 'noviceMid', label: 'Novice Mid', emoji: '🌿', target: '15–40 words',
+                color: 'teal',
+                tagline: 'Simple phrases & short sentences',
+                guidelines: [
+                    'Write 2–5 short, simple sentences using familiar patterns',
+                    'Connect ideas with: y (and), pero (but), también (also), porque (because)',
+                    'Use sentence starters from class — they are your building blocks!',
+                    'Aim for 15–40 words total',
+                ],
+                starters: ['Me llamo … y soy de…', 'En mi familia hay…', 'Me gusta … porque…', 'Todos los días yo…', 'Mi favorito/a es…'],
+            },
+        };
+
+        const PROMPTS = [
+            {
+                id: 1, level: 'noviceLow', emoji: '👋',
+                title: '¡Hola! — Introducing Myself',
+                culturalTheme: 'The Art of Greeting in the Spanish-Speaking World',
+                culturalFact: 'In Spanish-speaking cultures, greetings are warm and personal. People say "buenos días" ☀️, "buenas tardes" 🌤️, or "buenas noches" 🌙.',
+                culturalRegion: 'Latin America & Spain',
+                writingTask: 'Write your name, where you are from, and how old you are.',
+                scaffolding: [
+                    { phrase: 'Me llamo ___', meaning: 'My name is ___' },
+                    { phrase: 'Soy de ___', meaning: 'I am from ___' },
+                    { phrase: 'Tengo ___ años', meaning: 'I am ___ years old' },
+                    { phrase: 'Mucho gusto', meaning: 'Nice to meet you' },
+                ],
+                example: 'Hola. Me llamo Carlos. Soy de Texas. Tengo catorce años.',
+                grammarTip: '💡 Names of languages and nationalities (español, americano) do NOT get a capital letter in Spanish.',
+            },
+            {
+                id: 2, level: 'noviceLow', emoji: '👨‍👩‍👧‍👦',
+                title: 'Mi Familia — My Family',
+                culturalTheme: 'La Familia — Heart of Latin American Life',
+                culturalFact: 'Family is everything in most Spanish-speaking cultures. Extended family often live together or very close by.',
+                culturalRegion: '🇲🇽 Mexico · 🇨🇴 Colombia · 🇪🇸 Spain',
+                writingTask: 'Write the names of 3–5 family members and their relationship to you.',
+                scaffolding: [
+                    { phrase: 'Mi madre se llama ___', meaning: "My mother's name is ___" },
+                    { phrase: 'Mi padre se llama ___', meaning: "My father's name is ___" },
+                    { phrase: 'Mi hermano/hermana', meaning: 'My brother / sister' },
+                    { phrase: 'Tengo ___ hermanos', meaning: 'I have ___ siblings' },
+                ],
+                example: 'Mi madre se llama Rosa. Mi padre se llama Juan. Tengo dos hermanos.',
+                grammarTip: '💡 "Mi" = my (singular). Use "mis" for plural things: mis hermanos.',
+            },
+            {
+                id: 3, level: 'noviceLow', emoji: '🍽️',
+                title: 'La Comida — Foods I Like',
+                culturalTheme: 'A Feast of Flavors',
+                culturalFact: 'Food is culture! Mexico has tacos, Spain has paella, and Peru is known for ceviche.',
+                culturalRegion: '🇲🇽 Mexico · 🇵🇪 Peru · 🇦🇷 Argentina · 🇪🇸 Spain',
+                writingTask: 'Write 3–5 foods you like and 1–2 you do not like.',
+                scaffolding: [
+                    { phrase: 'Me gusta ___', meaning: 'I like ___ (one thing)' },
+                    { phrase: 'Me gustan los/las ___', meaning: 'I like ___ (plural)' },
+                    { phrase: 'No me gusta ___', meaning: "I don't like ___" },
+                ],
+                example: 'Me gusta el pollo. Me gustan los tacos. No me gusta el pescado.',
+                grammarTip: '💡 Use "me gusta" + singular and "me gustan" + plural.',
+            },
+            {
+                id: 4, level: 'noviceMid', emoji: '📅',
+                title: 'Mi Día — My Daily Routine',
+                culturalTheme: 'A Day in the Life',
+                culturalFact: 'Daily schedules can look very different! In Spain, there is a long lunch break called "la siesta".',
+                culturalRegion: '🇪🇸 Spain · 🇲🇽 Mexico · 🇨🇱 Chile',
+                writingTask: 'Describe your typical school day. What do you do in the morning?',
+                scaffolding: [
+                    { phrase: 'Por la mañana, yo ___', meaning: 'In the morning, I ___' },
+                    { phrase: 'Voy a la escuela a las ___', meaning: 'I go to school at ___' },
+                    { phrase: 'En la escuela, yo ___', meaning: 'At school, I ___' },
+                ],
+                example: 'Por la mañana, yo como el desayuno. Voy a la escuela a las ocho.',
+                grammarTip: '💡 Regular -AR verbs with "yo" usually end in -o: yo estudio.',
+            }
+        ];
 
         function App() {
-            // ... (Paste the entire contents of your "export default function App()" here) ...
-            // IMPORTANT: Change "className" to "class" if you find errors, 
-            // but Babel usually handles this!
+            const [selectedLevel, setSelectedLevel] = useState('noviceLow');
+            const [selectedPrompt, setSelectedPrompt] = useState(null);
+            const [writingText, setWritingText] = useState('');
+            const [feedback, setFeedback] = useState(null);
+            const [isLoading, setIsLoading] = useState(false);
+            const [view, setView] = useState('prompts');
+            const textareaRef = useRef(null);
+
+            const level = LEVELS[selectedLevel];
+            const levelPrompts = PROMPTS.filter(p => p.level === selectedLevel);
+            const wordCount = writingText.trim() ? writingText.trim().split(/\s+/).length : 0;
+
+            const insertChar = (char) => {
+                const ta = textareaRef.current;
+                if (!ta) return;
+                const s = ta.selectionStart, e = ta.selectionEnd;
+                const next = writingText.slice(0, s) + char + writingText.slice(e);
+                setWritingText(next);
+                setTimeout(() => { ta.selectionStart = ta.selectionEnd = s + 1; ta.focus(); }, 0);
+            };
+
+            const selectPrompt = (p) => {
+                setSelectedPrompt(p);
+                setWritingText('');
+                setFeedback(null);
+                setView('write');
+            };
+
+            const getFeedback = async () => {
+                if (!writingText.trim() || !selectedPrompt) return;
+                setIsLoading(true);
+                
+                // Simulation of Feedback for Demo (since real API needs a secure backend)
+                setTimeout(() => {
+                    setFeedback({
+                        strengths: ["Great use of vocabulary!", "Perfect sentence structure for this level."],
+                        correctedVersion: writingText,
+                        encouragement: "¡Excelente trabajo! Keep practicing your Spanish writing.",
+                        culturalNote: "Your writing reflects the themes we discussed in class!"
+                    });
+                    setView('feedback');
+                    setIsLoading(false);
+                }, 1500);
+            };
+
+            const reset = () => { setView('prompts'); setSelectedPrompt(null); setWritingText(''); setFeedback(null); };
+
+            const lvlBg = selectedLevel === 'noviceLow' ? 'bg-green-600' : 'bg-teal-600';
+            const lvlText = selectedLevel === 'noviceLow' ? 'text-green-700' : 'text-teal-700';
+
+            return (
+                <div className="min-h-screen p-4 md:p-8">
+                    <header className="max-w-4xl mx-auto mb-8 text-center">
+                        <h1 className="text-3xl font-bold text-orange-600">✍️ Taller de Escritura</h1>
+                        <p className="text-gray-600 font-medium">Practice your Spanish writing with guided feedback</p>
+                    </header>
+
+                    <main className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                        {/* Level Switcher */}
+                        <div className="flex border-b">
+                            {Object.values(LEVELS).map(lv => (
+                                <button 
+                                    key={lv.id}
+                                    onClick={() => {setSelectedLevel(lv.id); reset();}}
+                                    className={`flex-1 py-4 font-bold transition-all ${selectedLevel === lv.id ? `${lvlBg} text-white` : 'bg-gray-50 text-gray-400 hover:bg-gray-100'}`}
+                                >
+                                    {lv.emoji} {lv.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="p-6">
+                            {view === 'prompts' && (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {levelPrompts.map(p => (
+                                        <button key={p.id} onClick={() => selectPrompt(p)} className="p-4 border-2 border-gray-100 rounded-xl hover:border-orange-400 text-left transition-all group">
+                                            <span className="text-2xl">{p.emoji}</span>
+                                            <h3 className="font-bold text-gray-800 group-hover:text-orange-600">{p.title}</h3>
+                                            <p className="text-xs text-gray-500">{p.culturalTheme}</p>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+
+                            {view === 'write' && (
+                                <div className="space-y-4">
+                                    <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                                        <h4 className="font-bold text-orange-700 text-sm uppercase">Prompt:</h4>
+                                        <p className="text-gray-800">{selectedPrompt.writingTask}</p>
+                                    </div>
+
+                                    {/* Char Bar */}
+                                    <div className="flex flex-wrap gap-2">
+                                        {SPECIAL_CHARS.map(c => (
+                                            <button key={c.char} onClick={() => insertChar(c.char)} className="w-10 h-10 bg-gray-100 rounded-lg font-bold hover:bg-orange-200 transition-colors">
+                                                {c.char}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    <textarea 
+                                        ref={textareaRef}
+                                        value={writingText}
+                                        onChange={(e) => setWritingText(e.target.value)}
+                                        className="w-full h-40 p-4 border-2 border-gray-200 rounded-xl focus:border-orange-500 transition-all resize-none"
+                                        placeholder="Escribe aquí..."
+                                    />
+                                    
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-sm font-bold text-gray-400">Words: {wordCount}</span>
+                                        <button 
+                                            onClick={getFeedback}
+                                            disabled={isLoading || wordCount === 0}
+                                            className="px-8 py-3 bg-orange-600 text-white font-bold rounded-xl hover:bg-orange-700 disabled:bg-gray-300"
+                                        >
+                                            {isLoading ? 'Processing...' : '✨ Get Feedback'}
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {view === 'feedback' && feedback && (
+                                <div className="space-y-4">
+                                    <div className="bg-green-50 p-6 rounded-xl border-2 border-green-200">
+                                        <h3 className="text-green-800 font-bold mb-2">🌟 Feedback:</h3>
+                                        <ul className="list-disc ml-5 text-green-900 space-y-1">
+                                            {feedback.strengths.map((s, i) => <li key={i}>{s}</li>)}
+                                        </ul>
+                                    </div>
+                                    <button onClick={reset} className="w-full py-3 bg-gray-800 text-white font-bold rounded-xl">Try Another Prompt</button>
+                                </div>
+                            )}
+                        </div>
+                    </main>
+                    <p className="text-center mt-8 text-gray-400 text-sm">© Qué Chévere Spanish Learning</p>
+                </div>
+            );
         }
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
