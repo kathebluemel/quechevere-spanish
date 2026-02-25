@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qué Chévere - Taller de Escritura v3</title>
+    <title>Seño Bluemel - Taller de Escritura</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -12,7 +12,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #fdfaf6; }
         .error-card { border-left-width: 6px; }
-        @media print { .no-print { display: none !important; } #printable-area { visibility: visible !important; position: absolute; left: 0; top: 0; width: 100%; } }
+        @media print { 
+            .no-print { display: none !important; } 
+            #printable-area { visibility: visible !important; position: absolute; left: 0; top: 0; width: 100%; } 
+        }
     </style>
 </head>
 <body>
@@ -43,13 +46,12 @@
             const analyzeWriting = () => {
                 let issues = [];
                 const lowText = text.toLowerCase().trim();
-                const words = lowText.split(/\s+/);
 
                 // 1. ME LLAMAS vs ME LLAMO
                 if (lowText.includes('me llamas')) {
                     issues.push({
                         title: 'Naming Yourself',
-                        msg: 'You wrote "Me llamas," which actually means "You call me." To say "I call myself," you must change the ending.',
+                        msg: 'You wrote "Me llamas," which means "You call me." To say "I call myself," you must use the -o ending.',
                         fix: 'Me llamo...',
                         wrong: 'me llamas'
                     });
@@ -70,7 +72,7 @@
                 if (lowText.includes('anos') && !lowText.includes('años')) {
                     issues.push({
                         title: 'Missing the Tilde (ñ)',
-                        msg: 'This is a famous mistake! "Anos" means "anuses." "Años" means "years."',
+                        msg: 'Remember: "Anos" means "anuses." "Años" means "years."',
                         fix: 'Always use the ñ: "años".',
                         wrong: 'anos'
                     });
@@ -80,7 +82,7 @@
                 if (lowText.includes('me gusta los') || lowText.includes('me gusta las')) {
                     issues.push({
                         title: 'Gusta + Plurals',
-                        msg: 'If the thing you like is plural (like "los deportes"), you have to make "gusta" plural too!',
+                        msg: 'If the thing you like is plural (like "los deportes"), you must use "gustan".',
                         fix: 'Me gustan los...',
                         wrong: 'me gusta los/las'
                     });
@@ -90,17 +92,9 @@
                 if (text.includes('?') && !text.includes('¿')) {
                     issues.push({
                         title: 'Opening Question Mark',
-                        msg: 'Spanish uses a "safety" question mark at the beginning of questions so the reader knows the tone immediately.',
-                        fix: 'Add "¿" to the start of your question.',
+                        msg: 'Spanish requires a "¿" at the start of a question.',
+                        fix: 'Add "¿" to the start.',
                         wrong: '?'
-                    });
-                }
-                if (text.includes('!') && !text.includes('¡')) {
-                    issues.push({
-                        title: 'Opening Exclamation',
-                        msg: 'Don\'t forget the upside-down exclamation point at the start!',
-                        fix: 'Add "¡" to the beginning.',
-                        wrong: '!'
                     });
                 }
 
@@ -108,19 +102,9 @@
                 if (text.length > 0 && text[0] !== text[0].toUpperCase()) {
                     issues.push({
                         title: 'Capital Letters',
-                        msg: 'Every sentence in Spanish must start with a capital letter, just like in English.',
+                        msg: 'Start your sentence with a capital letter.',
                         fix: text[0].toUpperCase() + '...',
                         wrong: text[0]
-                    });
-                }
-
-                // 7. GENDER AGREEMENT (Simple Check)
-                if (lowText.includes('el mochila') || lowText.includes('la pupitre') || lowText.includes('el carpeta')) {
-                    issues.push({
-                        title: 'Gender Agreement',
-                        msg: 'Nouns have a gender (masculine/feminine). "Mochila" and "Carpeta" are feminine; "Pupitre" is masculine.',
-                        fix: 'Check if it should be "El" or "La".',
-                        wrong: 'el/la + noun'
                     });
                 }
 
@@ -140,8 +124,8 @@
                 <div className="min-h-screen p-4 md:p-8">
                     <header className="max-w-5xl mx-auto mb-8 flex justify-between items-center no-print">
                         <div className="flex items-center gap-2">
-                            <span className="text-3xl">✍️</span>
-                            <h1 className="text-2xl font-bold text-orange-700">Taller de Escritura</h1>
+                            <span className="text-3xl">📝</span>
+                            <h1 className="text-2xl font-bold text-orange-700">Seño Bluemel: Taller de Escritura</h1>
                         </div>
                         {view !== 'prompts' && <button onClick={() => setView('prompts')} className="bg-white border-2 border-orange-200 px-4 py-2 rounded-lg font-bold text-orange-600 hover:bg-orange-50 transition">Volver al Inicio</button>}
                     </header>
@@ -168,9 +152,6 @@
                                             {prompt.vocab.map(v => <span key={v} className="bg-orange-500 text-xs px-2 py-1 rounded border border-orange-400">{v}</span>)}
                                         </div>
                                     </div>
-                                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 text-xs text-blue-800 leading-relaxed">
-                                        <strong>Pro Tip:</strong> Don't forget to use the accent buttons if your keyboard doesn't have them!
-                                    </div>
                                 </div>
                                 <div className="lg:col-span-3 space-y-4">
                                     <div className="flex gap-2 flex-wrap">
@@ -185,35 +166,36 @@
                         {view === 'feedback' && (
                             <div id="printable-area" className="max-w-3xl mx-auto space-y-6">
                                 <div className="bg-white p-8 rounded-3xl shadow-xl border-2 border-gray-50">
-                                    <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Tu Reporte de Escritura: {prompt.title}</h2>
+                                    <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-4">Reporte de Escritura: {prompt.title}</h2>
+                                    
+                                    <div className="mb-8 text-sm font-bold text-orange-600">Seño Bluemel - Spanish Classroom</div>
                                     
                                     <div className="mb-8">
-                                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Lo que escribiste:</h3>
+                                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Tu respuesta:</h3>
                                         <div className="p-6 bg-gray-50 rounded-2xl italic text-xl text-gray-700 border border-gray-100">"{text}"</div>
                                     </div>
                                     
                                     <div className="space-y-6">
-                                        <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">🔍 Análisis Detallado:</h3>
+                                        <h3 className="font-bold text-gray-800 text-lg flex items-center gap-2">🔍 Análisis de Errores:</h3>
                                         {feedback.length > 0 ? feedback.map((f, i) => (
                                             <div key={i} className="error-card p-6 rounded-2xl bg-white border-2 border-gray-100 border-l-red-500 shadow-sm">
                                                 <h4 className="font-bold text-red-600 text-lg">{f.title}</h4>
                                                 <p className="text-gray-600 mt-1">{f.msg}</p>
                                                 <div className="mt-4 grid grid-cols-2 gap-4">
                                                     <div className="bg-red-50 p-3 rounded-lg">
-                                                        <span className="text-[10px] font-bold text-red-400 uppercase">Tú escribiste:</span>
+                                                        <span className="text-[10px] font-bold text-red-400 uppercase">Lo que escribiste:</span>
                                                         <p className="text-red-700 font-bold break-words">{f.wrong}</p>
                                                     </div>
                                                     <div className="bg-green-50 p-3 rounded-lg">
-                                                        <span className="text-[10px] font-bold text-green-400 uppercase">La forma correcta:</span>
+                                                        <span className="text-[10px] font-bold text-green-400 uppercase">Forma Correcta:</span>
                                                         <p className="text-green-700 font-bold break-words">{f.fix}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         )) : (
                                             <div className="p-10 text-center bg-green-50 rounded-3xl border-2 border-dashed border-green-200">
-                                                <span className="text-5xl">🎉</span>
                                                 <h4 className="text-2xl font-bold text-green-700 mt-4">¡Excelente trabajo!</h4>
-                                                <p className="text-green-600 mt-2">No encontramos errores gramaticales básicos. ¡Estás listo para el siguiente nivel!</p>
+                                                <p className="text-green-600 mt-2">No se encontraron errores. ¡Sigue así!</p>
                                             </div>
                                         )}
                                     </div>
@@ -221,7 +203,7 @@
                                     <div className="mt-10 flex flex-col md:flex-row gap-4 no-print">
                                         <button onClick={() => setView('write')} className="flex-1 py-4 bg-orange-100 text-orange-700 rounded-xl font-bold hover:bg-orange-200 transition">✏️ Seguir editando</button>
                                         <button onClick={() => window.print()} className="flex-1 py-4 bg-gray-800 text-white rounded-xl font-bold hover:bg-black transition">💾 Guardar como PDF</button>
-                                        <button onClick={() => setView('prompts')} className="flex-1 py-4 bg-white border-2 border-gray-200 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition">🔄 Intentar otro tema</button>
+                                        <button onClick={() => setView('prompts')} className="flex-1 py-4 bg-white border-2 border-gray-200 text-gray-500 rounded-xl font-bold hover:bg-gray-50 transition">🔄 Otro Tema</button>
                                     </div>
                                 </div>
                             </div>
