@@ -3,28 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qué Chévere - Taller de Escritura</title>
-    
+    <title>Qué Chévere - Taller de Escritura v2</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #fffaf0; }
-        
-        @media print {
-            body { background-color: white; }
-            .no-print { display: none !important; }
-            #printable-area { 
-                visibility: visible !important; 
-                position: absolute; 
-                left: 0; 
-                top: 0; 
-                width: 100%;
-            }
-        }
+        @media print { .no-print { display: none !important; } #printable-area { visibility: visible !important; position: absolute; left: 0; top: 0; width: 100%; } }
     </style>
 </head>
 <body>
@@ -33,254 +20,141 @@
     <script type="text/babel">
         const { useState, useRef, useEffect } = React;
 
-        const SPECIAL_CHARS = [
-            { char: 'á' }, { char: 'é' }, { char: 'í' }, { char: 'ó' }, { char: 'ú' }, 
-            { char: 'ü' }, { char: 'ñ' }, { char: 'Á' }, { char: 'É' }, { char: 'Í' }, 
-            { char: 'Ó' }, { char: 'Ú' }, { char: 'Ñ' }, { char: '¿' }, { char: '¡' }
-        ];
-
-        const LEVELS = {
-            noviceLow: {
-                id: 'noviceLow', label: 'Novice Low', emoji: '🌱', target: '3–10 words',
-                color: 'bg-green-600', lightColor: 'bg-green-50', textColor: 'text-green-700',
-                tagline: 'Words & memorized phrases',
-            },
-            noviceMid: {
-                id: 'noviceMid', label: 'Novice Mid', emoji: '🌿', target: '15–40 words',
-                color: 'bg-teal-600', lightColor: 'bg-teal-50', textColor: 'text-teal-700',
-                tagline: 'Simple phrases & sentences',
-            },
-        };
+        const SPECIAL_CHARS = ['á', 'é', 'í', 'ó', 'ú', 'ü', 'ñ', '¿', '¡'];
 
         const PROMPTS = [
-            { 
-                id: 1, level: 'noviceLow', emoji: '👋', title: '¡Hola! — Introduction', 
-                writingTask: 'Write your name, where you are from, and your age.', 
-                scaffolding: 'Me llamo..., Soy de..., Tengo... años.', 
-                culturalNote: 'Greetings are warm and personal in Spanish-speaking cultures!',
-                vocab: [
-                    { sp: 'Nombre', en: 'Name' }, { sp: 'Apellido', en: 'Last name' },
-                    { sp: 'Años', en: 'Years' }, { sp: 'Estudiante', en: 'Student' }
-                ]
-            },
-            { 
-                id: 2, level: 'noviceLow', emoji: '👨‍👩‍👧‍👦', title: 'Mi Familia', 
-                writingTask: 'List 3-5 family members and their names.', 
-                scaffolding: 'Mi madre se llama..., Mi hermano es...', 
-                culturalNote: 'Family (extended family included) is the heart of life.',
-                vocab: [
-                    { sp: 'Madre/Padre', en: 'Mom/Dad' }, { sp: 'Hermano/a', en: 'Brother/Sister' },
-                    { sp: 'Abuelo/a', en: 'Grandpa/ma' }, { sp: 'Tío/a', en: 'Uncle/Aunt' }
-                ]
-            },
-            { 
-                id: 3, level: 'noviceMid', emoji: '🍽️', title: 'La Comida', 
-                writingTask: 'What do you like to eat? What do you dislike?', 
-                scaffolding: 'Me gusta comer..., No me gusta..., Porque es...', 
-                culturalNote: 'Lunch is often the biggest meal of the day in Spain.',
-                vocab: [
-                    { sp: 'Pollo', en: 'Chicken' }, { sp: 'Arroz', en: 'Rice' },
-                    { sp: 'Verduras', en: 'Vegetables' }, { sp: 'Delicioso', en: 'Delicious' },
-                    { sp: 'Desayuno', en: 'Breakfast' }, { sp: 'Cena', en: 'Dinner' }
-                ]
-            },
-            { 
-                id: 4, level: 'noviceMid', emoji: '⚽', title: 'Mis Pasatiempos', 
-                writingTask: 'What do you do for fun? Who do you play with?', 
-                scaffolding: 'Juego al..., Practico..., Con mis amigos...', 
-                culturalNote: 'Fútbol is more than a sport; it is a passion!',
-                vocab: [
-                    { sp: 'Fútbol', en: 'Soccer' }, { sp: 'Baile', en: 'Dance' },
-                    { sp: 'Videojuegos', en: 'Video games' }, { sp: 'Dibujar', en: 'To draw' },
-                    { sp: 'Fin de semana', en: 'Weekend' }, { sp: 'Siempre', en: 'Always' }
-                ]
-            }
+            { id: 1, cat: 'Intro', title: '¡Hola!', task: 'Write your name, origin, and age.', vocab: ['Me llamo', 'Soy de', 'Tengo... años'], check: 'age' },
+            { id: 2, cat: 'Family', title: 'Mi Familia', task: 'Describe your family members.', vocab: ['Madre', 'Padre', 'Hermano/a', 'Tengo'], check: 'family' },
+            { id: 3, cat: 'School', title: 'Mi Horario', task: 'What classes do you have and when?', vocab: ['La clase de...', 'A las...', 'Primero', 'Después'], check: 'school' },
+            { id: 4, cat: 'Classroom', title: 'En el Salón', task: 'List 5 items you see in the classroom.', vocab: ['El pupitre', 'La pizarra', 'El lápiz', 'Hay'], check: 'list' },
+            { id: 5, cat: 'Hobbies', title: 'Pasatiempos', task: 'What do you do after school?', vocab: ['Me gusta', 'Escuchar música', 'Jugar', 'Porque'], check: 'hobby' },
+            { id: 6, cat: 'Sports', title: 'Deportes', task: 'What is your favorite sport and why?', vocab: ['El fútbol', 'El tenis', 'Mi favorito es', 'Juego'], check: 'hobby' },
+            { id: 7, cat: 'Daily Routine', title: 'Rutina Diaria', task: 'What do you do in the morning?', vocab: ['Me levanto', 'Como el desayuno', 'Voy a'], check: 'routine' },
+            { id: 8, cat: 'City', title: 'Mi Ciudad', task: 'Where do you go on the weekends?', vocab: ['El parque', 'El cine', 'La biblioteca', 'Voy a'], check: 'city' }
         ];
 
         function App() {
-            const [level, setLevel] = useState('noviceLow');
             const [view, setView] = useState('prompts');
             const [prompt, setPrompt] = useState(null);
             const [text, setText] = useState('');
-            const [loading, setLoading] = useState(false);
-            const [feedback, setFeedback] = useState(null);
-            const [seconds, setSeconds] = useState(0);
-            const [isActive, setIsActive] = useState(false);
+            const [feedback, setFeedback] = useState([]);
             const textareaRef = useRef(null);
 
-            useEffect(() => {
-                let interval = null;
-                if (isActive) { interval = setInterval(() => setSeconds(s => s + 1), 1000); }
-                else { clearInterval(interval); }
-                return () => clearInterval(interval);
-            }, [isActive]);
+            const analyzeWriting = () => {
+                let errors = [];
+                const lowText = text.toLowerCase();
 
-            const formatTime = (s) => {
-                const mins = Math.floor(s / 60);
-                const secs = s % 60;
-                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            };
+                // 1. Check Age Error (Soy vs Tengo)
+                if (prompt.check === 'age' && lowText.includes('soy') && /\d+/.test(lowText)) {
+                    errors.push({
+                        type: 'Gramática',
+                        msg: 'In Spanish, we don\'t "be" an age; we "have" years.',
+                        fix: 'Use "Tengo [número] años" instead of "Soy [número]".'
+                    });
+                }
 
-            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+                // 2. Check "Anos" vs "Años"
+                if (lowText.includes('anos') && !lowText.includes('años')) {
+                    errors.push({
+                        type: 'Ortografía',
+                        msg: 'The word "anos" (anuses) is very different from "años" (years).',
+                        fix: 'Always use the ñ: "años".'
+                    });
+                }
 
-            const startWriting = (p) => {
-                setPrompt(p);
-                setView('write');
-                setText('');
-                setSeconds(0);
-                setIsActive(true);
+                // 3. Check Capitalization
+                if (text.length > 0 && text[0] !== text[0].toUpperCase()) {
+                    errors.push({
+                        type: 'Formato',
+                        msg: 'Your sentence doesn\'t start with a capital letter.',
+                        fix: 'Start with: "' + text[0].toUpperCase() + text.slice(1, 5) + '..."'
+                    });
+                }
+
+                // 4. Check for "Me gusta" plural error
+                if (lowText.includes('me gusta los') || lowText.includes('me gusta las')) {
+                    errors.push({
+                        type: 'Gramática',
+                        msg: 'When you like multiple things, "gusta" becomes plural.',
+                        fix: 'Use "Me gustan los/las..."'
+                    });
+                }
+
+                if (errors.length === 0) {
+                    errors.push({ type: '¡Excelente!', msg: 'No major errors detected! Try adding more details.', fix: '' });
+                }
+
+                setFeedback(errors);
+                setView('feedback');
             };
 
             const insertChar = (c) => {
                 const ta = textareaRef.current;
                 const start = ta.selectionStart;
-                const end = ta.selectionEnd;
-                const newText = text.slice(0, start) + c + text.slice(end);
+                const newText = text.slice(0, start) + c + text.slice(ta.selectionEnd);
                 setText(newText);
-                setTimeout(() => {
-                    ta.selectionStart = ta.selectionEnd = start + 1;
-                    ta.focus();
-                }, 0);
-            };
-
-            const handleFeedback = () => {
-                setLoading(true);
-                setIsActive(false);
-                setTimeout(() => {
-                    setFeedback({
-                        strengths: ["Great vocabulary use!", "Excellent sentence structure for this level."],
-                        correction: text.replace("soy de", "Soy de"),
-                        advice: "Remember to capitalize the start of your sentences!",
-                        encouragement: "¡Fantástico! You are making great progress."
-                    });
-                    setLoading(false);
-                    setView('feedback');
-                }, 1500);
+                setTimeout(() => { ta.selectionStart = ta.selectionEnd = start + 1; ta.focus(); }, 0);
             };
 
             return (
-                <div className="min-h-screen pb-12">
-                    <nav className="bg-orange-600 text-white p-4 shadow-md no-print">
-                        <div className="max-w-6xl mx-auto flex justify-between items-center">
-                            <h1 className="text-xl font-bold">Qué Chévere: Taller de Escritura</h1>
-                            {view !== 'prompts' && (
-                                <button onClick={() => setView('prompts')} className="text-sm bg-orange-700 px-3 py-1 rounded">Volver</button>
-                            )}
-                        </div>
-                    </nav>
+                <div className="min-h-screen p-4 md:p-8">
+                    <header className="max-w-5xl mx-auto mb-8 flex justify-between items-center no-print">
+                        <h1 className="text-2xl font-bold text-orange-600">✍️ Taller de Escritura</h1>
+                        {view !== 'prompts' && <button onClick={() => setView('prompts')} className="bg-gray-200 px-4 py-2 rounded-lg">Volver</button>}
+                    </header>
 
-                    <main className="max-w-6xl mx-auto mt-8 px-4">
+                    <main className="max-w-5xl mx-auto">
                         {view === 'prompts' && (
-                            <div className="max-w-4xl mx-auto">
-                                <div className="flex gap-4 mb-8">
-                                    {Object.values(LEVELS).map(l => (
-                                        <button key={l.id} onClick={() => setLevel(l.id)} 
-                                            className={`flex-1 p-4 rounded-xl border-2 transition ${level === l.id ? `${l.color} text-white border-transparent shadow-lg` : 'bg-white text-gray-400 border-gray-100 hover:border-orange-200'}`}>
-                                            <div className="text-2xl">{l.emoji}</div>
-                                            <div className="font-bold">{l.label}</div>
-                                            <div className="text-xs opacity-80">{l.tagline}</div>
-                                        </button>
-                                    ))}
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {PROMPTS.filter(p => p.level === level).map(p => (
-                                        <button key={p.id} onClick={() => startWriting(p)} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md text-left transition group">
-                                            <div className="text-3xl mb-2">{p.emoji}</div>
-                                            <h3 className="font-bold text-gray-800 group-hover:text-orange-600">{p.title}</h3>
-                                            <p className="text-sm text-gray-500 mt-1">{p.writingTask}</p>
-                                        </button>
-                                    ))}
-                                </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {PROMPTS.map(p => (
+                                    <button key={p.id} onClick={() => { setPrompt(p); setView('write'); setText(''); }} className="bg-white p-6 rounded-xl border-2 border-transparent hover:border-orange-400 shadow-sm text-left transition">
+                                        <span className="text-xs font-bold text-orange-500 uppercase">{p.cat}</span>
+                                        <h3 className="text-lg font-bold text-gray-800">{p.title}</h3>
+                                        <p className="text-sm text-gray-500 mt-2">{p.task}</p>
+                                    </button>
+                                ))}
                             </div>
                         )}
 
                         {view === 'write' && (
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 no-print">
-                                {/* Sidebar: Vocab */}
-                                <div className="lg:col-span-1 space-y-4">
-                                    <div className="bg-blue-600 text-white p-4 rounded-xl shadow-md">
-                                        <h3 className="font-bold text-sm uppercase tracking-wider mb-3">📚 Banco de Vocabulario</h3>
-                                        <div className="space-y-2">
-                                            {prompt.vocab.map((v, i) => (
-                                                <div key={i} className="flex flex-col border-b border-blue-500 pb-1">
-                                                    <span className="font-bold text-sm">{v.sp}</span>
-                                                    <span className="text-xs text-blue-100 italic">{v.en}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="bg-amber-100 p-4 rounded-xl border border-amber-200 text-xs text-amber-800">
-                                        <strong>Tip:</strong> Click the accent buttons to insert characters correctly!
-                                    </div>
+                                <div className="lg:col-span-1 bg-white p-4 rounded-xl shadow-sm h-fit">
+                                    <h4 className="font-bold border-b mb-3 pb-1">Vocabulario útil:</h4>
+                                    <ul className="text-sm space-y-2">
+                                        {prompt.vocab.map(v => <li key={v} className="bg-orange-50 p-2 rounded">• {v}</li>)}
+                                    </ul>
                                 </div>
-
-                                {/* Main Writing Area */}
                                 <div className="lg:col-span-3 space-y-4">
-                                    <div className="bg-white p-4 rounded-xl border shadow-sm">
-                                        <h2 className="font-bold text-orange-600">Prompt: {prompt.title}</h2>
-                                        <p className="text-gray-700 italic mt-1 text-sm">{prompt.writingTask}</p>
+                                    <div className="flex gap-2">
+                                        {SPECIAL_CHARS.map(c => <button key={c} onClick={() => insertChar(c)} className="w-10 h-10 bg-white border rounded font-bold hover:bg-orange-100">{c}</button>)}
                                     </div>
-
-                                    <div className="flex justify-between items-end">
-                                        <div className="flex gap-1 flex-wrap max-w-xs md:max-w-none">
-                                            {SPECIAL_CHARS.map(c => (
-                                                <button key={c.char} onClick={() => insertChar(c.char)} className="w-8 h-8 bg-white border border-gray-200 rounded font-bold hover:bg-orange-100">{c.char}</button>
-                                            ))}
-                                        </div>
-                                        <div className="text-right text-xs font-mono text-gray-500 bg-white px-2 py-1 rounded border">
-                                            ⏱️ {formatTime(seconds)} | 📝 {wordCount} palabras
-                                        </div>
-                                    </div>
-
-                                    <textarea ref={textareaRef} value={text} onChange={(e) => setText(e.target.value)} 
-                                        className="w-full h-80 p-6 rounded-2xl border-2 border-orange-100 focus:border-orange-500 outline-none text-lg leading-relaxed shadow-inner"
-                                        placeholder="Escribe aquí en español..."
-                                    />
-
-                                    <button onClick={handleFeedback} disabled={wordCount < 1 || loading}
-                                        className="w-full py-4 bg-orange-600 text-white font-bold rounded-xl shadow-lg hover:bg-orange-700 disabled:bg-gray-300 transition">
-                                        {loading ? "Analizando..." : "✨ Obtener Feedback"}
-                                    </button>
+                                    <textarea ref={textareaRef} value={text} onChange={(e) => setText(e.target.value)} className="w-full h-64 p-6 rounded-2xl border-2 border-orange-200 outline-none text-xl" placeholder="Escribe en español..."></textarea>
+                                    <button onClick={analyzeWriting} className="w-full py-4 bg-orange-600 text-white font-bold rounded-xl text-lg hover:bg-orange-700">Analizar mi escritura →</button>
                                 </div>
                             </div>
                         )}
 
-                        {view === 'feedback' && feedback && (
-                            <div id="printable-area" className="max-w-4xl mx-auto space-y-6">
-                                <div className="bg-white p-8 rounded-2xl border-2 border-gray-100 shadow-xl">
-                                    <div className="flex justify-between items-start border-b pb-4 mb-6">
-                                        <div>
-                                            <h2 className="text-2xl font-bold text-gray-800">Reporte de Escritura</h2>
-                                            <p className="text-gray-500">Tema: {prompt.title} | {LEVELS[level].label}</p>
+                        {view === 'feedback' && (
+                            <div id="printable-area" className="bg-white p-8 rounded-2xl shadow-xl border">
+                                <h2 className="text-2xl font-bold mb-4 border-b pb-2">Reporte de Escritura: {prompt.title}</h2>
+                                <div className="mb-6 p-4 bg-gray-50 rounded-lg italic text-lg">"{text}"</div>
+                                
+                                <div className="space-y-4">
+                                    <h3 className="font-bold text-gray-400 uppercase text-xs tracking-widest">Análisis Paso a Paso:</h3>
+                                    {feedback.map((f, i) => (
+                                        <div key={i} className={`p-4 rounded-lg border-l-4 ${f.type === '¡Excelente!' ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
+                                            <div className="flex justify-between font-bold">
+                                                <span className={f.type === '¡Excelente!' ? 'text-green-700' : 'text-red-700'}>{f.type}</span>
+                                            </div>
+                                            <p className="text-gray-700 mt-1">{f.msg}</p>
+                                            {f.fix && <p className="mt-2 text-sm font-semibold text-blue-700 bg-blue-50 p-2 rounded">💡 Sugerencia: {f.fix}</p>}
                                         </div>
-                                        <div className="text-right text-sm text-gray-400 font-mono">Tiempo: {formatTime(seconds)}</div>
-                                    </div>
+                                    ))}
+                                </div>
 
-                                    <div className="mb-8">
-                                        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Tu Texto Original:</h3>
-                                        <p className="text-lg text-gray-800 bg-gray-50 p-4 rounded-lg italic font-serif">"{text}"</p>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="bg-green-50 p-4 rounded-xl border border-green-100">
-                                            <h4 className="font-bold text-green-700 mb-2">🌟 Fortalezas:</h4>
-                                            <ul className="text-sm text-green-800 space-y-1">
-                                                {feedback.strengths.map((s, i) => <li key={i}>✓ {s}</li>)}
-                                            </ul>
-                                        </div>
-                                        <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                                            <h4 className="font-bold text-blue-700 mb-2">💡 Sugerencia:</h4>
-                                            <p className="text-sm text-blue-800">{feedback.advice}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="mt-8 text-center border-t pt-6">
-                                        <p className="text-xl font-bold text-orange-600 mb-4 font-serif">{feedback.encouragement}</p>
-                                        <div className="flex gap-3 no-print">
-                                            <button onClick={() => window.print()} className="flex-1 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-md">💾 Guardar PDF</button>
-                                            <button onClick={() => setView('prompts')} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-lg font-bold hover:bg-gray-200 transition">🔄 Otro Tema</button>
-                                        </div>
-                                    </div>
+                                <div className="mt-8 flex gap-4 no-print">
+                                    <button onClick={() => window.print()} className="flex-1 py-3 bg-blue-600 text-white rounded-lg font-bold">💾 Guardar PDF</button>
+                                    <button onClick={() => setView('write')} className="flex-1 py-3 bg-gray-100 text-gray-600 rounded-lg font-bold">✏️ Seguir editando</button>
                                 </div>
                             </div>
                         )}
